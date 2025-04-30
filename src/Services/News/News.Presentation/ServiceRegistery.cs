@@ -3,13 +3,14 @@ using FluentValidation;
 using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using News.Application.Behaviours;
-using News.Domain;
-using News.Domain.UnitOfWork.News;
-using News.Infrastructure;
+using Products.Application.Behaviours;
+using Products.Domain;
+using Products.Domain.UnitOfWork.Product;
+using Products.Infrastructure;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
+
 
 namespace News.Presentation;
 public static class ServiceRegistery
@@ -29,7 +30,7 @@ public static class ServiceRegistery
 
     public static IServiceCollection AddInfrastructureServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddAutoMapper(Assemblies.InfrastructureAssembly);
+        builder.Services.AddAutoMapper(assemblies.InfrastructureAssembly);
         builder.Services.AddDbContext<ApplicationDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
         builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();

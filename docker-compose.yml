@@ -24,7 +24,7 @@ services:
       ports:
       - "5672:5672"
       - "15672:15672"
-  products.api:
+  products.Presentation:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=3000
@@ -46,5 +46,26 @@ services:
     depends_on:
       database.server:
         condition: service_healthy
-    
+  news.Presentation:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=3000
+      - ASPNETCORE_HTTPS_PORTS=3001
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/Products.pfx
+      - DOCKER_USERNAME=zhubinshahyad
+      - DOCKER_PASSWORD=LLmRkvMrZr@YE8R
+    container_name: products.api
+    image: products.api
+    build:
+      context: .
+      dockerfile: src/services/News/News.Presentation/Dockerfile
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    depends_on:
+      database.server:
+        condition: service_healthy
   

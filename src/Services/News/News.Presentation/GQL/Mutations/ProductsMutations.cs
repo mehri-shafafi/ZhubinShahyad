@@ -1,10 +1,10 @@
 ﻿using GraphQL;
 using GraphQL.Types;
 using MediatR;
-using News.Presentation.GQL.Types.News;
-using News.Application.News.Commands.News.CreateMedical;
-using News.Application.News.Commands.News.UpdateNews;
+using News.Application.News.Commands.News.Update;
+using News.Application.NewsCommands.Commands.Create;
 using News.Domain.Dtos.News;
+using News.Presentation.GQL.Types.News;
 
 namespace News.Presentation.GQL.Mutations
 {
@@ -19,7 +19,7 @@ namespace News.Presentation.GQL.Mutations
                 resolve: async context =>
                 {
                     var addNews = context.GetArgument<CreateNewsCommand>("NewsInput");
-                    NewsResDto addNewsRes = new NewsResDto();
+                    NewsCommentDto addNewsRes = new NewsCommentDto();
                     try
                     {
                         addNewsRes = await mediator.Send(addNews);
