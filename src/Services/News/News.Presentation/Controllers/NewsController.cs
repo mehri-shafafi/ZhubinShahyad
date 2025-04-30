@@ -4,6 +4,7 @@ using News.Application.News.Commands.News.Update;
 using News.Application.NewsCommands.Commands.Create;
 using News.Application.NewsCommands.Commands.Delete;
 using News.Application.NewsComments.Queries.GetAllNewsComments;
+using News.Domain.Dtos.News;
 
 
 namespace News.Presentation.Controllers
@@ -25,12 +26,12 @@ namespace News.Presentation.Controllers
             return "value";
         }
         [HttpGet()]
-        public async Task<List<News>> GetList()
+        public async Task<List<NewsCommentDto>> GetList()
         {
             return await _mediator.Send(new GetAllNewsCommentsQuery());
         }
         [HttpPost]
-        public async Task<News_CommentDto> Post(CreateNewsCommand request)
+        public async Task<NewsCommentDto> Post(CreateNewsCommand request)
         {
             return await _mediator.Send(request);
         }
@@ -39,7 +40,7 @@ namespace News.Presentation.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<bool>> Put(int id, UpdateNewsCommand request)
         {
-            if (id != request.Id)
+            if (id != request.NewsCommentId)
             {
 
                 return BadRequest("Id in body and query must be equal");
