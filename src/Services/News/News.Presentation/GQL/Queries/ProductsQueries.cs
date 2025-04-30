@@ -1,31 +1,31 @@
 ﻿using GraphQL;
 using GraphQL.Types;
 using MediatR;
-using Products.Api.GQL.Types;
-using Products.Api.GQL.Types.Products;
-using Products.Application.Products.Queries.Product.GetProductsList;
+using News.Application.News.Queries.News.GetNewsList;
+using News.Presentation.GQL.Types;
+using News.Presentation.GQL.Types.News;
 
-namespace Products.Api.GQL.Queries
+namespace News.Presentation.GQL.Queries
 {
-    public static class ProductsQueries
+    public static class NewsQueries
     {
-        public static void ProductQueries(this ObjectGraphType schema, IMediator mediator)
+        public static void NewsQueries(this ObjectGraphType schema, IMediator mediator)
         {
-            schema.Field<ListGraphType<ProductResType>>(
-                "getProducts",
+            schema.Field<ListGraphType<NewsResType>>(
+                "getNews",
                 description: "return list of prdoucts",
-                resolve: context => mediator.Send(new GetProductsListQuery())
+                resolve: context => mediator.Send(new GetNewsListQuery())
 
             );
-            schema.FieldAsync<PaginationResType<ListGraphType<ProductResType>>>(
-                "getProductsByFilter",
+            schema.FieldAsync<PaginationResType<ListGraphType<NewsResType>>>(
+                "getNewsByFilter",
                 description: "return list of filtered prdoucts",
-                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<ProductFilterType>> { Name = "filter" }),
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<NewsFilterType>> { Name = "filter" }),
 
 
                 resolve: async context =>
                 {
-                    var filterParams = context.GetArgument<GetProductsListQuery>("filter");
+                    var filterParams = context.GetArgument<GetNewsListQuery>("filter");
                     var res = await mediator.Send(filterParams);
 
                     return res;

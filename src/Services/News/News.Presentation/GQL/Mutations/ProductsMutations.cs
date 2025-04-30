@@ -1,28 +1,28 @@
 ﻿using GraphQL;
 using GraphQL.Types;
 using MediatR;
-using Products.Api.GQL.Types.Products;
-using Products.Application.Products.Commands.Product.CreateMedical;
-using Products.Application.Products.Commands.Product.UpdateProduct;
-using Products.Contracts.Dtos.Products;
+using News.Presentation.GQL.Types.News;
+using News.Application.News.Commands.News.CreateMedical;
+using News.Application.News.Commands.News.UpdateNews;
+using News.Domain.Dtos.News;
 
-namespace Products.Api.GQL.Mutations
+namespace News.Presentation.GQL.Mutations
 {
-    public static class ProductsMutations
+    public static class NewsMutations
     {
-        public static void ProductMutations(this ObjectGraphType schema, IMediator mediator)
+        public static void NewsMutations(this ObjectGraphType schema, IMediator mediator)
         {
-            schema.FieldAsync<ProductResType>(
-                "addProduct",
-                "Is used to add a new product to the database",
-                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<ProductReqType>> { Name = "productInput", Description = "Product input parameter" }),
+            schema.FieldAsync<NewsResType>(
+                "addNews",
+                "Is used to add a new News to the database",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<NewsReqType>> { Name = "NewsInput", Description = "News input parameter" }),
                 resolve: async context =>
                 {
-                    var addProduct = context.GetArgument<CreateProductCommand>("productInput");
-                    ProductResDto addProductRes = new ProductResDto();
+                    var addNews = context.GetArgument<CreateNewsCommand>("NewsInput");
+                    NewsResDto addNewsRes = new NewsResDto();
                     try
                     {
-                        addProductRes = await mediator.Send(addProduct);
+                        addNewsRes = await mediator.Send(addNews);
                     }
                     catch (Exception ex)
                     {
@@ -30,22 +30,22 @@ namespace Products.Api.GQL.Mutations
                         return null;
                     }
 
-                    return addProductRes;
+                    return addNewsRes;
                 }
 
             );
             schema.FieldAsync<BooleanGraphType>(
-                "updateProduct",
-                "Is used to update a  product to the database",
-                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<ProductReqType>> { Name = "productInput", Description = "Product input parameter" }),
+                "updateNews",
+                "Is used to update a  News to the database",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<NewsReqType>> { Name = "NewsInput", Description = "News input parameter" }),
 
                 resolve: async context =>
                 {
-                    UpdateProductCommand updateProduct = context.GetArgument<UpdateProductCommand>("productInput");
-                    bool updateProductRes;
+                    UpdateNewsCommand updateNews = context.GetArgument<UpdateNewsCommand>("NewsInput");
+                    bool updateNewsRes;
                     try
                     {
-                        updateProductRes = await mediator.Send(updateProduct);
+                        updateNewsRes = await mediator.Send(updateNews);
                     }
                     catch (Exception ex)
                     {
@@ -55,7 +55,7 @@ namespace Products.Api.GQL.Mutations
 
                     }
 
-                    return updateProductRes;
+                    return updateNewsRes;
                 });
         }
     }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Products.Application.Exception
+namespace News.Application.Exception
 {
   public  class ValidationException:ApplicationException
     {

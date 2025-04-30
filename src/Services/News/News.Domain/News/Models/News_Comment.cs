@@ -1,4 +1,4 @@
-﻿using Products.Domain.Base;
+﻿using News.Domain.Base;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,13 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Products.Domain.News.Models
+namespace News.Domain.News.Models
 {
     public class News_Comment : BaseEntity
     {
         public int NewsArticleID { get; set; }
-
-       // public int UserID { get; set; }
         public string Content { get; set; }
         public DateTime PostedDate { get; set; }
         public News_Article news_Article { get; set; } // Navigation property

@@ -1,13 +1,13 @@
 ﻿using GraphQL.Types;
 
-namespace Products.Api.GQL.Types.Products
+namespace News.Presentation.GQL.Types.News
 {
-    public class ProductFilterType: InputObjectGraphType
+    public class NewsFilterType: InputObjectGraphType
     {
-        public ProductFilterType()
+        public NewsFilterType()
         {
 
-            Name =nameof(ProductFilterType);
+            Name =nameof(NewsFilterType);
             Field<IntGraphType>("Id");
             Field<StringGraphType>("SearchTerm");
             Field<DecimalGraphType>("MinPrice");

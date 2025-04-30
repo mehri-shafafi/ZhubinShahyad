@@ -1,16 +1,7 @@
-﻿using Products.Domain.Menu;
-using Products.Domain.Menu.Models;
-using Products.Domain.News.Article;
-using Products.Domain.News.Models;
-using Products.Domain.Products;
-using Products.Domain.Products.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using News.Domain.News.Models;
+using News.Domain.News.Repositories;
 
-namespace Products.Infrastructure.News
+namespace News.Infrastructure.News
 {
     public class NewsWriteRepository : INewsWriteRepository
     {
@@ -19,7 +10,7 @@ namespace Products.Infrastructure.News
         {
             _dbContext = dbContext;
         }
-        #region
+        #region 
         public async Task<News_Article> AddNews_ArticleAsync(News_Article news_Article)
         {
             var result = await _dbContext.AddAsync(news_Article);
@@ -34,11 +25,11 @@ namespace Products.Infrastructure.News
         }
         public async Task DeleteNews_ArticleAsync(News_Article news_Article)
         {
-            _dbContext.newsArticles.Remove(news_Article);
+            _dbContext.news_Articles.Remove(news_Article);
             await _dbContext.SaveChangesAsync();
         }
         #endregion
-        #region
+        #region 
         public async Task<News_Author> AddNews_AuthorAsync(News_Author news_Author)
         {
             var result = await _dbContext.AddAsync(news_Author);
@@ -53,11 +44,11 @@ namespace Products.Infrastructure.News
         }
         public async Task DeleteNews_AuthorAsync(News_Author news_Author)
         {
-            _dbContext.authors.Remove(news_Author);
+            _dbContext.news_Authors.Remove(news_Author);
             await _dbContext.SaveChangesAsync();
         }
         #endregion
-        #region
+        #region 
         public async Task<News_Category> AddNews_CategoryAsync(News_Category news_Category)
         {
             var result = await _dbContext.AddAsync(news_Category);
@@ -72,29 +63,34 @@ namespace Products.Infrastructure.News
         }
         public async Task DeleteNews_CategoryAsync(News_Category news_Category)
         {
-            _dbContext.newsCategories.Remove(news_Category);
+            _dbContext.news_Categories.Remove(news_Category);
             await _dbContext.SaveChangesAsync();
         }
-        #endregion
-        #region
+
+
         public async Task<News_Comment> AddNews_CommentAsync(News_Comment news_Comment)
         {
             var result = await _dbContext.AddAsync(news_Comment);
             await _dbContext.SaveChangesAsync();
             return result.Entity;
         }
+
         public async Task<News_Comment> UpdateNews_CommentAsync(News_Comment news_Comment)
         {
             var result = _dbContext.Update(news_Comment);
             await _dbContext.SaveChangesAsync();
             return result.Entity;
         }
-        public async Task DeleteNews_CommentAsync(News_Comment news_Comment)
+
+        public async Task DeleteNews_CommentAsync(int id)
         {
-            _dbContext.comments.Remove(news_Comment);
-            await _dbContext.SaveChangesAsync();
+            var comment = await _dbContext.news_Comments.FindAsync(id);
+            if (comment != null)
+            {
+                _dbContext.news_Comments.Remove(comment);
+                await _dbContext.SaveChangesAsync();
+            }
         }
         #endregion
-
     }
-    }
+}

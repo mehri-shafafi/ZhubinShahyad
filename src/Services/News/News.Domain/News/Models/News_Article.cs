@@ -1,14 +1,8 @@
-﻿using Products.Domain.Base;
-using Products.Domain.Products;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using News.Domain.Base;
 
-namespace Products.Domain.News.Models
+namespace News.Domain.News.Models
 {
     public class News_Article : BaseEntity
     {
@@ -23,7 +17,7 @@ namespace Products.Domain.News.Models
         public long ViewsCount { get; set; }
         public News_Author news_Author { get; set; } // Navigation property
         public News_Category news_Category { get; set; } // Navigation property
-        public ICollection<News_Comment> news_Comments  { get; set; } // Navigation property
+        public ICollection<News_Comment> news_Comments { get; set; } // Navigation property
 
         public class NewsArticleNewsConfiguration : IEntityTypeConfiguration<News_Article>
         {

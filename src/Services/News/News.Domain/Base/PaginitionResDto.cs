@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Products.Domain.Base
+namespace News.Domain.Base
 {
     public class PaginitionResDto<T>
     {

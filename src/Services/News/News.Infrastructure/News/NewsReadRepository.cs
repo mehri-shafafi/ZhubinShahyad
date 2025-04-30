@@ -1,65 +1,61 @@
-﻿using Products.Domain.Menu;
-using Products.Domain.Menu.Models;
-using Products.Domain.News.Article;
-using Products.Domain.News.Models;
-using Products.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using News.Domain.News.Models;
+using News.Domain.News.Repositories;
+using News.Infrastructure;
 
-namespace Products.Infrastructure.News
+namespace News.Domain.News
 {
-    public class NewsReadRepository:INewsReadRepository
+    public class NewsReadRepository : INewsReadRepository
     {
         private readonly ApplicationDbContext _dbContext;
         public NewsReadRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        #region
+        // News_Article
         public async Task<List<News_Article>> GetNewsArticleAllAsync()
         {
-            var news_Article=new List<News_Article>();
-            return news_Article.ToList();
+            return await _dbContext.news_Articles.Include(p => p.Id).ToListAsync();
+        }
+        public async Task<News_Article> GetNewsArticleAsync(int id)
+        {
+            return await _dbContext.news_Articles.FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        //News_Author
+        public async Task<List<News_Author>> GetNewsAuthorAllAsync()
+        {
+            return await _dbContext.news_Authors.Include(p => p.Id).ToListAsync();
+        }
+        public async Task<News_Author> GetNewsAuthorAsync(int id)
+        {
+            return await _dbContext.news_Authors.FirstOrDefaultAsync(p => p.Id == id);
+
+        }
+
+        // News_Category
+        public async Task<List<News_Category>> GetNewsCategoryAllAsync()
+        {
+            return await _dbContext.news_Categories.Include(p => p.Description).ToListAsync();
+        }
+        public async Task<News_Category> GetNewsCategoryAsync(int id)
+        {
+            return await _dbContext.news_Categories.FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        // News_Comment
+        public async Task<List<News_Comment>> GetNewsCommentAllAsync()
+        {
+            return await _dbContext.news_Comments.Include(p => p.Content).ToListAsync();
+        }
+        public async Task<News_Comment> GetNewsCommentAsync(int id)
+        {
+            return await _dbContext.news_Comments.FirstOrDefaultAsync(p => p.Id == id);
+        }
 
 
-        }
-        public async Task<News_Article> GetNewsArticleAsync() {
-            var news_Article =new News_Article();
-            return news_Article;
-        }
-        #endregion
-        #region
-        public async Task<List<News_Author>> GetNewsAuthorAllAsync() {
-            var news_Author = new List<News_Author>();
-            return news_Author.ToList();
-        }
-        public async Task<News_Author> GetNewsAuthorAsync(){
-            var news_Author = new News_Author();
-            return news_Author;
-        }
-        #endregion
-        #region
-        public async Task<List<News_Category>> GetNewsCategoryAllAsync() {
-            var news_Category = new List<News_Category>();
-            return news_Category.ToList();
-        }
-        public async Task<News_Category> GetNewsCategoryAsync() {
-            var news_Category = new News_Category();
-            return news_Category;
-        }
-        #endregion
-        #region
-        public async Task<List<News_Comment>> GetNewsCommentAllAsync() {
-            var news_Comments = new List<News_Comment>();
-            return news_Comments.ToList();
-        }
-        public async Task<News_Comment> GetNewsCommentAsync() {
-            var news_Comment = new News_Comment();
-            return news_Comment;
-        }
-        #endregion
+
+
+
     }
 }

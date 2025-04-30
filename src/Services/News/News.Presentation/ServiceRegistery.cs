@@ -3,12 +3,15 @@ using FluentValidation;
 using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Products.Application.Behaviours;
-using Products.Domain.UnitOfWork.Product;
-using Products.Infrastructure;
+using News.Application.Behaviours;
+using News.Domain;
+using News.Domain.UnitOfWork.News;
+using News.Infrastructure;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 
-namespace Products.Presentation;
+namespace News.Presentation;
 public static class ServiceRegistery
 {
     public static IServiceCollection AddServiceRegistery(this WebApplicationBuilder builder)
@@ -21,11 +24,6 @@ public static class ServiceRegistery
         });
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-
-
-
-
         return builder.Services;
     }
 
@@ -33,7 +31,7 @@ public static class ServiceRegistery
     {
         builder.Services.AddAutoMapper(Assemblies.InfrastructureAssembly);
         builder.Services.AddDbContext<ApplicationDbContext>(option =>
-            option.UseSqlServer(builder.Configuration.GetConnectionString("ProductDbConn")));
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
         builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();
         builder.Services.AddScoped<IWriteUnitOfWork, WriteUnitOfWork>();
         return builder.Services;

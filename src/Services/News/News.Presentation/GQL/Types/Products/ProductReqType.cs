@@ -1,12 +1,12 @@
 ﻿using GraphQL.Types;
 
-namespace Products.Api.GQL.Types.Products
+namespace News.Presentation.GQL.Types.News
 {
-    public class ProductReqType:InputObjectGraphType
+    public class NewsReqType:InputObjectGraphType
     {
-        public ProductReqType()
+        public NewsReqType()
         {
-            Name = nameof(ProductReqType);
+            Name = nameof(NewsReqType);
             Field<IdGraphType>("Id");
             Field<BooleanGraphType>("Active");
             Field<StringGraphType>("Title");

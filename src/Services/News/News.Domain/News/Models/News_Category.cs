@@ -1,4 +1,4 @@
-﻿using Products.Domain.Base;
+﻿using News.Domain.Base;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Products.Domain.News.Models
+namespace News.Domain.News.Models
 {
     public class News_Category : BaseEntity
     {

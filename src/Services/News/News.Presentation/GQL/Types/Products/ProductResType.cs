@@ -1,13 +1,13 @@
 ﻿using GraphQL.Types;
-using Products.Domain.Dtos.Products;
-using Products.Domain.Products;
+using News.Domain.Dtos.News;
+using News.Domain.News;
 
-namespace Products.Api.GQL.Types.Products
+namespace News.Presentation.GQL.Types.News
 {
-    public class ProductResType: ObjectGraphType<ProductResDto>
+    public class NewsResType: ObjectGraphType<NewsResDto>
     {
 
-        public ProductResType()
+        public NewsResType()
         {
             Field(x => x.Id, type: typeof(IdGraphType));
 

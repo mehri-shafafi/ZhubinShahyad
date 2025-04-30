@@ -1,6 +1,6 @@
 ﻿using GraphQL.Types;
 
-namespace Products.Api.GQL.Types
+namespace News.Presentation.GQL.Types
 {
     public class PaginationResType<TDto>:ObjectGraphType where TDto : IGraphType
     {

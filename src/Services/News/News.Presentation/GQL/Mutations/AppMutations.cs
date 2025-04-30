@@ -1,13 +1,13 @@
 ﻿using GraphQL.Types;
 using MediatR;
 
-namespace Products.Api.GQL.Mutations
+namespace News.Presentation.GQL.Mutations
 {
     public class AppMutations:ObjectGraphType
     {
         public AppMutations(IMediator mediator)
         {
-            this.ProductMutations(mediator);
+            this.NewsMutations(mediator);
         }
     }
 }
