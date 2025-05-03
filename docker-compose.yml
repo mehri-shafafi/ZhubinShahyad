@@ -10,43 +10,26 @@ services:
     volumes:
       - ./sqlserver/data:/var/opt/mssql/data
       - ./sqlserver/log:/var/opt/mssql/log
-        
     healthcheck:
       test: /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "ZhubinShahyad1235685" -Q "SELECT 1" -b -o /dev/null
       interval: 10s
       timeout: 3s
       retries: 10
       start_period: 10s
+
   rabbitmq:
-      image: rabbitmq:3-management-alpine
-      container_name: rabbitmq
-      restart: always
-      ports:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    restart: always
+    ports:
       - "5672:5672"
       - "15672:15672"
+
   products.Presentation:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=3000
-      - ASPNETCORE_HTTPS_PORTS=3001
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=123
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/Products.pfx
-      - DOCKER_USERNAME=zhubinshahyad
-      - DOCKER_PASSWORD=LLmRkvMrZr@YE8R
     container_name: products.api
-    image: products.api
     build:
       context: .
       dockerfile: src/services/Products/Products.Presentation/Dockerfile
-    ports:
-      - "3000:3000"
-      - "3001:3001"
-    volumes:
-      - ~/.aspnet/https:/https:ro
-    depends_on:
-      database.server:
-        condition: service_healthy
-  news.Presentation:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=3000
@@ -55,11 +38,6 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/Products.pfx
       - DOCKER_USERNAME=zhubinshahyad
       - DOCKER_PASSWORD=LLmRkvMrZr@YE8R
-    container_name: products.api
-    image: products.api
-    build:
-      context: .
-      dockerfile: src/services/News/News.Presentation/Dockerfile
     ports:
       - "3000:3000"
       - "3001:3001"
@@ -68,4 +46,25 @@ services:
     depends_on:
       database.server:
         condition: service_healthy
-  
+
+  news.Presentation:
+    container_name: news.api
+    build:
+      context: .
+      dockerfile: src/services/News/News.Presentation/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=3002
+      - ASPNETCORE_HTTPS_PORTS=3003
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/News.pfx
+      - DOCKER_USERNAME=zhubinshahyad
+      - DOCKER_PASSWORD=LLmRkvMrZr@YE8R
+    ports:
+      - "3002:3002"
+      - "3003:3003"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    depends_on:
+      database.server:
+        condition: service_healthy

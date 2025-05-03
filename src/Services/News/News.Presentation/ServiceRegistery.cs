@@ -1,15 +1,14 @@
-﻿using EventBus.Messages.Events;
-using FluentValidation;
+﻿using FluentValidation;
 using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Products.Application.Behaviours;
-using Products.Domain;
-using Products.Domain.UnitOfWork.Product;
-using Products.Infrastructure;
+using News.Domain.UnitOfWork.News;
+using News.Infrastructure;
 using System.Text.Json.Serialization;
-using Microsoft.Extensions.DependencyInjection;
-using AutoMapper;
+using News.Infrastructure;
+using News.Domain.News;
+using News.Infrastructure.News;
+using News.Domain.News.Repositories;
 
 
 namespace News.Presentation;
@@ -30,33 +29,32 @@ public static class ServiceRegistery
 
     public static IServiceCollection AddInfrastructureServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddAutoMapper(assemblies.InfrastructureAssembly);
+        builder.Services.AddAutoMapper(Assemblies.InfrastructureAssembly);
         builder.Services.AddDbContext<ApplicationDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-        builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();
-        builder.Services.AddScoped<IWriteUnitOfWork, WriteUnitOfWork>();
+        builder.Services.AddScoped<INewsReadRepository, NewsReadRepository>();
+        builder.Services.AddScoped<INewsWriteRepository, NewsWriteRepository>();
         return builder.Services;
     }
     public static IServiceCollection AddApplicationServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationAssembly);
         builder.Services.AddMediatR(Assemblies.ApplicationAssembly);
-        builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
-        builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
         return builder.Services;
     }
     public static IServiceCollection AddMessagingConfiguration(this WebApplicationBuilder builder)
     {
-        builder.Services.AddMassTransit(x =>
+        builder.Services.AddMassTransit(config =>
         {
 
-            x.UsingRabbitMq((ctx, cfg) =>
+            config.UsingRabbitMq((ctx, cfg) =>
             {
                 cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+               // cfg.ReceiveEndpoint(EventBusConstants);
             });
 
-            x.AddConsumers(typeof(IntegrationBaseEvent).Assembly);
+            //config.ConfigureConsumer(typeof(IntegrationBaseEvent).Assembly);
         });
         // OPTIONAL, but can be used to configure the bus options
         builder.Services.AddOptions<MassTransitHostOptions>()

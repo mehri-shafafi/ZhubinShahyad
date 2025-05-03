@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using News.Application.Exception;
 using News.Application.NewsCommands.Commands.Delete;
 using News.Domain.UnitOfWork.News;
-using News.Application.Exception;
 
 
 namespace News.Application.News.Commands.News;

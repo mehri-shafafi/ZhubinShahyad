@@ -1,4 +1,4 @@
-﻿using Products.Domain.Dtos.Products;
+﻿ using Products.Domain.Dtos.Products;
 using AutoMapper;
 using Products.Domain.Products.Models;
 namespace Products.Infrastructure.Products

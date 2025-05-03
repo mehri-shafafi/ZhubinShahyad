@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Products.Application.Products.Commands.Product.CreateMedical;
 using Products.Application.Products.Commands.Product.DeleteMedical;
@@ -14,6 +15,7 @@ namespace Products.Presentation.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;
+        public readonly IMapper _mapper;
 
         public ProductsController(IMediator mediator)
         {
