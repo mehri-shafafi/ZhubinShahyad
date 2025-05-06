@@ -11,7 +11,7 @@ services:
       - ./sqlserver/data:/var/opt/mssql/data
       - ./sqlserver/log:/var/opt/mssql/log
     healthcheck:
-      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "ZhubinShahyad1235685" -Q "SELECT 1" -b -o /dev/null
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "LLmRkvMrZr@YE8R" -Q "SELECT 1" -b -o /dev/null
       interval: 10s
       timeout: 3s
       retries: 10
@@ -25,7 +25,7 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-  products.Presentation:
+  products.presentation:
     container_name: products.api
     build:
       context: .
@@ -39,15 +39,14 @@ services:
       - DOCKER_USERNAME=zhubinshahyad
       - DOCKER_PASSWORD=LLmRkvMrZr@YE8R
     ports:
-      - "3000:3000"
-      - "3001:3001"
+      - "10001:80"
     volumes:
       - ~/.aspnet/https:/https:ro
     depends_on:
       database.server:
         condition: service_healthy
 
-  news.Presentation:
+  news.presentation:
     container_name: news.api
     build:
       context: .
@@ -61,8 +60,7 @@ services:
       - DOCKER_USERNAME=zhubinshahyad
       - DOCKER_PASSWORD=LLmRkvMrZr@YE8R
     ports:
-      - "3002:3002"
-      - "3003:3003"
+      - "1002:80"
     volumes:
       - ~/.aspnet/https:/https:ro
     depends_on:

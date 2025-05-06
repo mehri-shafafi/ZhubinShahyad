@@ -26,17 +26,18 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B74EE305-0CF1-4689-BBAB-E4F888114B5D}"
 	ProjectSection(SolutionItems) = preProject
 		src\Services\Products\Products.Presentation\Dockerfile = src\Services\Products\Products.Presentation\Dockerfile
+		src\Services\News\News.Presentation\Dockerfile = src\Services\News\News.Presentation\Dockerfile
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "News", "News", "{53743EB8-0281-4140-B574-C512225920CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News.Application", "src\Services\News\News.Application\News.Application.csproj", "{2FD569E9-E30E-49F4-9B1D-9C72C457B90A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News.Application", "src\Services\News\News.Application\News.Application.csproj", "{2FD569E9-E30E-49F4-9B1D-9C72C457B90A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News.Infrastructure", "src\Services\News\News.Infrastructure\News.Infrastructure.csproj", "{2E89CEF7-542B-427C-91CD-9561F89FA704}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News.Infrastructure", "src\Services\News\News.Infrastructure\News.Infrastructure.csproj", "{2E89CEF7-542B-427C-91CD-9561F89FA704}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News.Presentation", "src\Services\News\News.Presentation\News.Presentation.csproj", "{0FF7148D-A41F-46A8-92CE-23151C690CC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News.Presentation", "src\Services\News\News.Presentation\News.Presentation.csproj", "{0FF7148D-A41F-46A8-92CE-23151C690CC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News.Domain", "src\Services\News\News.Domain\News.Domain.csproj", "{F6471241-6002-47FF-B5FC-4747F4E0F026}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News.Domain", "src\Services\News\News.Domain\News.Domain.csproj", "{F6471241-6002-47FF-B5FC-4747F4E0F026}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
