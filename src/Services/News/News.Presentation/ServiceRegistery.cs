@@ -9,6 +9,8 @@ using News.Infrastructure;
 using News.Domain.News;
 using News.Infrastructure.News;
 using News.Domain.News.Repositories;
+using Microsoft.EntityFrameworkCore.Update;
+using News.Application.EventBusConsumers;
 
 
 namespace News.Presentation;
@@ -24,6 +26,8 @@ public static class ServiceRegistery
         });
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
         return builder.Services;
     }
 
@@ -47,7 +51,7 @@ public static class ServiceRegistery
     {
         builder.Services.AddMassTransit(config =>
         {
-
+            config.AddConsumer<AddNewsCommentonsumer>();
             config.UsingRabbitMq((ctx, cfg) =>
             {
                 cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);

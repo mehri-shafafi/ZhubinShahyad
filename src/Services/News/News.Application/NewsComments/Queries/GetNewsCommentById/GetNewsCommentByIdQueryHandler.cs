@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using News.Domain.Dtos.News;
+using News.Domain.News.Repositories;
 using News.Domain.UnitOfWork.News;
 
 namespace News.Application.NewsComments.Queries.GetNewsCommentById
@@ -9,10 +10,12 @@ namespace News.Application.NewsComments.Queries.GetNewsCommentById
     {
         private readonly IMapper _mapper;
         private readonly IReadUnitOfWork _readunitOfWork;
-        public GetNewsCommentByIdQueryHandler(IReadUnitOfWork readUnitOfWork, IMapper mapper)
+        private readonly INewsReadRepository _newsRepository;
+        public GetNewsCommentByIdQueryHandler(IReadUnitOfWork readUnitOfWork, IMapper mapper, INewsReadRepository newsRepository)
         {
             _readunitOfWork = readUnitOfWork;
             _mapper = mapper;
+            _newsRepository = newsRepository;
 
         }
         public async Task<NewsCommentDto> Handle(GetNewsCommentByIdQuery request, CancellationToken cancellationToken)

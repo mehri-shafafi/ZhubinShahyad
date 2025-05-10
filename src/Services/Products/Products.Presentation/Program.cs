@@ -20,8 +20,8 @@ builder.Services.AddScoped<AppQueries>();
 builder.Services.AddScoped<AppSchema>();
 
 builder.Services.AddGraphQL().AddSystemTextJson();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddEndpointsApiExplorer();
+///builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
