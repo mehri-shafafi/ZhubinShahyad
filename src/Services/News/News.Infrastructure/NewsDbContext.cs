@@ -4,9 +4,9 @@ using News.Domain.News.Models;
 
 namespace News.Infrastructure;
 
-public class ApplicationDbContext : DbContext
+public class NewsDbContext : DbContext
 {
-    public ApplicationDbContext(DbContextOptions options) : base(options)
+    public NewsDbContext(DbContextOptions options) : base(options)
     {
 
     }

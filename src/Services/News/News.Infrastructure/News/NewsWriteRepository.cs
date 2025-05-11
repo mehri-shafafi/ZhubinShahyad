@@ -5,8 +5,8 @@ namespace News.Infrastructure.News
 {
     public class NewsWriteRepository : INewsWriteRepository
     {
-        private readonly ApplicationDbContext _dbContext;
-        public NewsWriteRepository(ApplicationDbContext dbContext)
+        private readonly NewsDbContext _dbContext;
+        public NewsWriteRepository(NewsDbContext dbContext)
         {
             _dbContext = dbContext;
         }

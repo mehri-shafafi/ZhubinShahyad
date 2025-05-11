@@ -21,43 +21,56 @@ namespace Products.Presentation.Controllers
         {
             _mediator = mediator;
         }
-        // GET api/<ProductsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        /// <summary>
+        /// دریافت لیست محصولات
+        /// </summary>
+        [Route("api/GetListProduct")]
+        [HttpGet]
+        [ProducesResponseType(typeof(PaginitionResDto<List<ProductResDto>>), 200)]
+        public async Task<ActionResult<PaginitionResDto<List<ProductResDto>>>> GetList()
         {
-            return "value";
-        }
-        [HttpGet()]
-        public async Task<PaginitionResDto<List<ProductResDto>>> GetList()
-        {
-            return await _mediator.Send(new GetProductsListQuery());
-        }
-        [HttpPost]
-        public async Task<ProductResDto> Post(CreateProductCommand request)
-        {
-            return await _mediator.Send(request);
+            var result = await _mediator.Send(new GetProductsListQuery()); // این کوئری بهتره تغییر نام بده برای محصولات
+            return Ok(result);
         }
 
-        // PUT api/<ProductsController>/5
+        /// <summary>
+        /// ایجاد محصول جدید
+        /// </summary>
+        [Route("api/AddedProduct")]
+        [HttpPost]
+        [ProducesResponseType(typeof(ProductResDto), 200)]
+        public async Task<ActionResult<ProductResDto>> Create([FromBody] CreateProductCommand request)
+        {
+            var result = await _mediator.Send(request);
+            return Ok(result);
+        }
+        /// <summary>
+        /// ویرایش محصول
+        /// </summary>
+        //[Route("api/UpdateProduct")]
         [HttpPut("{id}")]
-        public async Task<ActionResult<bool>> Put(int id, UpdateProductCommand request)
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult<bool>> Update(int id, [FromBody] UpdateProductCommand request)
         {
             if (id != request.Id)
-            {
+                return BadRequest("Id in route and body must match");
 
-                return BadRequest("Id in body and query must be equal");
-            }
-            var res = await _mediator.Send(request);
-            return res;
-
+            var result = await _mediator.Send(request);
+            return Ok(result);
         }
-        // DELETE api/<ProductsController>/5
+
+        /// <summary>
+        /// حذف محصول
+        /// </summary>
         [HttpDelete]
-        public async Task<bool> Delete(DeleteProductCommand request)
+        //[Route("api/DeleteProduct")]
+        [ProducesResponseType(typeof(bool), 200)]
+        public async Task<ActionResult<bool>> Delete(int id)
         {
-            var res = await _mediator.Send(request);
-            return res;
+            var request = new DeleteProductCommand { Id = id };
+            var result = await _mediator.Send(request);
+            return Ok(result);
         }
-
     }
 }

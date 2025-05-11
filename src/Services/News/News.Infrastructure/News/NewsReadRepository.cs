@@ -7,8 +7,8 @@ namespace News.Domain.News
 {
     public class NewsReadRepository : INewsReadRepository
     {
-        private readonly ApplicationDbContext _dbContext;
-        public NewsReadRepository(ApplicationDbContext dbContext)
+        private readonly NewsDbContext _dbContext;
+        public NewsReadRepository(NewsDbContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -31,7 +31,7 @@ public static class ServiceRegistery
     public static IServiceCollection AddInfrastructureServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddAutoMapper(Assemblies.InfrastructureAssembly);
-        builder.Services.AddDbContext<ApplicationDbContext>(option =>
+        builder.Services.AddDbContext<ProductDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
         builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();
         builder.Services.AddScoped<IWriteUnitOfWork, WriteUnitOfWork>();
@@ -39,8 +39,10 @@ public static class ServiceRegistery
     }
     public static IServiceCollection AddApplicationServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationAssembly);
-        builder.Services.AddMediatR(Assemblies.ApplicationAssembly);
+        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationCategureisAssembly);
+        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationProductAssembly);
+        builder.Services.AddMediatR(Assemblies.ApplicationProductAssembly);
+        builder.Services.AddMediatR(Assemblies.ApplicationCategureisAssembly);
         builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
         builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 

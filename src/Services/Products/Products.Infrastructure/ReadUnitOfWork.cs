@@ -7,8 +7,8 @@ namespace Products.Infrastructure;
 public class ReadUnitOfWork : IReadUnitOfWork
 {
 
-    private readonly ApplicationDbContext _context;
-    public ReadUnitOfWork(ApplicationDbContext context)
+    private readonly ProductDbContext _context;
+    public ReadUnitOfWork(ProductDbContext context)
     {
         _context = context;
     }

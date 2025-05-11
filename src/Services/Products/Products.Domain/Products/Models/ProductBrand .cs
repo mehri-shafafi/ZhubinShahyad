@@ -4,7 +4,7 @@ using Products.Domain.Base;
 
 namespace Products.Domain.Products.Models
 {
-    public class ProductBrand : BaseEntity
+    public class ProductBrand : BaseEntity<int>
     {
         public string Name { get; set; }
         public string LogoURL { get; set; }

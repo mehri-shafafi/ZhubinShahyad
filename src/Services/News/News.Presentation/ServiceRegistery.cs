@@ -2,15 +2,10 @@
 using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using News.Application.EventBusConsumers;
 using News.Domain.UnitOfWork.News;
 using News.Infrastructure;
 using System.Text.Json.Serialization;
-using News.Infrastructure;
-using News.Domain.News;
-using News.Infrastructure.News;
-using News.Domain.News.Repositories;
-using Microsoft.EntityFrameworkCore.Update;
-using News.Application.EventBusConsumers;
 
 
 namespace News.Presentation;
@@ -34,10 +29,10 @@ public static class ServiceRegistery
     public static IServiceCollection AddInfrastructureServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddAutoMapper(Assemblies.InfrastructureAssembly);
-        builder.Services.AddDbContext<ApplicationDbContext>(option =>
+        builder.Services.AddDbContext<NewsDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-        builder.Services.AddScoped<INewsReadRepository, NewsReadRepository>();
-        builder.Services.AddScoped<INewsWriteRepository, NewsWriteRepository>();
+        builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();
+        builder.Services.AddScoped<IWriteUnitOfWork, WriteUnitOfWork>();
         return builder.Services;
     }
     public static IServiceCollection AddApplicationServices(this WebApplicationBuilder builder)
@@ -55,7 +50,7 @@ public static class ServiceRegistery
             config.UsingRabbitMq((ctx, cfg) =>
             {
                 cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
-               // cfg.ReceiveEndpoint(EventBusConstants);
+                // cfg.ReceiveEndpoint(EventBusConstants);
             });
 
             //config.ConfigureConsumer(typeof(IntegrationBaseEvent).Assembly);

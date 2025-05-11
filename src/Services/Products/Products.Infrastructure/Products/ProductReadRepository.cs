@@ -8,8 +8,8 @@ namespace Products.Domain.Menu
 {
     public class ProductReadRepository : IProductReadRepository
     {
-        private readonly ApplicationDbContext _dbContext;
-        public ProductReadRepository(ApplicationDbContext dbContext)
+        private readonly ProductDbContext _dbContext;
+        public ProductReadRepository(ProductDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -50,8 +50,7 @@ namespace Products.Domain.Menu
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
                 request.SearchTerm = request.SearchTerm.Trim().ToLower();
-                filteredProducts = filteredProducts.Where(p => p.Name.ToLower().Contains(request.SearchTerm)
-                                                               || p.Description.ToLower().Contains(request.SearchTerm));
+                filteredProducts = filteredProducts.Where(p => p.Id== request.Id);
 
             }
 

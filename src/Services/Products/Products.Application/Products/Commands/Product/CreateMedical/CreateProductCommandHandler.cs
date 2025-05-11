@@ -34,10 +34,15 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 
         var addProductEvent = new AddProductEvent
         {
-            Description = addedProduct.Description,
+            Name_FA = addedProduct.Name_FA,
+            Description_FA = addedProduct.Description_FA,
+            Description_AR = addedProduct.Description_AR,
+            Description_EN = addedProduct.Description_EN,
+            Name_EN = addedProduct.Name_EN,
+            Name_AR = addedProduct.Name_AR,
             Price = addedProduct.Price,
-            BrandID = addedProduct.BrandId,
-            CategoryID = addedProduct.CategoryId,
+            BrandId = addedProduct.BrandId,
+            CategoryId = addedProduct.CategoryId,
             StockQuantity = addedProduct.StockQuantity,
             SKU = addedProduct.SKU,
             ImageURL = addedProduct.ImageURL,

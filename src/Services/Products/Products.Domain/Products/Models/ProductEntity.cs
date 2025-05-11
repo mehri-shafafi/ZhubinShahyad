@@ -5,10 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Text.Json;
 
 namespace Products.Domain.Products.Models;
-public class ProductEntity : BaseEntity
+public class ProductEntity : BaseEntity<int>
 {
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string Name_FA { get; set; }
+    public string Name_EN { get; set; }
+    public string Name_AR { get; set; }
+    public string Description_FA { get; set; }
+    public string Description_EN { get; set; }
+    public string Description_AR { get; set; }
     public decimal Price { get; set; }
     public int? BrandId { get; set; }
     public int? CategoryId { get; set; }
@@ -27,8 +31,12 @@ public class ProductEntity : BaseEntity
         public void Configure(EntityTypeBuilder<ProductEntity> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(p => p.Name).IsRequired().HasMaxLength(200);
-            builder.Property(p => p.Description).IsRequired().HasMaxLength(500);
+            builder.Property(p => p.Name_AR).IsRequired().HasMaxLength(200);
+            builder.Property(p => p.Description_AR).IsRequired().HasMaxLength(500);
+            builder.Property(p => p.Name_EN).IsRequired().HasMaxLength(200);
+            builder.Property(p => p.Description_EN).IsRequired().HasMaxLength(500);
+            builder.Property(p => p.Name_FA).IsRequired().HasMaxLength(200);
+            builder.Property(p => p.Description_FA).IsRequired().HasMaxLength(500);
             builder.Property(p => p.Price).IsRequired().HasColumnType("decimal(18,2)");
             builder.Property(p => p.StockQuantity).IsRequired();
             builder.Property(p => p.SKU).IsRequired().HasMaxLength(100);

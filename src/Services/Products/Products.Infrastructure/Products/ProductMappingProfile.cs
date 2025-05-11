@@ -10,7 +10,7 @@ namespace Products.Infrastructure.Products
             CreateMap<ProductEntity, ProductReqDto>().ReverseMap();
             CreateMap<ProductEntity, ProductResDto>().ForMember(dest => dest.CategoryTitle_Id,
                 config =>
-                    config.MapFrom(src => $"{src.Category.Title}({src.CategoryId})")).ReverseMap();
+                    config.MapFrom(src => $"{src.Category.Id}({src.CategoryId})")).ReverseMap();
         }
     }
 }

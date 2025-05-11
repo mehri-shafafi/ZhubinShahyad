@@ -1,8 +1,7 @@
-﻿using static Azure.Core.HttpHeader;
-using System.Reflection;
+﻿using News.Application.NewsCommands.Commands.Create;
 using News.Domain.Dtos.News;
-using News.Application.NewsCommands.Commands.Create;
 using News.Infrastructure;
+using System.Reflection;
 
 namespace News.Presentation
 {
@@ -10,6 +9,6 @@ namespace News.Presentation
     {
         public static readonly Assembly EntityAssembly = typeof(NewsCommentDto).Assembly;
         public static readonly Assembly ApplicationAssembly = typeof(CreateNewsCommand).Assembly;
-        public static readonly Assembly InfrastructureAssembly = typeof(ApplicationDbContext).Assembly;
+        public static readonly Assembly InfrastructureAssembly = typeof(NewsDbContext).Assembly;
     }
 }

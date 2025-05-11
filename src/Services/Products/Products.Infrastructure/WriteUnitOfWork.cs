@@ -7,8 +7,8 @@ namespace Products.Infrastructure;
 public class WriteUnitOfWork : IWriteUnitOfWork
 {
     private IProductWriteRepository _ProductWriteRepository;
-    private readonly ApplicationDbContext _context;
-    public WriteUnitOfWork(ApplicationDbContext context)
+    private readonly ProductDbContext _context;
+    public WriteUnitOfWork(ProductDbContext context)
     {
         _context = context;
     }

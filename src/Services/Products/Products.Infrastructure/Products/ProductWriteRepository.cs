@@ -5,8 +5,8 @@ namespace Products.Infrastructure.Products
 {
     public class ProductWriteRepository : IProductWriteRepository
     {
-        private readonly ApplicationDbContext _dbContext;
-        public ProductWriteRepository(ApplicationDbContext dbContext)
+        private readonly ProductDbContext _dbContext;
+        public ProductWriteRepository(ProductDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -17,15 +17,34 @@ namespace Products.Infrastructure.Products
             await _dbContext.SaveChangesAsync();
             return result.Entity;
         }
-        public async Task<ProductCategory> UpdateProductCategoriesAsync(ProductCategory ProductCategory)
+        public async Task<ProductCategory?> UpdateProductCategoriesAsync(ProductCategory productCategory)
         {
-            var result = _dbContext.Update(ProductCategory);
+            var existing = await _dbContext.Categories.FindAsync(productCategory.Id);
+            if (existing == null) return null;
+
+            var entry = _dbContext.Entry(existing);
+            var properties = typeof(ProductCategory).GetProperties();
+
+            foreach (var prop in properties)
+            {
+                var newValue = prop.GetValue(productCategory);
+                if (newValue != null)
+                {
+                    prop.SetValue(existing, newValue);
+                }
+            }
+
             await _dbContext.SaveChangesAsync();
-            return result.Entity;
+            return existing;
         }
+
         public async Task DeleteProductCategoriesAsync(ProductCategory ProductCategory)
         {
-            _dbContext.Categories.Remove(ProductCategory);
+            var entity = await _dbContext.Categories.FindAsync(ProductCategory.Id);
+            if (entity == null)
+                throw new Exception("ProductCategory not found");
+            entity.Active = false;
+            var result = _dbContext.Update(entity);
             await _dbContext.SaveChangesAsync();
         }
         #endregion
