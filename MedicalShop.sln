@@ -39,8 +39,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News.Presentation", "src\Se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News.Domain", "src\Services\News\News.Domain\News.Domain.csproj", "{F6471241-6002-47FF-B5FC-4747F4E0F026}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlPanel", "..\ControlPanel\ControlPanel.csproj", "{D211E531-6406-4180-BA09-FDBEF1154AAB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,10 +85,6 @@ Global
 		{F6471241-6002-47FF-B5FC-4747F4E0F026}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6471241-6002-47FF-B5FC-4747F4E0F026}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6471241-6002-47FF-B5FC-4747F4E0F026}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D211E531-6406-4180-BA09-FDBEF1154AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D211E531-6406-4180-BA09-FDBEF1154AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D211E531-6406-4180-BA09-FDBEF1154AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D211E531-6406-4180-BA09-FDBEF1154AAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

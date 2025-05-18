@@ -12,7 +12,7 @@ using Products.Infrastructure;
 namespace Products.Infrastructure.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20250510115557_ProductInitDbV2")]
+    [Migration("20250514124902_ProductInitDbV2")]
     partial class ProductInitDbV2
     {
         /// <inheritdoc />
@@ -36,6 +36,9 @@ namespace Products.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreationDateTimeShamsi")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -48,6 +51,9 @@ namespace Products.Infrastructure.Migrations
 
                     b.Property<DateTime>("ModificationDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ModificationDateTimeShamsi")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -82,6 +88,9 @@ namespace Products.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
+                    b.Property<string>("CreationDateTimeShamsi")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(5000)
@@ -98,6 +107,9 @@ namespace Products.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<string>("ModificationDateTimeShamsi")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name_AR")
                         .IsRequired()
@@ -151,7 +163,20 @@ namespace Products.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("CreationDateTimeShamsi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description_AR")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Description_EN")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Description_FA")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
@@ -164,7 +189,20 @@ namespace Products.Infrastructure.Migrations
                     b.Property<DateTime>("ModificationDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("ModificationDateTimeShamsi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name_AR")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name_EN")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name_FA")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");

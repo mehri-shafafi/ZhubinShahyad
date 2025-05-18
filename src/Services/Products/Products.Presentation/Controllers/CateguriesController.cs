@@ -4,9 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Products.Application.Products.Commands.Categories.Create;
 using Products.Application.Products.Commands.Categories.Delete;
 using Products.Application.Products.Commands.Categories.Update;
-using Products.Application.Products.Commands.Product.CreateMedical;
-using Products.Application.Products.Commands.Product.DeleteMedical;
-using Products.Application.Products.Commands.Product.UpdateProduct;
 using Products.Application.Products.Queries.Product.GetCateguriesList;
 using Products.Domain.Dtos.Products;
 
@@ -55,7 +52,7 @@ namespace Products.Presentation.Controllers
         {
             //if (id != request.Id)
             //    return BadRequest("Id in route and body must match");
-         request.Id=id;
+            request.Id = id;
             var result = await _mediator.Send(request);
             return Ok(result);
         }

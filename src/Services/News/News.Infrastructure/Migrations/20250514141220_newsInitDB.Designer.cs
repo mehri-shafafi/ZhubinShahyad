@@ -12,8 +12,8 @@ using News.Infrastructure;
 namespace News.Infrastructure.Migrations
 {
     [DbContext(typeof(NewsDbContext))]
-    [Migration("20250510081037_NewsInitDb")]
-    partial class NewsInitDb
+    [Migration("20250514141220_newsInitDB")]
+    partial class newsInitDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -55,19 +55,24 @@ public class ProductEntity : BaseEntity<int>
                    .WithMany(b => b.Products)
                    .HasForeignKey(p => p.BrandId)
                    .IsRequired(false);
+            builder.HasData(SeedProducts());
         }
+      
         private List<ProductEntity> SeedProducts()
         {
-            var products = new List<ProductEntity>();
-            string directoryPath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
-            string productSeedPath = Path.Combine(directoryPath, @"SeedData/ProductSeed.json");
-            using (StreamReader r = new StreamReader(productSeedPath))
+            var categories = new List<ProductEntity>();
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string categorySeedPath = Path.Combine(baseDirectory, "SeedData", "ProductSeed.json");
+
+            if (!File.Exists(categorySeedPath))
             {
-                string json = r.ReadToEnd();
-                products = JsonSerializer.Deserialize<List<ProductEntity>>(json);
+                throw new FileNotFoundException($"Seed file not found: {categorySeedPath}");
             }
 
-            return products ?? new();
+            string json = File.ReadAllText(categorySeedPath);
+            categories = JsonSerializer.Deserialize<List<ProductEntity>>(json) ?? new List<ProductEntity>();
+
+            return categories;
         }
     }
 }
