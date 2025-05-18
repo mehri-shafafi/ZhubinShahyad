@@ -4,6 +4,7 @@ using MediatR;
 using Menus.Application.Menu.Commands.Menu.Create;
 using Menus.Application.Menus.Commands.Menu.UpdateMenu;
 using Menus.Domain.Dtos.Menu;
+using Menus.Presentation.GQL.Types.Menu;
 using Products.Presentation.GQL.Types.Products;
 
 namespace Products.Presentation.GQL.Mutations
@@ -12,7 +13,7 @@ namespace Products.Presentation.GQL.Mutations
     {
         public static void ProductMutations(this ObjectGraphType schema, IMediator mediator)
         {
-            schema.FieldAsync<ProductResType>(
+            schema.FieldAsync<MenuResType>(
                 "addProduct",
                 "Is used to add a new product to the database",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<ProductReqType>> { Name = "productInput", Description = "Product input parameter" }),
