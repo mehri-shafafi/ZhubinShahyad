@@ -12,8 +12,8 @@ using Products.Infrastructure;
 namespace Products.Infrastructure.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20250514124902_ProductInitDbV2")]
-    partial class ProductInitDbV2
+    [Migration("20250519070603_Product_InitDBV1")]
+    partial class Product_InitDBV1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -143,7 +143,7 @@ namespace Products.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("ProductCategory");
                 });
 
             modelBuilder.Entity("Products.Domain.Products.Models.ProductEntity", b =>

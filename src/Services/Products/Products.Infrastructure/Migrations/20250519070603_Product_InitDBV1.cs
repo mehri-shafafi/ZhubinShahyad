@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Products.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class ProductInitDbV2 : Migration
+    public partial class Product_InitDBV1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,7 +31,7 @@ namespace Products.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "ProductCategory",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -53,7 +53,7 @@ namespace Products.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_ProductCategory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -90,9 +90,9 @@ namespace Products.Infrastructure.Migrations
                         principalTable: "Brands",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryId",
+                        name: "FK_Products_ProductCategory_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Categories",
+                        principalTable: "ProductCategory",
                         principalColumn: "Id");
                 });
 
@@ -117,7 +117,7 @@ namespace Products.Infrastructure.Migrations
                 name: "Brands");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "ProductCategory");
         }
     }
 }

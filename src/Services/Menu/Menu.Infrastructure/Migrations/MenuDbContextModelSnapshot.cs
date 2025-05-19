@@ -78,25 +78,14 @@ namespace Menu.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Name_FA")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Permalink")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("Priority")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ThumbnailUrl")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("https://via.placeholder.com/150x150.png");
 
                     b.HasKey("Id");
 
@@ -111,10 +100,16 @@ namespace Menu.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("CreationDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreationDateTimeShamsi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MenuCategoryId")
@@ -135,7 +130,6 @@ namespace Menu.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");

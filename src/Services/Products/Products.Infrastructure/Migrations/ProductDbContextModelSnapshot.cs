@@ -74,36 +74,25 @@ namespace Products.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("BannerUrl")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("https://via.placeholder.com/500x100.png");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("CreationDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreationDateTimeShamsi")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IconUrl")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("https://via.placeholder.com/85.png");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("ModificationDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ModificationDateTimeShamsi")
                         .HasColumnType("nvarchar(max)");
@@ -124,7 +113,6 @@ namespace Products.Infrastructure.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Permalink")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -132,15 +120,12 @@ namespace Products.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ThumbnailUrl")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("https://via.placeholder.com/150x150.png");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("ProductCategory");
                 });
 
             modelBuilder.Entity("Products.Domain.Products.Models.ProductEntity", b =>
@@ -164,22 +149,18 @@ namespace Products.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description_AR")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("Description_EN")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("Description_FA")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("ImageURL")
-                        .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
@@ -190,17 +171,14 @@ namespace Products.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name_AR")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name_EN")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name_FA")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -213,12 +191,10 @@ namespace Products.Infrastructure.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<string>("SKU")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("StockQuantity")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Warranty")
@@ -232,6 +208,238 @@ namespace Products.Infrastructure.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 203, DateTimeKind.Utc).AddTicks(1354),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 203, DateTimeKind.Utc).AddTicks(1356),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(819),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(820),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(1365),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(1366),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(1768),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(1768),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(2166),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(2167),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(2566),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(2566),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(2969),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(2969),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(3427),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(3428),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(3877),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(3877),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(4280),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(4280),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(4707),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(4707),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(5120),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(5121),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(5556),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(5556),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(5957),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(5957),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(6366),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(6367),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(6763),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(6763),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(7156),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(7156),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(7555),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(7555),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(7986),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(7986),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(8388),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(8388),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(8783),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(8783),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(9182),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(9182),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CreationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(9574),
+                            CreationDateTimeShamsi = "1404/02/29 07:54:22",
+                            ModificationDateTime = new DateTime(2025, 5, 19, 7, 54, 22, 208, DateTimeKind.Utc).AddTicks(9574),
+                            ModificationDateTimeShamsi = "1404/02/29 07:54:22",
+                            Price = 0m,
+                            Rating = 0
+                        });
                 });
 
             modelBuilder.Entity("Products.Domain.Products.Models.ProductEntity", b =>
