@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace Products.Domain.Products.Models
 {
-    public class ProductCategory : BaseEntity<int>
+    public class ProductCategory : BaseEntity
     {
         public string Name_FA { get; set; }
         public string Name_EN { get; set; }
@@ -33,19 +33,34 @@ namespace Products.Domain.Products.Models
                 builder.Property(p => p.Name_EN).IsRequired().HasMaxLength(200);
                 builder.Property(p => p.Name_FA).IsRequired().HasMaxLength(200);
                 builder.Property(p => p.Name_AR).IsRequired().HasMaxLength(200);
-                builder.Property(p => p.Description).IsRequired().HasMaxLength(5000);
-                builder.Property(p => p.Permalink).IsRequired().HasMaxLength(200);
-                builder.Property(p => p.BannerUrl).IsRequired().HasMaxLength(50)
-                    .HasDefaultValue("https://via.placeholder.com/500x100.png");
-                builder.Property(p => p.IconUrl).IsRequired().HasMaxLength(50)
-                    .HasDefaultValue("https://via.placeholder.com/85.png");
-                builder.Property(p => p.ThumbnailUrl).IsRequired().HasMaxLength(50).HasDefaultValue("https://via.placeholder.com/150x150.png");
-                builder.Property(p => p.CreationDateTime).IsRequired().HasDefaultValueSql("GETUTCDATE()");
-                builder.Property(p => p.ModificationDateTime).IsRequired().HasDefaultValueSql("GETUTCDATE()");
+                builder.Property(p => p.Description).HasMaxLength(5000);
+                builder.Property(p => p.Active).IsRequired();
+                builder.Property(p => p.Priority).IsRequired();
+                builder.Property(p => p.Permalink).HasMaxLength(200);
+                builder.Property(p => p.BannerUrl).HasMaxLength(200);
+                builder.Property(p => p.IconUrl).HasMaxLength(200);
+                builder.Property(p => p.ThumbnailUrl).HasMaxLength(50);
+                builder.Property(p => p.CreationDateTime).IsRequired();
+                builder.Property(p => p.ModificationDateTime).IsRequired();
+               // builder.HasData(SeedCateguries());
+            }
+            private List<ProductCategory> SeedCateguries()
+            {
+                var categories = new List<ProductCategory>();
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string categorySeedPath = Path.Combine(baseDirectory, "SeedData", "CategorySeed.json");
 
+                if (!File.Exists(categorySeedPath))
+                {
+                    throw new FileNotFoundException($"Seed file not found: {categorySeedPath}");
+                }
+
+                string json = File.ReadAllText(categorySeedPath);
+                categories = JsonSerializer.Deserialize<List<ProductCategory>>(json) ?? new List<ProductCategory>();
+
+                return categories;
             }
 
-           
         }
     }
 }

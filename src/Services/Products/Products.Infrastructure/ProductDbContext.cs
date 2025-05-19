@@ -12,7 +12,7 @@ public class ProductDbContext : DbContext
 
     }
     public DbSet<ProductEntity> Products { get; set; }
-    public DbSet<ProductCategory> Categories { get; set; }
+    public DbSet<ProductCategory> ProductCategory { get; set; }
     public DbSet<ProductBrand> Brands { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
