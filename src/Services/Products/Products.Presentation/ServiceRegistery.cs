@@ -10,6 +10,8 @@ using Products.Infrastructure;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
+using Products.Domain.Products.Models;
+using System.Text.Json;
 
 namespace Products.Presentation;
 public static class ServiceRegistery
@@ -79,5 +81,35 @@ public static class ServiceRegistery
         return builder.Services;
 
     }
+    public static class DbSeeder
+    {
+        public static async Task SeedAsync(ProductDbContext context)
+        {
+            if (!context.Products.Any())
+            {
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string jsonPath = Path.Combine(baseDirectory, "SeedData", "ProductSeed.json");
+
+                if (!File.Exists(jsonPath))
+                    throw new FileNotFoundException($"Seed file not found: {jsonPath}");
+
+                string json = File.ReadAllText(jsonPath);
+                var products = JsonSerializer.Deserialize<List<ProductEntity>>(json);
+
+                if (products is not null)
+                {
+                    foreach (var product in products)
+                    {
+                        product.CreationDateTime = DateTime.UtcNow;
+                        product.ModificationDateTime = DateTime.UtcNow;
+                        context.Products.Add(product);
+                    }
+
+                    await context.SaveChangesAsync();
+                }
+            }
+        }
+    }
+
 }
 

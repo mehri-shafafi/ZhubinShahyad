@@ -1,9 +1,11 @@
-using GraphQL.Server;
+﻿using GraphQL.Server;
 using GraphQL.SystemTextJson;
+using Products.Infrastructure;
 using Products.Presentation;
 using Products.Presentation.GQL;
 using Products.Presentation.GQL.Mutations;
 using Products.Presentation.GQL.Queries;
+using static Products.Presentation.ServiceRegistery;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,11 @@ if (app.Environment.IsDevelopment())
 app.UseGraphQL<AppSchema>();
 app.UseGraphQLGraphiQL("/ui/graphql");
 app.UseAuthorization();
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
+    await DbSeeder.SeedAsync(context); // این متد باید async باشه
+}
 
 app.MapControllers();
 
