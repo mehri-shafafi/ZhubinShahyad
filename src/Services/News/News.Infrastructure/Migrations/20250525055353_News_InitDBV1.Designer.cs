@@ -12,7 +12,7 @@ using News.Infrastructure;
 namespace News.Infrastructure.Migrations
 {
     [DbContext(typeof(NewsDbContext))]
-    [Migration("20250519065052_News_InitDBV1")]
+    [Migration("20250525055353_News_InitDBV1")]
     partial class News_InitDBV1
     {
         /// <inheritdoc />

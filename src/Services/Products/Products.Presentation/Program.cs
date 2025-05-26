@@ -1,6 +1,7 @@
 ﻿using GraphQL.Server;
 using GraphQL.SystemTextJson;
 using Products.Infrastructure;
+using Products.Infrastructure.CallSeeder;
 using Products.Presentation;
 using Products.Presentation.GQL;
 using Products.Presentation.GQL.Mutations;
@@ -24,7 +25,17 @@ builder.Services.AddScoped<AppSchema>();
 builder.Services.AddGraphQL().AddSystemTextJson();
 //builder.Services.AddEndpointsApiExplorer();
 ///builder.Services.AddSwaggerGen();
-
+// اضافه کردن CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+            .WithOrigins()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -33,6 +44,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+//TODO برداشته بشه 
+
+app.UseCors("AllowAll");
 
 app.UseGraphQL<AppSchema>();
 app.UseGraphQLGraphiQL("/ui/graphql");

@@ -10,7 +10,7 @@ using Products.Domain.Dtos.Products;
 
 namespace Products.Presentation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -24,10 +24,10 @@ namespace Products.Presentation.Controllers
         /// <summary>
         /// دریافت لیست محصولات
         /// </summary>
-        [Route("api/GetListProduct")]
+        [Route("GetListProduct")]
         [HttpGet]
-        [ProducesResponseType(typeof(PaginitionResDto<List<ProductResDto>>), 200)]
-        public async Task<ActionResult<PaginitionResDto<List<ProductResDto>>>> GetList()
+        [ProducesResponseType(typeof(List<ProductResDto>), 200)]
+        public async Task<ActionResult<List<ProductResDto>>> GetList()
         {
             var result = await _mediator.Send(new GetProductsListQuery()); // این کوئری بهتره تغییر نام بده برای محصولات
             return Ok(result);
@@ -36,7 +36,7 @@ namespace Products.Presentation.Controllers
         /// <summary>
         /// ایجاد محصول جدید
         /// </summary>
-        [Route("api/AddedProduct")]
+        [Route("AddedProduct")]
         [HttpPost]
         [ProducesResponseType(typeof(ProductResDto), 200)]
         public async Task<ActionResult<ProductResDto>> Create([FromBody] CreateProductCommand request)
@@ -63,7 +63,7 @@ namespace Products.Presentation.Controllers
         /// <summary>
         /// حذف محصول
         /// </summary>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         //[Route("api/DeleteProduct")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<ActionResult<bool>> Delete(int id)

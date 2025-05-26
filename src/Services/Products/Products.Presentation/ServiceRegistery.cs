@@ -94,7 +94,12 @@ public static class ServiceRegistery
                     throw new FileNotFoundException($"Seed file not found: {jsonPath}");
 
                 string json = File.ReadAllText(jsonPath);
-                var products = JsonSerializer.Deserialize<List<ProductEntity>>(json);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var products = JsonSerializer.Deserialize<List<ProductEntity>>(json, options);
+
 
                 if (products is not null)
                 {

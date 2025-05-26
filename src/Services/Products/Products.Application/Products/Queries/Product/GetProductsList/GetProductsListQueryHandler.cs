@@ -5,7 +5,7 @@ using Products.Domain.Dtos.Products;
 using Products.Domain.UnitOfWork.Product;
 namespace Products.Application.Products.Queries.Product.GetProductsList
 {
-    internal class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuery, PaginitionResDto<List<ProductResDto>>>
+    internal class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuery, List<ProductResDto>>
     {
 
         private readonly IReadUnitOfWork _readUnitOfWork;
@@ -16,19 +16,13 @@ namespace Products.Application.Products.Queries.Product.GetProductsList
             _readUnitOfWork = readUnitOfWork;
             _mapper = mapper;
         }
-        public async Task<PaginitionResDto<List<ProductResDto>>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
+        public async Task<List<ProductResDto>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
         {
-            var productList = await _readUnitOfWork.ProductReadRepository.GetByFilterPagedAsync(request);
-            PaginitionResDto<List<ProductResDto>> result = new PaginitionResDto<List<ProductResDto>>
-            {
-                Data = _mapper.Map<List<ProductResDto>>(productList.Item1),
-                TotalCount = productList.Item2,
-                PageIndex = request.PageIndex,
-                PageSize = request.PageSize
+            var result = await _readUnitOfWork.ProductReadRepository.FetchAllProductEntityAsync();
+   
 
-            };
-
-            return result;
+            var resultDto= _mapper.Map<List<ProductResDto>>(result);
+            return resultDto;
         }
     }
 }

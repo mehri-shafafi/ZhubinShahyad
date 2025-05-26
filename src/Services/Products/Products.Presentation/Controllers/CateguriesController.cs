@@ -9,6 +9,7 @@ using Products.Domain.Dtos.Products;
 
 namespace Products.Presentation.Controllers
 {
+
     public class CateguriesController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -21,7 +22,7 @@ namespace Products.Presentation.Controllers
         /// <summary>
         /// دریافت لیست دسته  بندی ها
         /// </summary>
-        [Route("api/GetListProduct")]
+        [Route("api/GetListCateguriesProduct")]
         [HttpGet]
         [ProducesResponseType(typeof(List<ProductCategoryDto>), 200)]
         public async Task<ActionResult<List<ProductCategoryDto>>> GetList()
@@ -33,7 +34,7 @@ namespace Products.Presentation.Controllers
         /// <summary>
         /// ایجاد محصول جدید
         /// </summary>
-        [Route("api/AddedProduct")]
+        [Route("api/Added")]
         [HttpPost]
         [ProducesResponseType(typeof(ProductCategoryDto), 200)]
         public async Task<ActionResult<ProductCategoryDto>> Create([FromBody] CreateCategoryCommand request)

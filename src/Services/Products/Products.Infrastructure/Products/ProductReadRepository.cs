@@ -33,7 +33,8 @@ namespace Products.Domain.Menu
         }
         public async Task<List<ProductEntity>> FetchAllProductEntityAsync()
         {
-            return await _dbContext.Products.Include(p => p.ProductBrand).ToListAsync();
+            var result= await _dbContext.Products.ToListAsync();
+            return result;
         }
         public async Task<ProductEntity> FetchProductEntityAsync(int id)
         {
@@ -42,33 +43,33 @@ namespace Products.Domain.Menu
         public async Task<Tuple<List<ProductEntity>, int>> GetByFilterPagedAsync(ProductFilterPageReqDto request)
         {
             var filteredProducts = _dbContext.Products.AsQueryable();
-            if (request.Id != 0)
-            {
-                filteredProducts = filteredProducts.Where(p => p.Id == request.Id);
-            }
+            //if (request.Id != 0)
+            //{
+            //    filteredProducts = filteredProducts.Where(p => p.Id == request.Id);
+            //}
 
-            if (!string.IsNullOrWhiteSpace(request.SearchTerm))
-            {
-                request.SearchTerm = request.SearchTerm.Trim().ToLower();
-                filteredProducts = filteredProducts.Where(p => p.Id== request.Id);
+            //if (!string.IsNullOrWhiteSpace(request.SearchTerm))
+            //{
+            //    request.SearchTerm = request.SearchTerm.Trim().ToLower();
+            //    filteredProducts = filteredProducts.Where(p => p.Id== request.Id);
 
-            }
+            //}
 
-            if (request.MinPrice != null)
-            {
-                filteredProducts = filteredProducts.Where(p => p.Price >= request.MinPrice);
-            }
+            //if (request.MinPrice != null)
+            //{
+            //    filteredProducts = filteredProducts.Where(p => p.Price >= request.MinPrice);
+            //}
 
-            if (request.MaxPrice != null)
-            {
-                filteredProducts = filteredProducts.Where(p => p.Price <= request.MaxPrice);
-            }
+            //if (request.MaxPrice != null)
+            //{
+            //    filteredProducts = filteredProducts.Where(p => p.Price <= request.MaxPrice);
+            //}
 
 
-            if (request.CategoryId != 0)
-            {
-                filteredProducts = filteredProducts.Where(p => p.CategoryId == request.CategoryId);
-            }
+            //if (request.CategoryId != 0)
+            //{
+            //    filteredProducts = filteredProducts.Where(p => p.CategoryId == request.CategoryId);
+            //}
 
             int countOfFilteredProducts = filteredProducts.Count();
             filteredProducts = filteredProducts.Skip(request.PageIndex * request.PageSize).Take(request.PageSize);
