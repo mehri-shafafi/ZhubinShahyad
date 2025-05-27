@@ -9,7 +9,7 @@ using News.Domain.Dtos.News;
 
 namespace News.Presentation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class NewsController : ControllerBase
     {
@@ -25,20 +25,28 @@ namespace News.Presentation.Controllers
         {
             return "value";
         }
+
+        [Route("GetListNewsCommand")]
         [HttpGet()]
+        [ProducesResponseType(typeof(List<NewsCommentDto>), 200)]
         public async Task<List<NewsCommentDto>> GetList()
         {
-            return await _mediator.Send(new GetAllNewsCommentsQuery());
+            return await _mediator.Send(new GetAllArticlesQuery());
         }
+
+        [Route("AddedNewsCommand")]
         [HttpPost]
-        public async Task<NewsCommentDto> Post(CreateNewsCommand request)
+        [ProducesResponseType(typeof(NewsCommentDto), 200)]
+        public async Task<NewsCommentDto> Create(CreateArticlesCommand request)
         {
             return await _mediator.Send(request);
         }
 
         // PUT api/<NewsController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<bool>> Put(int id, UpdateNewsCommand request)
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult<bool>> Update(int id, UpdateNewsCommand request)
         {
             if (id != request.NewsCommentId)
             {
@@ -50,7 +58,9 @@ namespace News.Presentation.Controllers
 
         }
         // DELETE api/<NewsController>/5
-        [HttpDelete]
+        [HttpDelete("{id}")]
+        //[Route("api/DeleteProduct")]
+        [ProducesResponseType(typeof(bool), 200)]
         public async Task<bool> Delete(DeleteNewsCommand request)
         {
             var res = await _mediator.Send(request);

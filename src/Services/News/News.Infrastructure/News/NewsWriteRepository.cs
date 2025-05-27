@@ -36,7 +36,7 @@ namespace News.Infrastructure.News
             await _dbContext.SaveChangesAsync();
             return result.Entity;
         }
-        public async Task<News_Author> UpdateNews_ArticleAsync(News_Author news_Author)
+        public async Task<News_Author> UpdateNews_AuthorAsync(News_Author news_Author)
         {
             var result = _dbContext.Update(news_Author);
             await _dbContext.SaveChangesAsync();

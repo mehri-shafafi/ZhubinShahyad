@@ -23,9 +23,9 @@ namespace News.Application.EventBusConsumers
         }
         public async Task Consume(ConsumeContext<AddNewsCommandEvent> context)
         {
-            CreateNewsCommand createNewsCommand = new CreateNewsCommand
+            CreateArticlesCommand createNewsCommand = new CreateArticlesCommand
             {
-                NewsCommentId = context.Message.NewsArticleID,
+                Id = context.Message.NewsArticleID,
                 Content = context.Message.Content
             };
             var result =  _mediator.Send(createNewsCommand);

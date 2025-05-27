@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using EventBus.Messages.Events;
+using FluentValidation;
 using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -44,16 +45,15 @@ public static class ServiceRegistery
     }
     public static IServiceCollection AddMessagingConfiguration(this WebApplicationBuilder builder)
     {
-        builder.Services.AddMassTransit(config =>
+        builder.Services.AddMassTransit(x =>
         {
-            config.AddConsumer<AddNewsCommentonsumer>();
-            config.UsingRabbitMq((ctx, cfg) =>
+
+            x.UsingRabbitMq((ctx, cfg) =>
             {
                 cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
-                // cfg.ReceiveEndpoint(EventBusConstants);
             });
 
-            //config.ConfigureConsumer(typeof(IntegrationBaseEvent).Assembly);
+            x.AddConsumers(typeof(IntegrationBaseEvent).Assembly);
         });
         // OPTIONAL, but can be used to configure the bus options
         builder.Services.AddOptions<MassTransitHostOptions>()

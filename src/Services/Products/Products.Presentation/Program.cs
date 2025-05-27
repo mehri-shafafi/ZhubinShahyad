@@ -10,6 +10,15 @@ using static Products.Presentation.ServiceRegistery;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 // Add services to the container.
 builder.AddServiceRegistery();
@@ -26,16 +35,7 @@ builder.Services.AddGraphQL().AddSystemTextJson();
 //builder.Services.AddEndpointsApiExplorer();
 ///builder.Services.AddSwaggerGen();
 // اضافه کردن CORS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy
-            .WithOrigins()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
+
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -46,7 +46,8 @@ if (app.Environment.IsDevelopment())
 }
 //TODO برداشته بشه 
 
-app.UseCors("AllowAll");
+app.UseCors("AllowAll"); // این خیلی مهمه که قبل از UseAuthorization بیاد
+
 
 app.UseGraphQL<AppSchema>();
 app.UseGraphQLGraphiQL("/ui/graphql");

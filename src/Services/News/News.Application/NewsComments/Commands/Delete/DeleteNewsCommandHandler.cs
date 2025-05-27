@@ -6,14 +6,14 @@ using News.Domain.UnitOfWork.News;
 
 
 namespace News.Application.News.Commands.News;
-public class DeleteNewsCommandHandler : IRequestHandler<DeleteNewsCommand, bool>
+public class DeleteArticlesCommandHandler : IRequestHandler<DeleteNewsCommand, bool>
 {
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IReadUnitOfWork _readUnitOfWork;
 
-    private readonly ILogger<DeleteNewsCommandHandler> _logger;
+    private readonly ILogger<DeleteArticlesCommandHandler> _logger;
 
-    public DeleteNewsCommandHandler(IWriteUnitOfWork writeUnitOfWork, IReadUnitOfWork readUnitOfWork, ILogger<DeleteNewsCommandHandler> logger)
+    public DeleteArticlesCommandHandler(IWriteUnitOfWork writeUnitOfWork, IReadUnitOfWork readUnitOfWork, ILogger<DeleteArticlesCommandHandler> logger)
     {
         _writeUnitOfWork = writeUnitOfWork;
         _readUnitOfWork = readUnitOfWork;

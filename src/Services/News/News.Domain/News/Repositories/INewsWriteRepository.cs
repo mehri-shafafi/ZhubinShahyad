@@ -16,7 +16,7 @@ namespace News.Domain.News.Repositories
         #endregion
         #region
         Task<News_Author> AddNews_AuthorAsync(News_Author news_Author);
-        Task<News_Author> UpdateNews_ArticleAsync(News_Author news_Author);
+        Task<News_Author> UpdateNews_AuthorAsync(News_Author news_Author);
         Task DeleteNews_AuthorAsync(News_Author news_Author);
         #endregion
         #region
