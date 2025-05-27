@@ -5,7 +5,7 @@ using News.Domain.UnitOfWork.News;
 
 
 namespace News.Application.Author.Commands.Delete;
-public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand, bool>
+public class DeleteCategoryCommandHandler : IRequestHandler<DeleteAuthorCommand, bool>
 {
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IReadUnitOfWork _readUnitOfWork;
@@ -18,7 +18,7 @@ public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryComman
         _readUnitOfWork = readUnitOfWork;
         _logger = logger;
     }
-    public async Task<bool> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(DeleteAuthorCommand request, CancellationToken cancellationToken)
     {
         var result = await _readUnitOfWork.NewsReadRepository.GetNewsAuthorAsync(request.Id);
         if (result == null)

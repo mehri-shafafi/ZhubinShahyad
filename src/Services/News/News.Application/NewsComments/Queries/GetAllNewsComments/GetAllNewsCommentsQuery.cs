@@ -3,7 +3,7 @@ using News.Domain.Dtos.News;
 
 namespace News.Application.NewsComments.Queries.GetAllNewsComments
 {
-    public class GetAllArticlesQuery : IRequest<List<NewsCommentDto>>
+    public class GetAllNewsCommentsQuery : IRequest<List<NewsCommentDto>>
     {
 
     }
