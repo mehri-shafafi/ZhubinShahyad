@@ -10,15 +10,15 @@ using News.Domain.UnitOfWork.News;
 
 namespace News.Application.Articles.Commands.Create;
 
-public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, NewsArticleDto>
+public class CreateArticlesCommanddHandler : IRequestHandler<CreateArticlesCommand, NewsArticleDto>
 {
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IMapper _mapper;
-    private readonly ILogger<CreateAuthorCommandHandler> _logger;
+    private readonly ILogger<CreateArticlesCommanddHandler> _logger;
     private readonly IPublishEndpoint _publishEndPoint;
 
 
-    public CreateAuthorCommandHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper, IPublishEndpoint publishEndpoint, ILogger<CreateAuthorCommandHandler> logger)
+    public CreateArticlesCommanddHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper, IPublishEndpoint publishEndpoint, ILogger<CreateArticlesCommanddHandler> logger)
     {
         _writeUnitOfWork = writeUnitOfWork;
         _mapper = mapper;
@@ -26,7 +26,7 @@ public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, N
         _publishEndPoint = publishEndpoint;
     }
 
-    public async Task<NewsArticleDto> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
+    public async Task<NewsArticleDto> Handle(CreateArticlesCommand request, CancellationToken cancellationToken)
     {
         var mappedComment = _mapper.Map<News_Article>(request);
         var result = await _writeUnitOfWork.NewsWriteRepository.AddNews_ArticleAsync(mappedComment);

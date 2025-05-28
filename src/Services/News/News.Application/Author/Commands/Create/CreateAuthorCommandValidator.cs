@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
+using News.Application.Articles.Commands.Create;
 
 namespace News.Application.Author.Commands.Create;
 
-public class CreateCategoryCommandValidator : AbstractValidator<CreateCategoryCommand>
+public class CreateAuthorCommandValidator : AbstractValidator<CreateAuthorCommand>
 {
-    public CreateCategoryCommandValidator()
+    public CreateAuthorCommandValidator()
     {
 
 

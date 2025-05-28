@@ -5,9 +5,10 @@ using News.Application.NewsCommands.Commands.Create;
 using News.Application.NewsCommands.Commands.Delete;
 using News.Application.NewsComments.Queries.GetAllNewsComments;
 using News.Domain.Dtos.News;
+using System.Runtime.CompilerServices;
 
 
-namespace News.Presentation.Controllers
+namespace News.Presentation.Controllers.News
 {
     [Route("api/")]
     [ApiController]
@@ -31,13 +32,13 @@ namespace News.Presentation.Controllers
         [ProducesResponseType(typeof(List<NewsCommentDto>), 200)]
         public async Task<List<NewsCommentDto>> GetList()
         {
-            return await _mediator.Send(new GetAllArticlesQuery());
+            return await _mediator.Send(new GetAllNewsCommentsQuery());
         }
 
         [Route("AddedNewsCommand")]
         [HttpPost]
         [ProducesResponseType(typeof(NewsCommentDto), 200)]
-        public async Task<NewsCommentDto> Create(CreateArticlesCommand request)
+        public async Task<NewsCommentDto> Create(CreateNewsCommand request)
         {
             return await _mediator.Send(request);
         }

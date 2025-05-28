@@ -38,8 +38,14 @@ public static class ServiceRegistery
     }
     public static IServiceCollection AddApplicationServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationAssembly);
-        builder.Services.AddMediatR(Assemblies.ApplicationAssembly);
+        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationAssembly_NewsComment);
+        builder.Services.AddMediatR(Assemblies.ApplicationAssembly_NewsComment);
+        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationAssembly_Category);
+        builder.Services.AddMediatR(Assemblies.ApplicationAssembly_Category);
+        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationAssembly_Articles);
+        builder.Services.AddMediatR(Assemblies.ApplicationAssembly_Articles);
+        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationAssembly_Author);
+        builder.Services.AddMediatR(Assemblies.ApplicationAssembly_Author);
 
         return builder.Services;
     }

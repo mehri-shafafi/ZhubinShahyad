@@ -1,13 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using News.Application.Articles.Commands.Delete;
+using News.Application.Author.Commands.Create;
 using News.Application.Author.Commands.Update;
+using News.Application.Author.Queries.Get;
 using News.Application.NewsCommands.Commands.Create;
 using News.Application.NewsComments.Queries.GetAllNewsComments;
 using News.Domain.Dtos.News;
 
 
-namespace Author.Presentation.Controllers
+namespace News.Presentation.Controllers.Author
 {
     [Route("api/")]
     [ApiController]
@@ -29,15 +31,15 @@ namespace Author.Presentation.Controllers
         [Route("GetListNewsCommand")]
         [HttpGet()]
         [ProducesResponseType(typeof(List<NewsAuthorDto>), 200)]
-        public async Task<List<NewsCommentDto>> GetList()
+        public async Task<List<NewsAuthorDto>> GetList()
         {
-            return await _mediator.Send(new GetAllArticlesQuery());
+            return await _mediator.Send(new GetAllAuthorQuery());
         }
 
         [Route("AddedNewsCommand")]
         [HttpPost]
-        [ProducesResponseType(typeof(NewsCommentDto), 200)]
-        public async Task<NewsCommentDto> Create(CreateArticlesCommand request)
+        [ProducesResponseType(typeof(NewsAuthorDto), 200)]
+        public async Task<NewsAuthorDto> Create(CreateAuthorCommand request)
         {
             return await _mediator.Send(request);
         }

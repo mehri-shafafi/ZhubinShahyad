@@ -32,7 +32,7 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
         _logger.LogInformation($"Product {addedProduct.Id} is successfully created.");
 
 
-        var addProductEvent = new AddCateguryProductEvent
+        var addProductEvent = new AddCategoryProductEvent
         {
             Name_FA = addedProduct.Name_FA,
             Name_EN = addedProduct.Name_EN,

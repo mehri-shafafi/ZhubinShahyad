@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EventBus.Messages.Events
 {
-    public class AddCateguryProductEvent : IntegrationBaseEvent
+    public class AddCategoryProductEvent : IntegrationBaseEvent
     {
         public string Name_FA { get; set; }
         public string Name_EN { get; set; }

@@ -1,13 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using News.Application.Articles.Commands.Delete;
-using News.Application.Article.Commands.Update;
-using News.Application.NewsCommands.Commands.Create;
-using News.Application.NewsComments.Queries.GetAllNewsComments;
+using News.Application.Articles.Commands.Create;
 using News.Domain.Dtos.News;
+using News.Application.Articles.Queries.Get;
+using News.Application.Articles.Commands.Update;
 
 
-namespace Article.Presentation.Controllers
+namespace News.Presentation.Controllers.Article
 {
     [Route("api/")]
     [ApiController]
@@ -46,7 +46,7 @@ namespace Article.Presentation.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<bool>> Update(int id, UpdateAuthorCommand request)
+        public async Task<ActionResult<bool>> Update(int id, UpdateArticleCommand request)
         {
             if (id != request.Id)
             {

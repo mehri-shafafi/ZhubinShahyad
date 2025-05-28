@@ -1,21 +1,21 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using News.Application.Articles.Commands.Delete;
-using News.Application.Author.Commands.Update;
-using News.Application.NewsCommands.Commands.Create;
-using News.Application.NewsComments.Queries.GetAllNewsComments;
+using News.Application.Category.Commands.Create;
+using News.Application.Category.Commands.Delete;
+using News.Application.Category.Commands.Update;
+using News.Application.Category.Queries.Get;
 using News.Domain.Dtos.News;
 
 
-namespace Author.Presentation.Controllers
+namespace News.Presentation.Controllers.Category
 {
     [Route("api/")]
     [ApiController]
-    public class AuthorController : ControllerBase
+    public class CategoryController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public AuthorController(IMediator mediator)
+        public CategoryController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -26,18 +26,18 @@ namespace Author.Presentation.Controllers
             return "value";
         }
 
-        [Route("GetListNewsCommand")]
+        [Route("GetListCategory")]
         [HttpGet()]
-        [ProducesResponseType(typeof(List<NewsAuthorDto>), 200)]
-        public async Task<List<NewsCommentDto>> GetList()
+        [ProducesResponseType(typeof(List<NewsCategoryDto>), 200)]
+        public async Task<List<NewsCategoryDto>> GetList()
         {
-            return await _mediator.Send(new GetAllArticlesQuery());
+            return await _mediator.Send(new GetAllCategoryQuery());
         }
 
         [Route("AddedNewsCommand")]
         [HttpPost]
-        [ProducesResponseType(typeof(NewsCommentDto), 200)]
-        public async Task<NewsCommentDto> Create(CreateArticlesCommand request)
+        [ProducesResponseType(typeof(NewsCategoryDto), 200)]
+        public async Task<NewsCategoryDto> Create(CreateCategoryCommand request)
         {
             return await _mediator.Send(request);
         }
@@ -46,7 +46,7 @@ namespace Author.Presentation.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<bool>> Update(int id, UpdateAuthorCommand request)
+        public async Task<ActionResult<bool>> Update(int id, UpdateCategoryCommand request)
         {
             if (id != request.Id)
             {
@@ -61,7 +61,7 @@ namespace Author.Presentation.Controllers
         [HttpDelete("{id}")]
         //[Route("api/DeleteProduct")]
         [ProducesResponseType(typeof(bool), 200)]
-        public async Task<bool> Delete(DeleteArticlesCommand request)
+        public async Task<bool> Delete(DeleteCategoryCommand request)
         {
             var res = await _mediator.Send(request);
             return res;

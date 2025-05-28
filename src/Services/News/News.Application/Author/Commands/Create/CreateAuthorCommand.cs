@@ -4,6 +4,6 @@ using News.Domain.Dtos.News;
 namespace News.Application.Author.Commands.Create;
 
 
-public class CreateCategoryCommand : NewsAuthorDto, IRequest<NewsAuthorDto>
+public class CreateAuthorCommand : NewsAuthorDto, IRequest<NewsAuthorDto>
 {
 }

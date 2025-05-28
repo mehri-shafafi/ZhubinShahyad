@@ -2,9 +2,9 @@
 
 namespace News.Application.NewsCommands.Commands.Create;
 
-public class CreateArticlesCommandValidator : AbstractValidator<CreateArticlesCommand>
+public class CreateNewsCommandValidator : AbstractValidator<CreateNewsCommand>
 {
-    public CreateArticlesCommandValidator()
+    public CreateNewsCommandValidator()
     {
 
 
