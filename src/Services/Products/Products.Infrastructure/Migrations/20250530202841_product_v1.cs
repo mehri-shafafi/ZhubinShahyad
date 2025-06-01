@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Products.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Product_InitDBV1 : Migration
+    public partial class product_v1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,15 +39,15 @@ namespace Products.Infrastructure.Migrations
                     Name_FA = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Name_EN = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Name_AR = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: false),
-                    Permalink = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    Permalink = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     Priority = table.Column<int>(type: "int", nullable: false),
-                    BannerUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, defaultValue: "https://via.placeholder.com/500x100.png"),
-                    IconUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, defaultValue: "https://via.placeholder.com/85.png"),
-                    ThumbnailUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, defaultValue: "https://via.placeholder.com/150x150.png"),
-                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
-                    ModificationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    BannerUrl = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    IconUrl = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    ThumbnailUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModificationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreationDateTimeShamsi = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModificationDateTimeShamsi = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -62,18 +62,18 @@ namespace Products.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name_FA = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Name_EN = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Name_AR = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Description_FA = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Description_EN = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Description_AR = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Name_FA = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Name_EN = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Name_AR = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Description_FA = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    Description_EN = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    Description_AR = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     BrandId = table.Column<int>(type: "int", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
-                    StockQuantity = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SKU = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ImageURL = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    StockQuantity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SKU = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    ImageURL = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     Warranty = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Rating = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),

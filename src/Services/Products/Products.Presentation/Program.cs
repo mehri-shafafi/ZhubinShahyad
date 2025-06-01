@@ -52,12 +52,15 @@ app.UseCors("AllowAll"); // این خیلی مهمه که قبل از UseAuthori
 app.UseGraphQL<AppSchema>();
 app.UseGraphQLGraphiQL("/ui/graphql");
 app.UseAuthorization();
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
-    await DbSeeder.SeedAsync(context); // این متد باید async باشه
-}
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    var context = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
+//    await DbSeeder.SeedCategoryAsync(context); // این متد باید async باشه
+//    //await DbSeeder.SeedAsync(context); // این متد باید async باشه
+//}
 
 app.MapControllers();
+app.MapGet("/", () => Results.Redirect("/ui/graphql"));
 
 app.Run();

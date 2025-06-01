@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace Products.Infrastructure.Migrations
+namespace News.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Product_InitDBV2 : Migration
+    public partial class news_v1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

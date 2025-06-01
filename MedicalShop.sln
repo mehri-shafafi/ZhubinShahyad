@@ -6,17 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{60DDD83B-ADB1-4321-BF01-710F4EF66ABB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{3DF2C425-FAD3-4DE7-8637-F3B27C5CF44D}"
-	ProjectSection(SolutionItems) = preProject
-		src\Services\Menu\Products.Presentation\appsettings.Development.json = src\Services\Menu\Products.Presentation\appsettings.Development.json
-		src\Services\Menu\Products.Presentation\appsettings.json = src\Services\Menu\Products.Presentation\appsettings.json
-		src\Services\Menu\Products.Presentation\Assemblies.cs = src\Services\Menu\Products.Presentation\Assemblies.cs
-		src\Services\Menu\Products.Presentation\Dockerfile = src\Services\Menu\Products.Presentation\Dockerfile
-		src\Services\Menu\Products.Presentation\Products.Presentation.csproj = src\Services\Menu\Products.Presentation\Products.Presentation.csproj
-		src\Services\Menu\Products.Presentation\Products.Presentation.csproj.user = src\Services\Menu\Products.Presentation\Products.Presentation.csproj.user
-		src\Services\Menu\Products.Presentation\Products.Presentation.http = src\Services\Menu\Products.Presentation\Products.Presentation.http
-		src\Services\Menu\Products.Presentation\Program.cs = src\Services\Menu\Products.Presentation\Program.cs
-		src\Services\Menu\Products.Presentation\ServiceRegistery.cs = src\Services\Menu\Products.Presentation\ServiceRegistery.cs
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Products", "Products", "{26A93D0E-C12E-462A-A721-39965001D501}"
 EndProject

@@ -114,6 +114,37 @@ public static class ServiceRegistery
                 }
             }
         }
+        public static async Task SeedCategoryAsync(ProductDbContext context)
+        {
+            if (!context.ProductCategory.Any())
+            {
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string jsonPath = Path.Combine(baseDirectory, "SeedData", "CategorySeed.json");
+
+                if (!File.Exists(jsonPath))
+                    throw new FileNotFoundException($"Seed file not found: {jsonPath}");
+
+                string json = File.ReadAllText(jsonPath);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var products = JsonSerializer.Deserialize<List<ProductCategory>>(json, options);
+
+
+                if (products is not null)
+                {
+                    foreach (var product in products)
+                    {
+                        product.CreationDateTime = DateTime.UtcNow;
+                        product.ModificationDateTime = DateTime.UtcNow;
+                        context.ProductCategory.Add(product);
+                    }
+
+                    await context.SaveChangesAsync();
+                }
+            }
+        }
     }
 
 }
