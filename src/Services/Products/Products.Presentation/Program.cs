@@ -35,12 +35,12 @@ builder.Services.AddGraphQL().AddSystemTextJson();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
 
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 //TODO برداشته بشه 
 
 app.UseCors("AllowAll"); // این خیلی مهمه که قبل از UseAuthorization بیاد
@@ -57,5 +57,6 @@ app.UseAuthorization();
 //}
 
 app.MapControllers();
+app.MapGet("/", () => Results.Redirect("/ui/graphql"));
 
 app.Run();
