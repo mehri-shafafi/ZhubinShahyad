@@ -5,12 +5,11 @@ using News.Application.NewsCommands.Commands.Create;
 using News.Application.NewsCommands.Commands.Delete;
 using News.Application.NewsComments.Queries.GetAllNewsComments;
 using News.Domain.Dtos.News;
-using System.Runtime.CompilerServices;
 
 
-namespace News.Presentation.Controllers.News
+namespace News.Presentation.Controllers
 {
-    [Route("api/")]
+    [Route("api/News/")]
     [ApiController]
     public class NewsController : ControllerBase
     {

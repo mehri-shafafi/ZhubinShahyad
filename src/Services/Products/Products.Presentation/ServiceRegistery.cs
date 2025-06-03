@@ -4,14 +4,11 @@ using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Products.Application.Behaviours;
-using Products.Domain;
+using Products.Domain.Products.Models;
 using Products.Domain.UnitOfWork.Product;
 using Products.Infrastructure;
-using System.Text.Json.Serialization;
-using Microsoft.Extensions.DependencyInjection;
-using AutoMapper;
-using Products.Domain.Products.Models;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Products.Presentation;
 public static class ServiceRegistery
@@ -54,13 +51,14 @@ public static class ServiceRegistery
     {
         builder.Services.AddMassTransit(x =>
         {
-
+            x.AddConsumers(typeof(IntegrationBaseEvent).Assembly);
             x.UsingRabbitMq((ctx, cfg) =>
             {
                 cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+                cfg.ConfigureEndpoints(ctx);
             });
 
-            x.AddConsumers(typeof(IntegrationBaseEvent).Assembly);
+
         });
         // OPTIONAL, but can be used to configure the bus options
         builder.Services.AddOptions<MassTransitHostOptions>()

@@ -7,9 +7,9 @@ using News.Application.Articles.Queries.Get;
 using News.Application.Articles.Commands.Update;
 
 
-namespace News.Presentation.Controllers.Article
+namespace News.Presentation.Controllers
 {
-    [Route("api/")]
+    [Route("api/NewsArticle/")]
     [ApiController]
     public class ArticleController : ControllerBase
     {
@@ -26,7 +26,7 @@ namespace News.Presentation.Controllers.Article
             return "value";
         }
 
-        [Route("GetListNewsCommand")]
+        [Route("GetListArticle")]
         [HttpGet()]
         [ProducesResponseType(typeof(List<NewsArticleDto>), 200)]
         public async Task<List<NewsArticleDto>> GetList()
@@ -34,7 +34,7 @@ namespace News.Presentation.Controllers.Article
             return await _mediator.Send(new GetAllArticlesQuery());
         }
 
-        [Route("AddedNewsCommand")]
+        [Route("AddedArticle")]
         [HttpPost]
         [ProducesResponseType(typeof(NewsArticleDto), 200)]
         public async Task<NewsArticleDto> Create(CreateArticlesCommand request)

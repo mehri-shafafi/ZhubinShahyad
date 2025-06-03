@@ -9,9 +9,10 @@ using News.Application.NewsComments.Queries.GetAllNewsComments;
 using News.Domain.Dtos.News;
 
 
-namespace News.Presentation.Controllers.Author
+namespace News.Presentation.Controllers
 {
-    [Route("api/")]
+
+    [Route("api/NewsAuthor/")]
     [ApiController]
     public class AuthorController : ControllerBase
     {

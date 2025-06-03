@@ -7,9 +7,10 @@ using News.Application.Category.Queries.Get;
 using News.Domain.Dtos.News;
 
 
-namespace News.Presentation.Controllers.Category
+namespace News.Presentation.Controllers
 {
-    [Route("api/")]
+
+    [Route("api/NewsCategory/")]
     [ApiController]
     public class CategoryController : ControllerBase
     {

@@ -1,7 +1,4 @@
 ﻿using GraphQL.Server;
-using GraphQL.SystemTextJson;
-using Products.Infrastructure;
-using Products.Infrastructure.CallSeeder;
 using Products.Presentation;
 using Products.Presentation.GQL;
 using Products.Presentation.GQL.Mutations;
@@ -50,7 +47,6 @@ app.UseCors("AllowAll"); // این خیلی مهمه که قبل از UseAuthori
 
 
 app.UseGraphQL<AppSchema>();
-app.UseGraphQLGraphiQL("/ui/graphql");
 app.UseAuthorization();
 
 //using (var scope = app.Services.CreateScope())
@@ -61,6 +57,5 @@ app.UseAuthorization();
 //}
 
 app.MapControllers();
-app.MapGet("/", () => Results.Redirect("/ui/graphql"));
 
 app.Run();
