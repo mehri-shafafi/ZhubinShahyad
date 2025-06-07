@@ -59,6 +59,6 @@ app.UseAuthorization();
 //}
 
 app.MapControllers();
-app.MapGet("/", () => Results.Redirect("/ui/graphql"));
-
+//app.MapGet("/", () => Results.Redirect("/ui/graphql"));
+//app.UseHttpsRedirection();
 app.Run();

@@ -13,11 +13,12 @@ services:
       - ./sqlserver/data:/var/opt/mssql/data
       - ./sqlserver/log:/var/opt/mssql/log
     healthcheck:
-      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "LLmRkvMrZr@Ye8R" -Q "SELECT 1" -b -o /dev/null
-      interval: 10s
-      timeout: 3s
-      retries: 10
-      start_period: 10s
+     test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -U SA -P LLmRkvMrZr@Ye8R -Q \"SELECT 1\""]
+     interval: 10s
+     timeout: 5s
+     retries: 5
+     start_period: 10s
+
 
   rabbitmq:
     image: rabbitmq:3-management-alpine

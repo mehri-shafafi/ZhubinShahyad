@@ -5,19 +5,19 @@ using MediatR;
 
 namespace Education.Application.EducationComments.Queries.GetAllEducationComments
 {
-    public class GetAllEducationCommentsQueryHandler : IRequestHandler<GetAllEducationCommentsQuery, List<TrainingDto>>
+    public class GetAllTrainingQueryHandler : IRequestHandler<GetAllTrainingQuery, List<TrainingDto>>
     {
 
 
         private readonly IReadUnitOfWork _readUnitOfWork;
         private readonly IMapper _mapper;
 
-        public GetAllEducationCommentsQueryHandler(IReadUnitOfWork readUnitOfWork, IMapper mapper)
+        public GetAllTrainingQueryHandler(IReadUnitOfWork readUnitOfWork, IMapper mapper)
         {
             _readUnitOfWork = readUnitOfWork;
             _mapper = mapper;
         }
-        public async Task<List<TrainingDto>> Handle(GetAllEducationCommentsQuery request, CancellationToken cancellationToken)
+        public async Task<List<TrainingDto>> Handle(GetAllTrainingQuery request, CancellationToken cancellationToken)
         {
             var result = await _readUnitOfWork.EducationReadRepository.GetEducationAllAsync(request.Language);
             var resultModel = _mapper.Map<List<TrainingDto>>(result);

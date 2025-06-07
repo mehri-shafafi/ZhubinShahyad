@@ -21,13 +21,14 @@ namespace Education.Domain.Education
                    .Include(t => t.trainingCategory)
                    .Select(t => new TrainingDto
                    {
-                       Id = t.Id,
+                       TrainingId = t.Id,
                        Title = t.Translations.FirstOrDefault(tr => tr.Language == language)!.Title,
                        Description = t.Translations.FirstOrDefault(tr => tr.Language == language)!.Description,
                        ThumbnailUrl = t.ThumbnailUrl,
                        CategoryName = t.trainingCategory.Name,
                        Type = t.Type.ToString(), // یا Enum.GetName(typeof(TrainingType), t.Type)
-                       PublishDate = t.PublishDate
+                       PublishDate = t.PublishDate,
+                       CategoryId=t.CategoryId
                    })
                    .ToListAsync();
             return result;
@@ -38,7 +39,20 @@ namespace Education.Domain.Education
             return _dbContext.training.FirstOrDefaultAsync(P => P.Id == id);
         }
 
+        public async Task<List<TrainingCategoryDto>> GeTrainingCategoriesAllAsync()
+        {
+            var result = await _dbContext.trainingCategories
+                   .Select(t => new TrainingCategoryDto
+                   {
+                       Id = t.Id,
+                       Name = t.Name,
+                       CreationDateTime= t.CreationDateTime,
+                       ModificationDateTime= t.ModificationDateTime,
 
+                   })
+                   .ToListAsync();
+            return result;
+        }
         // Education_Comment
 
 

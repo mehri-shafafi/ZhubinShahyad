@@ -9,6 +9,8 @@ namespace Education.Domain.Education.Repositories
         #region
         Task<List<TrainingDto>> GetEducationAllAsync(string language = "fa");
         Task<Training> GetEducationAsync(int id);
+        Task<List<TrainingCategoryDto>> GeTrainingCategoriesAllAsync();
+
         #endregion
     }
 }

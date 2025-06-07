@@ -1,6 +1,7 @@
 ﻿using Education.Application.Education.Commands.Education.Update;
 using Education.Application.EducationCommands.Commands.Create;
 using Education.Application.EducationCommands.Commands.Delete;
+using Education.Application.EducationComments.Queries.GetAllCatgories;
 using Education.Application.EducationComments.Queries.GetAllEducationComments;
 using Education.Domain.Education.Dtos;
 using MediatR;
@@ -32,9 +33,22 @@ namespace Education.Presentation.Controllers
         [ProducesResponseType(typeof(List<TrainingDto>), 200)]
         public async Task<List<TrainingDto>> GetList([FromQuery] string lang = "fa")
         {
-            var query = new GetAllEducationCommentsQuery(); // اگه زبان رو بخوای بدی، باید به query اضافه‌ش کنی
+            var query = new GetAllTrainingQuery(); // اگه زبان رو بخوای بدی، باید به query اضافه‌ش کنی
             var result = await _mediator.Send(query);
             return result;
+
+        }
+
+        [Route("GetListTrainingCategories")]
+        [HttpGet()]
+        [ProducesResponseType(typeof(List<TrainingCategoryDto>), 200)]
+        public async Task<List<TrainingCategoryDto>> GetListCategories()
+        {
+            //var result =  _mediator.Send(new GetAllTrainingCategoriesQuery());
+            ////  var result = await _mediator.Send(query);
+            //return result;
+            return await _mediator.Send(new GetAllTrainingCategoriesQuery());
+
 
         }
 

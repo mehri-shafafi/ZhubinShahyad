@@ -10,12 +10,12 @@ services:
     volumes:
       - ./sqlserver/data:/var/opt/mssql/data
       - ./sqlserver/log:/var/opt/mssql/log
-    healthcheck:
-      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "LLmRkvMrZr@Ye8R" -Q "SELECT 1" -b -o /dev/null
-      interval: 10s
-      timeout: 3s
-      retries: 10
-      start_period: 10s
+    # healthcheck:
+    #   test: /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "LLmRkvMrZr@Ye8R" -Q "SELECT 1" -b -o /dev/null
+    #   interval: 10s
+    #   timeout: 3s
+    #   retries: 10
+    #   start_period: 10s
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -32,27 +32,46 @@ services:
       dockerfile: src/services/Products/Products.Presentation/Dockerfile
     ports:
       - "1001:8080"
-    depends_on:
-      database.server:
-        condition: service_healthy
+      - "1101:8081"
+    volumes:
+      - ./Services/https:/https:ro
+    environment:
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=M1718993100s!
+    # depends_on:
+    #   database.server:
+    #     condition: service_healthy
 
   news.presentation:
-    container_name: news.presentation
+    container_name: news.api
     build:
       context: .
       dockerfile: src/Services/News/News.Presentation/Dockerfile
     ports:
       - "1002:8080"
-    depends_on:
-      database.server:
-        condition: service_healthy
+      - "1102:8081"
+    volumes:
+      - ./Services/https:/https:ro
+    environment:
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=M1718993100s!
+    # depends_on:
+    #   database.server:
+    #     condition: service_healthy
+
   education.presentation:
-    container_name: education.presentation
+    container_name: education.api
     build:
       context: .
       dockerfile: src/Services/Educations/Education.Presentation/Dockerfile
     ports:
       - "1000:8080"
-    depends_on:
-      database.server:
-        condition: service_healthy
+      - "1100:8081"
+    volumes:
+      - ./Services/https:/https:ro
+    environment:
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=M1718993100s!
+    # depends_on:
+    #   database.server:
+    #     condition: service_healthy

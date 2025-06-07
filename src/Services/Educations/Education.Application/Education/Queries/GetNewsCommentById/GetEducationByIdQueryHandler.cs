@@ -5,17 +5,17 @@ using MediatR;
 
 namespace Education.Application.EducationComments.Queries.GetEducationCommentById
 {
-    public class GetArticlesByIdQueryHandler : IRequestHandler<GetArticlesByIdQuery, TrainingDto>
+    public class GetEducationByIdQueryHandler : IRequestHandler<GetEducationByIdQuery, TrainingDto>
     {
         private readonly IMapper _mapper;
         private readonly IReadUnitOfWork _readunitOfWork;
-        public GetArticlesByIdQueryHandler(IReadUnitOfWork readUnitOfWork, IMapper mapper)
+        public GetEducationByIdQueryHandler(IReadUnitOfWork readUnitOfWork, IMapper mapper)
         {
             _readunitOfWork = readUnitOfWork;
             _mapper = mapper;
 
         }
-        public async Task<TrainingDto> Handle(GetArticlesByIdQuery request, CancellationToken cancellationToken)
+        public async Task<TrainingDto> Handle(GetEducationByIdQuery request, CancellationToken cancellationToken)
         {
             var result = await _readunitOfWork.EducationReadRepository.GetEducationAsync(request.TrainingId);
             var resultModel = _mapper.Map<TrainingDto>(result);

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Education.Application.EducationComments.Queries.GetEducationCommentById
 {
-    public class GetArticlesByIdQuery : IRequest<TrainingDto>
+    public class GetEducationByIdQuery : IRequest<TrainingDto>
     {
         public int TrainingId { get; set; }
     }
