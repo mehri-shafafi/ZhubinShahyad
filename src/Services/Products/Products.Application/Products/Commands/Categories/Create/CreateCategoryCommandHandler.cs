@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using EventBus.Messages.Events;
-using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Products.Domain.Dtos.Products;
@@ -14,15 +13,13 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IMapper _mapper;
     private readonly ILogger<CreateCategoryCommandHandler> _logger;
-    private readonly IPublishEndpoint _publishEndPoint;
 
 
-    public CreateCategoryCommandHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper, IPublishEndpoint publishEndpoint, ILogger<CreateCategoryCommandHandler> logger)
+    public CreateCategoryCommandHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper, ILogger<CreateCategoryCommandHandler> logger)
     {
         _writeUnitOfWork = writeUnitOfWork;
         _mapper = mapper;
         _logger = logger;
-        _publishEndPoint = publishEndpoint;
     }
 
     public async Task<ProductCategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
@@ -45,7 +42,7 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
             IconUrl = addedProduct.IconUrl,
             ThumbnailUrl = addedProduct.ThumbnailUrl
         };
-        await _publishEndPoint.Publish(addProductEvent);
+       // await _publishEndPoint.Publish(addProductEvent);
         return _mapper.Map<ProductCategoryDto>(addedProduct);
     }
 }

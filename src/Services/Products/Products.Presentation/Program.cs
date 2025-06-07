@@ -17,6 +17,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+
+
 // Add services to the container.
 builder.AddServiceRegistery();
 

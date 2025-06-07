@@ -139,6 +139,10 @@ namespace Products.Infrastructure.Migrations
                     b.Property<int?>("BrandId")
                         .HasColumnType("int");
 
+                    b.Property<string>("CatalogURL")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 

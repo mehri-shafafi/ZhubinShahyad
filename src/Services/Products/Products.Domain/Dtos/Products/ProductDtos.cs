@@ -30,6 +30,7 @@ public class ProductDto : BaseEntity<int>
     public string StockQuantity { get; set; }
     public string SKU { get; set; }
     public string ImageURL { get; set; }
+    public string CatalogURL { get; set; }
     public string Warranty { get; set; }
     public int Rating { get; set; }
 

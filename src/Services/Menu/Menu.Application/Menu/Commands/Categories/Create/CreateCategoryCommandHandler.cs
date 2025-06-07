@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MassTransit;
 using MediatR;
 using Menus.Domain.Dtos.Menu;
 using Menus.Domain.Menu.Models;
@@ -13,15 +12,14 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IMapper _mapper;
     private readonly ILogger<CreateCategoryCommandHandler> _logger;
-    private readonly IPublishEndpoint _publishEndPoint;
+    //private readonly IPublishEndpoint _publishEndPoint;
 
 
-    public CreateCategoryCommandHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper, IPublishEndpoint publishEndpoint, ILogger<CreateCategoryCommandHandler> logger)
+    public CreateCategoryCommandHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper, ILogger<CreateCategoryCommandHandler> logger)
     {
         _writeUnitOfWork = writeUnitOfWork;
         _mapper = mapper;
         _logger = logger;
-        _publishEndPoint = publishEndpoint;
     }
 
     public async Task<MenuCategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)

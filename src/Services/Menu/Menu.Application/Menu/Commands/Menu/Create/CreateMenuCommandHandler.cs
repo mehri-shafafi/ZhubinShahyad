@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using EventBus.Messages.Events;
-using MassTransit;
 using MediatR;
 using Menus.Domain.Dtos.Menu;
 using Menus.Domain.Menu.Models;
@@ -14,15 +12,13 @@ public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, MenuR
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IMapper _mapper;
     private readonly ILogger<CreateMenuCommandHandler> _logger;
-    private readonly IPublishEndpoint _publishEndPoint;
 
 
-    public CreateMenuCommandHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper, IPublishEndpoint publishEndpoint, ILogger<CreateMenuCommandHandler> logger)
+    public CreateMenuCommandHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper,  ILogger<CreateMenuCommandHandler> logger)
     {
         _writeUnitOfWork = writeUnitOfWork;
         _mapper = mapper;
         _logger = logger;
-        _publishEndPoint = publishEndpoint;
     }
 
     public async Task<MenuResDto> Handle(CreateMenuCommand request, CancellationToken cancellationToken)

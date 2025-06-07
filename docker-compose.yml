@@ -30,39 +30,29 @@ services:
     build:
       context: .
       dockerfile: src/services/Products/Products.Presentation/Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=3000
-      - ASPNETCORE_HTTPS_PORTS=3001
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=123
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/Products.pfx
-      - DOCKER_USERNAME=zhubinshahyad
-      - DOCKER_PASSWORD=LLmRkvMrZr@YE8R
     ports:
-      - "10001:80"
-    volumes:
-      - ~/.aspnet/https:/https:ro
+      - "1001:8080"
     depends_on:
       database.server:
         condition: service_healthy
 
   news.presentation:
-    container_name: news.api
+    container_name: news.presentation
     build:
       context: .
-      dockerfile: src/services/News/News.Presentation/Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=3002
-      - ASPNETCORE_HTTPS_PORTS=3003
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=123
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/News.pfx
-      - DOCKER_USERNAME=zhubinshahyad
-      - DOCKER_PASSWORD=LLmRkvMrZr@YE8R
+      dockerfile: src/Services/News/News.Presentation/Dockerfile
     ports:
-      - "1002:80"
-    volumes:
-      - ~/.aspnet/https:/https:ro
+      - "1002:8080"
+    depends_on:
+      database.server:
+        condition: service_healthy
+  education.presentation:
+    container_name: education.presentation
+    build:
+      context: .
+      dockerfile: src/Services/Educations/Education.Presentation/Dockerfile
+    ports:
+      - "1000:8080"
     depends_on:
       database.server:
         condition: service_healthy

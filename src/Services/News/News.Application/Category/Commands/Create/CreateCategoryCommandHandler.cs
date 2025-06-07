@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using News.Domain.Dtos.News;
@@ -13,15 +12,13 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IMapper _mapper;
     private readonly ILogger<CreateCategoryCommandHandler> _logger;
-    private readonly IPublishEndpoint _publishEndPoint;
 
 
-    public CreateCategoryCommandHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper, IPublishEndpoint publishEndpoint, ILogger<CreateCategoryCommandHandler> logger)
+    public CreateCategoryCommandHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper, ILogger<CreateCategoryCommandHandler> logger)
     {
         _writeUnitOfWork = writeUnitOfWork;
         _mapper = mapper;
         _logger = logger;
-        _publishEndPoint = publishEndpoint;
     }
 
     public async Task<NewsCategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
