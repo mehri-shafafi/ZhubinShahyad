@@ -31,8 +31,8 @@ builder.Services.AddScoped<AppQueries>();
 builder.Services.AddScoped<AppSchema>();
 
 builder.Services.AddGraphQL().AddSystemTextJson();
-//builder.Services.AddEndpointsApiExplorer();
-///builder.Services.AddSwaggerGen();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 // اضافه کردن CORS
 
 var app = builder.Build();
@@ -42,23 +42,10 @@ var app = builder.Build();
 
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
-//TODO برداشته بشه 
+app.UseCors("AllowAll");           // قبل از Authorization
+app.UseAuthorization();            // قبل از MapControllers
+app.MapControllers();              // بعد از Authorization
 
-app.UseCors("AllowAll"); // این خیلی مهمه که قبل از UseAuthorization بیاد
-
-
-app.UseGraphQL<AppSchema>();
-app.UseAuthorization();
-
-//using (var scope = app.Services.CreateScope())
-//{
-//    var context = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
-//    await DbSeeder.SeedCategoryAsync(context); // این متد باید async باشه
-//    //await DbSeeder.SeedAsync(context); // این متد باید async باشه
-//}
-
-app.MapControllers();
-//app.MapGet("/", () => Results.Redirect("/ui/graphql"));
-//app.UseHttpsRedirection();
+app.UseSwagger();                  // بعد از CORS و قبل از Run
+app.UseSwaggerUI();
 app.Run();

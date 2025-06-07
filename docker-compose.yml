@@ -1,3 +1,5 @@
+version: '3.4'
+
 services:
   database.server:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
@@ -6,72 +8,28 @@ services:
       - "1433:1433"
     environment:
       - ACCEPT_EULA=y
-      - SA_PASSWORD="LLmRkvMrZr@Ye8R"
+      - SA_PASSWORD=LLmRkvMrZr@Ye8R
     volumes:
       - ./sqlserver/data:/var/opt/mssql/data
       - ./sqlserver/log:/var/opt/mssql/log
-    # healthcheck:
-    #   test: /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "LLmRkvMrZr@Ye8R" -Q "SELECT 1" -b -o /dev/null
-    #   interval: 10s
-    #   timeout: 3s
-    #   retries: 10
-    #   start_period: 10s
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: rabbitmq
-    restart: always
-    ports:
-      - "5672:5672"
-      - "15672:15672"
 
-  products.presentation:
-    container_name: products.api
+  products.api:
+    image: "${DOCKER_REGISTRY:-productsapi}"
     build:
       context: .
-      dockerfile: src/services/Products/Products.Presentation/Dockerfile
-    ports:
-      - "1001:8080"
-      - "1101:8081"
-    volumes:
-      - ./Services/https:/https:ro
-    environment:
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=M1718993100s!
-    # depends_on:
-    #   database.server:
-    #     condition: service_healthy
+      dockerfile: src/Services/Products/Products.Presentation/Dockerfile
 
-  news.presentation:
-    container_name: news.api
+  news.api:
+    image: "${DOCKER_REGISTRY:-newsapi}"
     build:
       context: .
       dockerfile: src/Services/News/News.Presentation/Dockerfile
-    ports:
-      - "1002:8080"
-      - "1102:8081"
-    volumes:
-      - ./Services/https:/https:ro
-    environment:
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=M1718993100s!
-    # depends_on:
-    #   database.server:
-    #     condition: service_healthy
 
-  education.presentation:
-    container_name: education.api
+  education.api:
+    image: "${DOCKER_REGISTRY:-educationapi}"
     build:
       context: .
       dockerfile: src/Services/Educations/Education.Presentation/Dockerfile
-    ports:
-      - "1000:8080"
-      - "1100:8081"
-    volumes:
-      - ./Services/https:/https:ro
-    environment:
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=M1718993100s!
-    # depends_on:
-    #   database.server:
-    #     condition: service_healthy

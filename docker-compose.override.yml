@@ -1,86 +1,45 @@
-version: '3.9'
+version: '3.4'
 
 services:
+
   database.server:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     container_name: database.server
-    ports:
-      - "1433:1433"
     environment:
       - ACCEPT_EULA=y
       - SA_PASSWORD=LLmRkvMrZr@Ye8R
+    restart: always
+    ports:
+      - "1433:1433"
     volumes:
       - ./sqlserver/data:/var/opt/mssql/data
       - ./sqlserver/log:/var/opt/mssql/log
-    healthcheck:
-     test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -U SA -P LLmRkvMrZr@Ye8R -Q \"SELECT 1\""]
-     interval: 10s
-     timeout: 5s
-     retries: 5
-     start_period: 10s
-
 
   rabbitmq:
-    image: rabbitmq:3-management-alpine
     container_name: rabbitmq
     restart: always
     ports:
-      - "5672:5672"
-      - "15672:15672"
-
-  products.presentation:
-    container_name: products.api
-    build:
-      context: .
-      dockerfile: src/Services/Products/Products.Presentation/Dockerfile
-    ports:
-      - "1001:8080" # HTTP
-      - "1101:8081" # HTTPS
-    depends_on:
-      database.server:
-        condition: service_healthy
+        - "5672:5672"
+        - "15672:15672"
+      
+  products.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
-    volumes:
-      - ${APPDATA:-/tmp}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA:-/tmp}/ASP.NET/Https:/home/app/.aspnet/https:ro
-
-  news.presentation:
-    container_name: news.api
-    build:
-      context: .
-      dockerfile: src/Services/News/News.Presentation/Dockerfile
     ports:
-      - "1002:8082"
-      - "1102:8083"
+      - "10000:80"
     depends_on:
-      database.server:
-        condition: service_healthy
+      - database.server
+
+  news.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8082
-      - ASPNETCORE_HTTPS_PORTS=8083
-    volumes:
-      - ${APPDATA:-/tmp}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA:-/tmp}/ASP.NET/Https:/home/app/.aspnet/https:ro
-
-  education.presentation:
-    container_name: education.api
-    build:
-      context: .
-      dockerfile: src/Services/Educations/Education.Presentation/Dockerfile
     ports:
-      - "1003:8084"
-      - "1103:8085"
-    depends_on:
-      database.server:
-        condition: service_healthy
+      - "10001:80"
+
+
+  education.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8084
-      - ASPNETCORE_HTTPS_PORTS=8085
-    volumes:
-      - ${APPDATA:-/tmp}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA:-/tmp}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    ports:
+      - "10002:80"
+

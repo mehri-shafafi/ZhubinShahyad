@@ -21,27 +21,22 @@ builder.AddApplicationServices();
 builder.AddMessagingConfiguration();
 
 // ✅ اضافه کردن Swagger
-//builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// فعال کردن Swagger فقط در حالت توسعه
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
 
-// فعال‌سازی CORS
-app.UseCors("AllowAll");
 
-// اگر احراز هویت داری، این خط قبل از UseAuthorization باید بیاد
-// app.UseAuthentication(); 
 
-app.UseAuthorization();
 
-// روت کردن کنترلرها
-app.MapControllers();
+app.UseCors("AllowAll");           // قبل از Authorization
+app.UseAuthorization();            // قبل از MapControllers
+app.MapControllers();              // بعد از Authorization
 
+app.UseSwagger();                  // بعد از CORS و قبل از Run
+app.UseSwaggerUI();
 app.Run();
