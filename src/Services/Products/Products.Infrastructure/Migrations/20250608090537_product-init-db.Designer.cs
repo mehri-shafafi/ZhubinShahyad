@@ -12,8 +12,8 @@ using Products.Infrastructure;
 namespace Products.Infrastructure.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20250607025545_product-v2")]
-    partial class productv2
+    [Migration("20250608090537_product-init-db")]
+    partial class productinitdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

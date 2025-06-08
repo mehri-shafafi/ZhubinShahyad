@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Education.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class EducationinitDB : Migration
+    public partial class educationinitdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

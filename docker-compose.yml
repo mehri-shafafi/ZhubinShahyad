@@ -1,35 +1,35 @@
-version: '3.4'
+    version: '3.4'
 
-services:
-  database.server:
-    image: "mcr.microsoft.com/mssql/server:2022-latest"
-    container_name: database.server
-    ports:
-      - "1433:1433"
-    environment:
-      - ACCEPT_EULA=y
-      - SA_PASSWORD=LLmRkvMrZr@Ye8R
-    volumes:
-      - ./sqlserver/data:/var/opt/mssql/data
-      - ./sqlserver/log:/var/opt/mssql/log
+    services:
+      database.server:
+        image: "mcr.microsoft.com/mssql/server:2022-latest"
+        container_name: database.server
+        ports:
+          - "1433:1433"
+        environment:
+          - ACCEPT_EULA=y
+          - SA_PASSWORD="LLmRkvMrZr@Ye8R"
+        volumes:
+          - ./sqlserver/data:/var/opt/mssql/data
+          - ./sqlserver/log:/var/opt/mssql/log
 
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
+      rabbitmq:
+        image: rabbitmq:3-management-alpine
 
-  products.api:
-    image: "${DOCKER_REGISTRY:-productsapi}"
-    build:
-      context: .
-      dockerfile: src/Services/Products/Products.Presentation/Dockerfile
+      products.api:
+        image: "${DOCKER_REGISTRY:-productsapi}"
+        build:
+          context: .
+          dockerfile: src/Services/Products/Products.Presentation/Dockerfile
 
-  news.api:
-    image: "${DOCKER_REGISTRY:-newsapi}"
-    build:
-      context: .
-      dockerfile: src/Services/News/News.Presentation/Dockerfile
+      news.api:
+        image: "${DOCKER_REGISTRY:-newsapi}"
+        build:
+          context: .
+          dockerfile: src/Services/News/News.Presentation/Dockerfile
 
-  education.api:
-    image: "${DOCKER_REGISTRY:-educationapi}"
-    build:
-      context: .
-      dockerfile: src/Services/Educations/Education.Presentation/Dockerfile
+      education.api:
+        image: "${DOCKER_REGISTRY:-educationapi}"
+        build:
+          context: .
+          dockerfile: src/Services/Educations/Education.Presentation/Dockerfile

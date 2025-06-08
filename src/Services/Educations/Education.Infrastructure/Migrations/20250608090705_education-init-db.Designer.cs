@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Education.Infrastructure.Migrations
 {
     [DbContext(typeof(EducationDbContext))]
-    [Migration("20250606031440_Education-initDB")]
-    partial class EducationinitDB
+    [Migration("20250608090705_education-init-db")]
+    partial class educationinitdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

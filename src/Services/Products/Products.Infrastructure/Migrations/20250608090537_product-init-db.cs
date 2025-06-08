@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Products.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class product_v1 : Migration
+    public partial class productinitdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -74,6 +74,7 @@ namespace Products.Infrastructure.Migrations
                     StockQuantity = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SKU = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     ImageURL = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    CatalogURL = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     Warranty = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Rating = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),

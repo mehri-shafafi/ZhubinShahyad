@@ -12,8 +12,8 @@ using News.Infrastructure;
 namespace News.Infrastructure.Migrations
 {
     [DbContext(typeof(NewsDbContext))]
-    [Migration("20250607195537_news-v2")]
-    partial class newsv2
+    [Migration("20250608090628_news-init-db")]
+    partial class newsinitdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,9 +54,6 @@ namespace News.Infrastructure.Migrations
                     b.Property<DateTime>("ModificationDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("News_CommentId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PublishedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -87,8 +84,6 @@ namespace News.Infrastructure.Migrations
                     b.HasIndex("AuthorID");
 
                     b.HasIndex("CategoryID");
-
-                    b.HasIndex("News_CommentId");
 
                     b.ToTable("news_Articles");
                 });
@@ -174,40 +169,6 @@ namespace News.Infrastructure.Migrations
                     b.ToTable("news_Categories");
                 });
 
-            modelBuilder.Entity("News.Domain.News.Models.News_Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<DateTime>("CreationDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModificationDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NewsArticleID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PostedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NewsArticleID");
-
-                    b.ToTable("news_Comments");
-                });
-
             modelBuilder.Entity("News.Domain.News.Models.News_Article", b =>
                 {
                     b.HasOne("News.Domain.News.Models.News_Author", "news_Author")
@@ -222,29 +183,9 @@ namespace News.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("News.Domain.News.Models.News_Comment", null)
-                        .WithMany("_Articles")
-                        .HasForeignKey("News_CommentId");
-
                     b.Navigation("news_Author");
 
                     b.Navigation("news_Category");
-                });
-
-            modelBuilder.Entity("News.Domain.News.Models.News_Comment", b =>
-                {
-                    b.HasOne("News.Domain.News.Models.News_Article", "news_Article")
-                        .WithMany("news_Comments")
-                        .HasForeignKey("NewsArticleID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("news_Article");
-                });
-
-            modelBuilder.Entity("News.Domain.News.Models.News_Article", b =>
-                {
-                    b.Navigation("news_Comments");
                 });
 
             modelBuilder.Entity("News.Domain.News.Models.News_Author", b =>
@@ -255,11 +196,6 @@ namespace News.Infrastructure.Migrations
             modelBuilder.Entity("News.Domain.News.Models.News_Category", b =>
                 {
                     b.Navigation("news_Articles");
-                });
-
-            modelBuilder.Entity("News.Domain.News.Models.News_Comment", b =>
-                {
-                    b.Navigation("_Articles");
                 });
 #pragma warning restore 612, 618
         }

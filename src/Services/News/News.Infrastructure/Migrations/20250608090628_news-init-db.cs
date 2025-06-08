@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace News.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class News_InitDBV1 : Migration
+    public partial class newsinitdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,30 +83,6 @@ namespace News.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "news_Comments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NewsArticleID = table.Column<int>(type: "int", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    PostedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    news_ArticleId = table.Column<int>(type: "int", nullable: false),
-                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModificationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_news_Comments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_news_Comments_news_Articles_news_ArticleId",
-                        column: x => x.news_ArticleId,
-                        principalTable: "news_Articles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_news_Articles_AuthorID",
                 table: "news_Articles",
@@ -116,19 +92,11 @@ namespace News.Infrastructure.Migrations
                 name: "IX_news_Articles_CategoryID",
                 table: "news_Articles",
                 column: "CategoryID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_news_Comments_news_ArticleId",
-                table: "news_Comments",
-                column: "news_ArticleId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "news_Comments");
-
             migrationBuilder.DropTable(
                 name: "news_Articles");
 

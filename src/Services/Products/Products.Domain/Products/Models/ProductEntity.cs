@@ -57,7 +57,7 @@ public class ProductEntity : BaseEntity
                    .WithMany(b => b.Products)
                    .HasForeignKey(p => p.BrandId)
                    .IsRequired(false);
-          //  builder.HasData(SeedProducts());
+           builder.HasData(SeedProducts());
         }
       
         private List<ProductEntity> SeedProducts()
