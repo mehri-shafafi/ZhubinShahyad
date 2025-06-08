@@ -1,12 +1,11 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using News.Application.Exception;
-using News.Application.NewsCommands.Commands.Delete;
 using News.Domain.UnitOfWork.News;
 
 
 namespace News.Application.Articles.Commands.Delete;
-public class DeleteArticlesCommandHandler : IRequestHandler<DeleteNewsCommand, bool>
+public class DeleteArticlesCommandHandler : IRequestHandler<DeleteArticlesCommand, bool>
 {
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IReadUnitOfWork _readUnitOfWork;
@@ -19,7 +18,7 @@ public class DeleteArticlesCommandHandler : IRequestHandler<DeleteNewsCommand, b
         _readUnitOfWork = readUnitOfWork;
         _logger = logger;
     }
-    public async Task<bool> Handle(DeleteNewsCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(DeleteArticlesCommand request, CancellationToken cancellationToken)
     {
         var result = await _readUnitOfWork.NewsReadRepository.GetNewsArticleAsync(request.Id);
         if (result == null)

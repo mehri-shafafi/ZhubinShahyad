@@ -19,19 +19,13 @@ builder.AddServiceRegistery();
 builder.AddInfrastructureServices();
 builder.AddApplicationServices();
 builder.AddMessagingConfiguration();
+builder.WebHost.UseUrls("http://*:8081");
 
 // ✅ اضافه کردن Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
-
-
 
 app.UseCors("AllowAll");           // قبل از Authorization
 app.UseAuthorization();            // قبل از MapControllers

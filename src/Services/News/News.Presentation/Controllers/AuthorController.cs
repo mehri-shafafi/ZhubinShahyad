@@ -4,8 +4,6 @@ using News.Application.Articles.Commands.Delete;
 using News.Application.Author.Commands.Create;
 using News.Application.Author.Commands.Update;
 using News.Application.Author.Queries.Get;
-using News.Application.NewsCommands.Commands.Create;
-using News.Application.NewsComments.Queries.GetAllNewsComments;
 using News.Domain.Dtos.News;
 
 

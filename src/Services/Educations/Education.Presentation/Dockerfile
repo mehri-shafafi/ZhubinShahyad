@@ -3,7 +3,8 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 WORKDIR /app
-EXPOSE 82
+EXPOSE 8081
+EXPOSE 441
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src

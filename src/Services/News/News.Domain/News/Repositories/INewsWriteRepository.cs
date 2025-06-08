@@ -25,9 +25,6 @@ namespace News.Domain.News.Repositories
         Task DeleteNews_CategoryAsync(News_Category news_Category);
         #endregion
         #region
-        Task<News_Comment> AddNews_CommentAsync(News_Comment news_Comment);
-        Task<News_Comment> UpdateNews_CommentAsync(News_Comment news_Comment);
-        Task DeleteNews_CommentAsync(int Id);
         #endregion
     }
 }

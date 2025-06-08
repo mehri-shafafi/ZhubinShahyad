@@ -1,10 +1,12 @@
-﻿namespace News.Domain.Dtos.News;
-public class NewsArticleDto
-{
+﻿using News.Domain.Base;
 
+namespace News.Domain.Dtos.News;
+
+public class NewsArticleResDto:BaseEntity<int>
+{
     public string Title { get; set; } //عنوان مقاله. چیزی که به صورت تیتر در لیست مقالات یا در ابتدای صفحه دیده می‌شود.
 
-    public string Summary    { get; set; }//خلاصه‌ای کوتاه از مقاله. برای نمایش در فهرست‌ها یا پیش‌نمایش استفاده می‌شود.
+    public string Summary { get; set; }//خلاصه‌ای کوتاه از مقاله. برای نمایش در فهرست‌ها یا پیش‌نمایش استفاده می‌شود.
     public string Content { get; set; }//محتوای کامل مقاله. متن اصلی مقاله در این فیلد ذخیره می‌شود.
 
     public int AuthorID { get; set; }//شناسه نویسنده مقاله. معمولاً به جدول دیگری متصل می‌شود که اطلاعات نویسنده‌ها در آن است. (Foreign Key)
@@ -17,4 +19,6 @@ public class NewsArticleDto
 
     public long ViewsCount { get; set; }//تعداد دفعاتی که مقاله مشاهده شده است. برای آمار و نمایش محبوب‌ترین مقالات استفاده می‌شود.
 
+    public DateTime PostedDate { get; set; }
+    //public DateTime PostedDate { get; set; }
 }

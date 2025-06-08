@@ -28,16 +28,16 @@ namespace News.Presentation.Controllers
 
         [Route("GetListArticle")]
         [HttpGet()]
-        [ProducesResponseType(typeof(List<NewsArticleDto>), 200)]
-        public async Task<List<NewsArticleDto>> GetList()
+        [ProducesResponseType(typeof(List<NewsArticleResDto>), 200)]
+        public async Task<List<NewsArticleResDto>> GetList()
         {
             return await _mediator.Send(new GetAllArticlesQuery());
         }
 
         [Route("AddedArticle")]
         [HttpPost]
-        [ProducesResponseType(typeof(NewsArticleDto), 200)]
-        public async Task<NewsArticleDto> Create(CreateArticlesCommand request)
+        [ProducesResponseType(typeof(NewsArticleResDto), 200)]
+        public async Task<NewsArticleResDto> Create(CreateArticlesCommand request)
         {
             return await _mediator.Send(request);
         }

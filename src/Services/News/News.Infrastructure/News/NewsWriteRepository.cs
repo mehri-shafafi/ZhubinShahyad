@@ -48,7 +48,7 @@ namespace News.Infrastructure.News
             await _dbContext.SaveChangesAsync();
         }
         #endregion
-        #region 
+      
         public async Task<News_Category> AddNews_CategoryAsync(News_Category news_Category)
         {
             var result = await _dbContext.AddAsync(news_Category);
@@ -68,29 +68,5 @@ namespace News.Infrastructure.News
         }
 
 
-        public async Task<News_Comment> AddNews_CommentAsync(News_Comment news_Comment)
-        {
-            var result = await _dbContext.AddAsync(news_Comment);
-            await _dbContext.SaveChangesAsync();
-            return result.Entity;
-        }
-
-        public async Task<News_Comment> UpdateNews_CommentAsync(News_Comment news_Comment)
-        {
-            var result = _dbContext.Update(news_Comment);
-            await _dbContext.SaveChangesAsync();
-            return result.Entity;
-        }
-
-        public async Task DeleteNews_CommentAsync(int id)
-        {
-            var comment = await _dbContext.news_Comments.FindAsync(id);
-            if (comment != null)
-            {
-                _dbContext.news_Comments.Remove(comment);
-                await _dbContext.SaveChangesAsync();
-            }
-        }
-        #endregion
     }
 }

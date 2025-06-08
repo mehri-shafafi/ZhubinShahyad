@@ -17,7 +17,6 @@ namespace News.Domain.News.Models
         public long ViewsCount { get; set; }
         public News_Author news_Author { get; set; } // Navigation property
         public News_Category news_Category { get; set; } // Navigation property
-        public ICollection<News_Comment> news_Comments { get; set; } // Navigation property
 
         public class NewsArticleNewsConfiguration : IEntityTypeConfiguration<News_Article>
         {

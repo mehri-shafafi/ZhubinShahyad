@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using News.Domain.Dtos.News;
 using News.Domain.News.Models;
 using News.Domain.News.Repositories;
 using News.Infrastructure;
@@ -15,7 +16,7 @@ namespace News.Domain.News
         // News_Article
         public async Task<List<News_Article>> GetNewsArticleAllAsync()
         {
-            return await _dbContext.news_Articles.Include(p => p.Id).ToListAsync();
+            return await _dbContext.news_Articles.ToListAsync();
         }
         public async Task<News_Article> GetNewsArticleAsync(int id)
         {
@@ -44,15 +45,25 @@ namespace News.Domain.News
         }
 
         // News_Comment
-        public async Task<List<News_Comment>> GetNewsCommentAllAsync()
+        public async Task<List<NewsArticleResDto>> GetNewsCommentAllAsync()
         {
-            return await _dbContext.news_Comments.Include(p => p.Content).ToListAsync();
-        }
-        public async Task<News_Comment> GetNewsCommentAsync(int id)
-        {
-            return await _dbContext.news_Comments.FirstOrDefaultAsync(p => p.Id == id);
-        }
+            var result = await _dbContext.news_Articles
+               .Select(t => new NewsArticleResDto
+               {
+                   Id=t.Id,
+                   ImageURL = t.ImageURL,
+                   Summary = t.Summary,
+                   Title = t.Title,
+                   ViewsCount = t.ViewsCount,
+                   Content = t.Content,
+                   CreationDateTime = t.CreationDateTime
 
+               }).ToListAsync();
+            
+            return result;
+            //return await _dbContext.news_Comments.Include(p => p.Content).ToListAsync();
+        }
+     
 
 
 

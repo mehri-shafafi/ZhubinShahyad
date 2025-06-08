@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using News.Application.News.Commands.News.Update;
 
 namespace News.Application.Author.Commands.Update
 {
@@ -7,7 +6,7 @@ namespace News.Application.Author.Commands.Update
     {
         public UpdateCategoryCommandValidator()
         {
-        
+
         }
 
     }

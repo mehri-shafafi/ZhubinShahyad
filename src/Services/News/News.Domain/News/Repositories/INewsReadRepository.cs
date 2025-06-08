@@ -17,9 +17,6 @@ namespace News.Domain.News.Repositories
         Task<List<News_Category>> GetNewsCategoryAllAsync();
         Task<News_Category> GetNewsCategoryAsync(int id);
         #endregion
-        #region
-        Task<List<News_Comment>> GetNewsCommentAllAsync();
-        Task<News_Comment> GetNewsCommentAsync(int id);
-        #endregion
+       
     }
 }

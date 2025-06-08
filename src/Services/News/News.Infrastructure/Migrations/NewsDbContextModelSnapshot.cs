@@ -166,43 +166,6 @@ namespace News.Infrastructure.Migrations
                     b.ToTable("news_Categories");
                 });
 
-            modelBuilder.Entity("News.Domain.News.Models.News_Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<DateTime>("CreationDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModificationDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NewsArticleID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PostedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<int>("news_ArticleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("news_ArticleId");
-
-                    b.ToTable("news_Comments");
-                });
-
             modelBuilder.Entity("News.Domain.News.Models.News_Article", b =>
                 {
                     b.HasOne("News.Domain.News.Models.News_Author", "news_Author")
@@ -220,22 +183,6 @@ namespace News.Infrastructure.Migrations
                     b.Navigation("news_Author");
 
                     b.Navigation("news_Category");
-                });
-
-            modelBuilder.Entity("News.Domain.News.Models.News_Comment", b =>
-                {
-                    b.HasOne("News.Domain.News.Models.News_Article", "news_Article")
-                        .WithMany("news_Comments")
-                        .HasForeignKey("news_ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("news_Article");
-                });
-
-            modelBuilder.Entity("News.Domain.News.Models.News_Article", b =>
-                {
-                    b.Navigation("news_Comments");
                 });
 
             modelBuilder.Entity("News.Domain.News.Models.News_Author", b =>

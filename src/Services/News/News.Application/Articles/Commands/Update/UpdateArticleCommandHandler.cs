@@ -2,7 +2,6 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using News.Application.Exception;
-using News.Application.News.Commands.News.Update;
 using News.Domain.News.Models;
 using News.Domain.UnitOfWork.News;
 namespace News.Application.Articles.Commands.Update;

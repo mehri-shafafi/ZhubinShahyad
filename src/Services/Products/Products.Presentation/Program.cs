@@ -29,6 +29,7 @@ builder.AddMessagingConfiguration();
 builder.Services.AddScoped<AppMutations>();
 builder.Services.AddScoped<AppQueries>();
 builder.Services.AddScoped<AppSchema>();
+builder.WebHost.UseUrls("http://*:8083");
 
 builder.Services.AddGraphQL().AddSystemTextJson();
 builder.Services.AddEndpointsApiExplorer();
@@ -36,12 +37,7 @@ builder.Services.AddSwaggerGen();
 // اضافه کردن CORS
 
 var app = builder.Build();
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
 
-    app.UseSwagger();
-    app.UseSwaggerUI();
 app.UseCors("AllowAll");           // قبل از Authorization
 app.UseAuthorization();            // قبل از MapControllers
 app.MapControllers();              // بعد از Authorization

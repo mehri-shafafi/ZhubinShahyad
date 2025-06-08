@@ -17,7 +17,7 @@ namespace News.Application.Author.Queries.Get
         }
         public async Task<NewsAuthorDto> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await _readunitOfWork.NewsReadRepository.GetNewsCommentAsync(request.Id);
+            var result = await _readunitOfWork.NewsReadRepository.GetNewsCategoryAsync(request.Id);
             var resultModel = _mapper.Map<NewsAuthorDto>(result);
             return resultModel;
         }

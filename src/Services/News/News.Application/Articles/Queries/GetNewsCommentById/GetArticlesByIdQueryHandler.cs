@@ -6,7 +6,7 @@ using News.Domain.UnitOfWork.News;
 
 namespace News.Application.Articles.Queries.GetNewsCommentById
 {
-    public class GetArticlesByIdQueryHandler : IRequestHandler<GetArticlesByIdQuery, NewsArticleDto>
+    public class GetArticlesByIdQueryHandler : IRequestHandler<GetArticlesByIdQuery, NewsArticleResDto>
     {
         private readonly IMapper _mapper;
         private readonly IReadUnitOfWork _readunitOfWork;
@@ -16,10 +16,10 @@ namespace News.Application.Articles.Queries.GetNewsCommentById
             _mapper = mapper;
 
         }
-        public async Task<NewsArticleDto> Handle(GetArticlesByIdQuery request, CancellationToken cancellationToken)
+        public async Task<NewsArticleResDto> Handle(GetArticlesByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await _readunitOfWork.NewsReadRepository.GetNewsCommentAsync(request.Id);
-            var resultModel = _mapper.Map<NewsArticleDto>(result);
+            var result = await _readunitOfWork.NewsReadRepository.GetNewsArticleAsync(request.Id);
+            var resultModel = _mapper.Map<NewsArticleResDto>(result);
             return resultModel;
         }
     }

@@ -6,7 +6,7 @@ using News.Domain.UnitOfWork.News;
 
 namespace News.Application.Articles.Queries.GetAllNewsComments
 {
-    public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, List<NewsArticleDto>>
+    public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, List<NewsArticleResDto>>
     {
 
 
@@ -18,10 +18,10 @@ namespace News.Application.Articles.Queries.GetAllNewsComments
             _readUnitOfWork = readUnitOfWork;
             _mapper = mapper;
         }
-        public async Task<List<NewsArticleDto>> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)
+        public async Task<List<NewsArticleResDto>> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)
         {
             var result = await _readUnitOfWork.NewsReadRepository.GetNewsArticleAllAsync();
-            var resultModel = _mapper.Map<List<NewsArticleDto>>(result);
+            var resultModel = _mapper.Map<List<NewsArticleResDto>>(result);
             return resultModel;
         }
     }

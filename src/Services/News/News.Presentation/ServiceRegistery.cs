@@ -36,8 +36,7 @@ public static class ServiceRegistery
     }
     public static IServiceCollection AddApplicationServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationAssembly_NewsComment);
-        builder.Services.AddMediatR(Assemblies.ApplicationAssembly_NewsComment);
+      
         builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationAssembly_Category);
         builder.Services.AddMediatR(Assemblies.ApplicationAssembly_Category);
         builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationAssembly_Articles);

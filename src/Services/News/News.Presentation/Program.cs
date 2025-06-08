@@ -23,13 +23,10 @@ builder.AddMessagingConfiguration();
 // ✅ اضافه کردن Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.WebHost.UseUrls("http://*:8082");
 
 var app = builder.Build();
 
-// فعال کردن Swagger فقط در حالت توسعه
-
-    app.UseSwagger();
-    app.UseSwaggerUI();
 
 
 app.UseCors("AllowAll");           // قبل از Authorization

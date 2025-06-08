@@ -26,7 +26,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "10000:80"
+      - "10000:8083"
     depends_on:
       - database.server
 
@@ -34,12 +34,12 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "10001:80"
+      - "10001:8082"
 
 
   education.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "10002:80"
+      - "10002:8081"
 
