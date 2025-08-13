@@ -205,6 +205,10 @@ namespace Products.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("catalog_cover_image_url")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");

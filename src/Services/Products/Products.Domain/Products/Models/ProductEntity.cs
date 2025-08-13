@@ -20,6 +20,7 @@ public class ProductEntity : BaseEntity
     public string SKU { get; set; }
     public string ImageURL { get; set; }
     public string CatalogURL { get; set; }
+    public string catalog_cover_image_url { get; set; }
     public string Warranty { get; set; }
     public int Rating { get; set; }
 
@@ -43,6 +44,7 @@ public class ProductEntity : BaseEntity
             builder.Property(p => p.SKU).HasMaxLength(100);
             builder.Property(p => p.ImageURL).HasMaxLength(300);
             builder.Property(p => p.CatalogURL).HasMaxLength(300);
+            builder.Property(p => p.catalog_cover_image_url).HasMaxLength(300);
             builder.Property(p => p.Warranty).HasMaxLength(200);
             builder.Property(p => p.Rating).HasDefaultValue(0);
 
@@ -57,7 +59,7 @@ public class ProductEntity : BaseEntity
                    .WithMany(b => b.Products)
                    .HasForeignKey(p => p.BrandId)
                    .IsRequired(false);
-           builder.HasData(SeedProducts());
+        //   builder.HasData(SeedProducts());
         }
       
         private List<ProductEntity> SeedProducts()

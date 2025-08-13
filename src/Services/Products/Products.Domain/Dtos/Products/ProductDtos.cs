@@ -31,7 +31,8 @@ public class ProductDto : BaseEntity<int>
     public string SKU { get; set; }
     public string ImageURL { get; set; }
     public string CatalogURL { get; set; }
-    public string Warranty { get; set; }
+    public string catalog_cover_image_url { get; set; }
+        public string Warranty { get; set; }
     public int Rating { get; set; }
 
 }
