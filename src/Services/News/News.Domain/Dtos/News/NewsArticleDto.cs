@@ -4,11 +4,15 @@ namespace News.Domain.Dtos.News;
 
 public class NewsArticleResDto:BaseEntity<int>
 {
-    public string Title { get; set; } //عنوان مقاله. چیزی که به صورت تیتر در لیست مقالات یا در ابتدای صفحه دیده می‌شود.
-
-    public string Summary { get; set; }//خلاصه‌ای کوتاه از مقاله. برای نمایش در فهرست‌ها یا پیش‌نمایش استفاده می‌شود.
-    public string Content { get; set; }//محتوای کامل مقاله. متن اصلی مقاله در این فیلد ذخیره می‌شود.
-
+    public string Title_FA { get; set; }
+    public string Summary_FA { get; set; }
+    public string Content_FA { get; set; }
+    public string Title_EN { get; set; }
+    public string Summary_EN { get; set; }
+    public string Content_EN { get; set; }
+    public string Title_AR { get; set; }
+    public string Summary_AR { get; set; }
+    public string Content_AR { get; set; }
     public int AuthorID { get; set; }//شناسه نویسنده مقاله. معمولاً به جدول دیگری متصل می‌شود که اطلاعات نویسنده‌ها در آن است. (Foreign Key)
     public int CategoryID { get; set; }//شناسه دسته‌بندی مقاله. برای گروه‌بندی مقالات (مثل: علمی، خبری، آموزشی و...) استفاده می‌شود. (Foreign Key)
 
