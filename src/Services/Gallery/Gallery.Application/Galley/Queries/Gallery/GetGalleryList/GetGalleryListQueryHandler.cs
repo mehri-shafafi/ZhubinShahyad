@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Gallery.Application.Gallery.Queries.GetGalleryList;
+using Gallery.Domain.Dtos.Gallery;
+using Gallery.Domain.UnitOfWork.Base;
 using MediatR;
 namespace Gallery.Application.Gallery.Queries.GetGalleryList
 {
@@ -16,7 +18,7 @@ namespace Gallery.Application.Gallery.Queries.GetGalleryList
         }
         public async Task<List<GalleryResDto>> Handle(GetGalleryListQuery request, CancellationToken cancellationToken)
         {
-            var result = await _readUnitOfWork.BaseReadRepository.FetchAllBaseEntityAsync();
+            var result = await _readUnitOfWork.GalleryReadRepository.FetchAllGalleryEntityAsync();
 
 
             var resultDto = _mapper.Map<List<GalleryResDto>>(result);

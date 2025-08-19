@@ -47,6 +47,6 @@ public class CreateBaseCommandHandler : IRequestHandler<CreateGalleryCommand, Ga
             Rating = addedBase.Rating,
         };
         //await _publishEndPoint.Publish(addBaseEvent);
-        return _mapper.Map<BaseResDto>(addedBase);
+        return _mapper.Map<GalleryResDto>(addedBase);
     }
 }

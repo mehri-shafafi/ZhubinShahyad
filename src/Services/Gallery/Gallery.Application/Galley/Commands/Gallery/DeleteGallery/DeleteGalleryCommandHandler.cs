@@ -1,4 +1,5 @@
 ﻿using Gallery.Application.Exception;
+using Gallery.Domain.UnitOfWork.Base;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -20,13 +21,13 @@ public class DeleteGalleryCommandHandler : IRequestHandler<DeleteGalleryCommand,
     }
     public async Task<bool> Handle(DeleteGalleryCommand request, CancellationToken cancellationToken)
     {
-        var product = await _readUnitOfWork.BaseReadRepository.FetchBaseEntityAsync(request.Id);
+        var product = await _readUnitOfWork.GalleryReadRepository.FetchGalleryEntityAsync(request.Id);
         if (product == null)
         {
             throw new NotFoundException("Base", request.Id);
         }
 
-        await _writeUnitOfWork.BaseWriteRepository.DeleteBaseAsync(product);
+        await _writeUnitOfWork.GalleryWriteRepository.DeleteBrandAsync(product);
 
         return true;
 
