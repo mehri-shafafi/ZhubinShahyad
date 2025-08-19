@@ -42,23 +42,33 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News.Domain", "src\Services
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Menus", "Menus", "{FB38D5E6-252C-41F1-9D6E-AEC47EE0CA62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Application", "src\Services\Menu\Menu.Application\Menu.Application.csproj", "{7855FE49-5E3E-4AE6-9E1D-1B2BAAB9B595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu.Application", "src\Services\Menu\Menu.Application\Menu.Application.csproj", "{7855FE49-5E3E-4AE6-9E1D-1B2BAAB9B595}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Domain", "src\Services\Menu\Menu.Domain\Menu.Domain.csproj", "{C34A7D50-E586-4C9D-8AA4-AF6C73C2FFB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu.Domain", "src\Services\Menu\Menu.Domain\Menu.Domain.csproj", "{C34A7D50-E586-4C9D-8AA4-AF6C73C2FFB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Infrastructure", "src\Services\Menu\Menu.Infrastructure\Menu.Infrastructure.csproj", "{570FAA5C-6274-44C2-A789-7F3B8386EA6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu.Infrastructure", "src\Services\Menu\Menu.Infrastructure\Menu.Infrastructure.csproj", "{570FAA5C-6274-44C2-A789-7F3B8386EA6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Presentation", "src\Services\Menu\Menu.Presentation\Menu.Presentation.csproj", "{FB284B58-4E03-4CF3-A3C1-7CE138523901}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu.Presentation", "src\Services\Menu\Menu.Presentation\Menu.Presentation.csproj", "{FB284B58-4E03-4CF3-A3C1-7CE138523901}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Educations", "Educations", "{A0A5C224-63DC-4F5C-8C32-50F889DDE6D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Education.Application", "src\Services\Educations\Education.Application\Education.Application.csproj", "{0161BA54-B034-4987-9624-F83F25F50843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Education.Application", "src\Services\Educations\Education.Application\Education.Application.csproj", "{0161BA54-B034-4987-9624-F83F25F50843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Education.Domain", "src\Services\Educations\Education.Domain\Education.Domain.csproj", "{EDA3EAF3-DC99-4216-881E-2EBAEC7613AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Education.Domain", "src\Services\Educations\Education.Domain\Education.Domain.csproj", "{EDA3EAF3-DC99-4216-881E-2EBAEC7613AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Education.Infrastructure", "src\Services\Educations\Education.Infrastructure\Education.Infrastructure.csproj", "{BDCE69F8-65D4-484F-95FB-EAFBC520E907}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Education.Infrastructure", "src\Services\Educations\Education.Infrastructure\Education.Infrastructure.csproj", "{BDCE69F8-65D4-484F-95FB-EAFBC520E907}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Education.Presentation", "src\Services\Educations\Education.Presentation\Education.Presentation.csproj", "{87B10C3A-C8B9-4DB3-B233-16DDE27F5C79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Education.Presentation", "src\Services\Educations\Education.Presentation\Education.Presentation.csproj", "{87B10C3A-C8B9-4DB3-B233-16DDE27F5C79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gallery", "Gallery", "{8C8B5D67-164E-4032-B964-CFD6900BE2A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gallery.Application", "..\FilesBackup\BaseProject\BaseProject.Application\Gallery.Application.csproj", "{8D1BFF54-148A-4AFF-8F11-3E004C77A05C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gallery.Domain", "..\FilesBackup\BaseProject\BaseProject.Domain\Gallery.Domain.csproj", "{769B4456-7E8A-4D97-90DE-BD4A49164263}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gallery.Infrastructure", "..\FilesBackup\BaseProject\BaseProject.Infrastructure\Gallery.Infrastructure.csproj", "{B7E4C3A5-B670-480C-949C-B29EB0B5DEFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gallery.Presentation", "..\FilesBackup\BaseProject\BaseProject.Presentation\Gallery.Presentation.csproj", "{8B8FC537-CA26-4FF7-BCF2-F233AE451B56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -138,6 +148,22 @@ Global
 		{87B10C3A-C8B9-4DB3-B233-16DDE27F5C79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87B10C3A-C8B9-4DB3-B233-16DDE27F5C79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87B10C3A-C8B9-4DB3-B233-16DDE27F5C79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D1BFF54-148A-4AFF-8F11-3E004C77A05C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1BFF54-148A-4AFF-8F11-3E004C77A05C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1BFF54-148A-4AFF-8F11-3E004C77A05C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1BFF54-148A-4AFF-8F11-3E004C77A05C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{769B4456-7E8A-4D97-90DE-BD4A49164263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{769B4456-7E8A-4D97-90DE-BD4A49164263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{769B4456-7E8A-4D97-90DE-BD4A49164263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{769B4456-7E8A-4D97-90DE-BD4A49164263}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7E4C3A5-B670-480C-949C-B29EB0B5DEFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7E4C3A5-B670-480C-949C-B29EB0B5DEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7E4C3A5-B670-480C-949C-B29EB0B5DEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7E4C3A5-B670-480C-949C-B29EB0B5DEFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B8FC537-CA26-4FF7-BCF2-F233AE451B56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B8FC537-CA26-4FF7-BCF2-F233AE451B56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B8FC537-CA26-4FF7-BCF2-F233AE451B56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B8FC537-CA26-4FF7-BCF2-F233AE451B56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,6 +191,11 @@ Global
 		{EDA3EAF3-DC99-4216-881E-2EBAEC7613AA} = {A0A5C224-63DC-4F5C-8C32-50F889DDE6D6}
 		{BDCE69F8-65D4-484F-95FB-EAFBC520E907} = {A0A5C224-63DC-4F5C-8C32-50F889DDE6D6}
 		{87B10C3A-C8B9-4DB3-B233-16DDE27F5C79} = {A0A5C224-63DC-4F5C-8C32-50F889DDE6D6}
+		{8C8B5D67-164E-4032-B964-CFD6900BE2A6} = {3DF2C425-FAD3-4DE7-8637-F3B27C5CF44D}
+		{8D1BFF54-148A-4AFF-8F11-3E004C77A05C} = {8C8B5D67-164E-4032-B964-CFD6900BE2A6}
+		{769B4456-7E8A-4D97-90DE-BD4A49164263} = {8C8B5D67-164E-4032-B964-CFD6900BE2A6}
+		{B7E4C3A5-B670-480C-949C-B29EB0B5DEFF} = {8C8B5D67-164E-4032-B964-CFD6900BE2A6}
+		{8B8FC537-CA26-4FF7-BCF2-F233AE451B56} = {8C8B5D67-164E-4032-B964-CFD6900BE2A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {147F30A1-569E-453B-92D1-B023ED71B1AC}
