@@ -4,21 +4,21 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 WORKDIR /app
-EXPOSE 8083
+EXPOSE 8084
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["src/Services/Products/Products.Presentation/Products.Presentation.csproj", "src/Services/Products/Products.Presentation/"]
-RUN dotnet restore "src/Services/Products/Products.Presentation/Products.Presentation.csproj"
+COPY ["src/Services/Gallery/Gallery.Presentation/Gallery.Presentation.csproj", "src/Services/Gallery/Gallery.Presentation/"]
+RUN dotnet restore "src/Services/Gallery/Gallery.Presentation/Gallery.Presentation.csproj"
 COPY . .
-WORKDIR "/src/src/Services/Products/Products.Presentation"
-RUN dotnet build "Products.Presentation.csproj" -c Release -o /app/build
+WORKDIR "/src/src/Services/Gallery/Gallery.Presentation"
+RUN dotnet build "Gallery.Presentation.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Products.Presentation.csproj" -c Release -o /app/publish
+RUN dotnet publish "Gallery.Presentation.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Products.Presentation.dll"]
+ENTRYPOINT ["dotnet", "Gallery.Presentation.dll"]
