@@ -52,11 +52,17 @@ namespace News.Domain.News
                {
                    Id=t.Id,
                    ImageURL = t.ImageURL,
-                   Summary = t.Summary,
-                   Title = t.Title,
+                   Summary_EN = t.Summary_EN,
+                   Title_EN = t.Title_EN,
+                   Content_EN = t.Content_EN,
+                   Summary_FA = t.Summary_FA,
+                   Title_FA = t.Title_FA,
+                   Content_FA = t.Content_FA,
+                   Summary_AR = t.Summary_AR,
+                   Title_AR = t.Title_AR,
+                   Content_AR = t.Content_AR,
                    ViewsCount = t.ViewsCount,
-                   Content = t.Content,
-                   CreationDateTime = t.CreationDateTime
+                    CreationDateTime = t.CreationDateTime
 
                }).ToListAsync();
             
