@@ -6,7 +6,6 @@ namespace Gallery.Domain.Dtos.Gallery;
 
 public class GalleryResDto : GalleryDto
 {
-    public string ServiceType { get; set; }
     public string Title_FA { get; set; }
     public string Title_EN { get; set; }
     public string Title_AR { get; set; }

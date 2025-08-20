@@ -21,13 +21,13 @@ public class UpdateGalleryCommandHandler : IRequestHandler<UpdateGalleryCommand,
     }
     public async Task<bool> Handle(UpdateGalleryCommand request, CancellationToken cancellationToken)
     {
-        var product = await _readUnitOfWork.BaseReadRepository.GetAsyncNoTracking(request.Id);
+        var product = await _readUnitOfWork.GalleryReadRepository.FetchGalleryEntityAsync(request.Id);
         if (product == null)
         {
             throw new NotFoundException(nameof(Base), request.Id);
         }
-        var updatedBase = _mapper.Map<Domain.Gallery.Models.BaseEntity>(request);
-        await _writeUnitOfWork.BaseWriteRepository.UpdateBaseAsync(updatedBase);
+        var updatedBase = _mapper.Map<Domain.Gallery.Models.GalleryEntity>(request);
+        await _writeUnitOfWork.GalleryWriteRepository.UpdateGalleryAsync(updatedBase);
         _logger.LogInformation($"Base {product.Id} is successfully updated.");
         return true;
     }

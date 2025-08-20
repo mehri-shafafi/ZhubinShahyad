@@ -1,10 +1,10 @@
-﻿using GraphQL;
+﻿using Gallery.Application.Gallery.Commands.Base.CreateGallery;
+using Gallery.Application.Gallery.Commands.Base.UpdateGallery;
+using Gallery.Domain.Dtos.Gallery;
+using GraphQL;
 using GraphQL.Types;
 using MediatR;
-using Products.Presentation.GQL.Types.Products;
-using Products.Application.Products.Commands.Product.CreateMedical;
-using Products.Application.Products.Commands.Product.UpdateProduct;
-using Products.Domain.Dtos.Products;
+using Gallery.Presentation.GQL.Types.Gallery;
 
 namespace Products.Presentation.GQL.Mutations
 {
@@ -12,14 +12,14 @@ namespace Products.Presentation.GQL.Mutations
     {
         public static void ProductMutations(this ObjectGraphType schema, IMediator mediator)
         {
-            schema.FieldAsync<ProductResType>(
+            schema.FieldAsync<GalleryResType>(
                 "addProduct",
                 "Is used to add a new product to the database",
-                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<ProductReqType>> { Name = "productInput", Description = "Product input parameter" }),
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<GalleryReqType>> { Name = "productInput", Description = "Product input parameter" }),
                 resolve: async context =>
                 {
-                    var addProduct = context.GetArgument<CreateProductCommand>("productInput");
-                    ProductResDto addProductRes = new ProductResDto();
+                    var addProduct = context.GetArgument<CreateGalleryCommand>("productInput");
+                    GalleryResDto addProductRes = new GalleryResDto();
                     try
                     {
                         addProductRes = await mediator.Send(addProduct);
@@ -37,11 +37,11 @@ namespace Products.Presentation.GQL.Mutations
             schema.FieldAsync<BooleanGraphType>(
                 "updateProduct",
                 "Is used to update a  product to the database",
-                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<ProductReqType>> { Name = "productInput", Description = "Product input parameter" }),
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<GalleryReqType>> { Name = "productInput", Description = "Product input parameter" }),
 
                 resolve: async context =>
                 {
-                    UpdateProductCommand updateProduct = context.GetArgument<UpdateProductCommand>("productInput");
+                    UpdateGalleryCommand updateProduct = context.GetArgument<UpdateGalleryCommand>("productInput");
                     bool updateProductRes;
                     try
                     {

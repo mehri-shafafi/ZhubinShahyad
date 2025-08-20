@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EventBus.Messages.Events
+﻿namespace EventBus.Messages.Events
 {
-    public class AddProductEvent:IntegrationBaseEvent
+    public class AddProductEvent : IntegrationBaseEvent
     {
         public string Name_FA { get; set; }
         public string Name_EN { get; set; }

@@ -1,17 +1,14 @@
-﻿using Products.Application.Products.Commands.Categories.Create;
-using Products.Application.Products.Commands.Product.CreateMedical;
-using Products.Domain.Products.Models;
-using Products.Infrastructure;
+﻿using Gallery.Application.Gallery.Commands.Base.CreateGallery;
+using Gallery.Domain.Gallery.Models;
+using Gallery.Infrastructure;
 using System.Reflection;
 
-namespace Products.Presentation;
+namespace Gallery.Presentation;
 
 public static class Assemblies
 {
-    public static readonly Assembly EntityAssembly = typeof(ProductEntity).Assembly;
-    public static readonly Assembly EntityCategureisAssembly = typeof(ProductCategory).Assembly;
-    public static readonly Assembly ApplicationCategureisAssembly = typeof(CreateCategoryCommand).Assembly;
-    public static readonly Assembly ApplicationProductAssembly = typeof(CreateProductCommand).Assembly;
-    public static readonly Assembly InfrastructureAssembly = typeof(ProductDbContext).Assembly;
+    public static readonly Assembly EntityAssembly = typeof(GalleryEntity).Assembly;
+    public static readonly Assembly ApplicationProductAssembly = typeof(CreateGalleryCommand).Assembly;
+    public static readonly Assembly InfrastructureAssembly = typeof(GalleryDbContext).Assembly;
 }
 
