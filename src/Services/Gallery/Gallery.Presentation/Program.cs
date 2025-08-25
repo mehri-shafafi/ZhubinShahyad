@@ -1,9 +1,8 @@
 ﻿using GraphQL.Server;
-using Products.Presentation;
-using Products.Presentation.GQL;
-using Products.Presentation.GQL.Mutations;
-using Products.Presentation.GQL.Queries;
-using static Products.Presentation.ServiceRegistery;
+using Gallery.Presentation.GQL;
+using Gallery.Presentation.GQL.Mutations;
+using Gallery.Presentation.GQL.Queries;
+using Gallery.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 

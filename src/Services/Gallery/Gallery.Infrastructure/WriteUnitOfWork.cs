@@ -1,5 +1,5 @@
 ﻿using Gallery.Domain.Repositories;
-using Gallery.Domain.UnitOfWork.Base;
+using Gallery.Domain.UnitOfWork.Gallery;
 using Gallery.Infrastructure.Gallery;
 
 namespace Gallery.Infrastructure;

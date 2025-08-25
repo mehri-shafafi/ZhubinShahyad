@@ -1,5 +1,5 @@
 ﻿using Gallery.Application.Exception;
-using Gallery.Domain.UnitOfWork.Base;
+using Gallery.Domain.UnitOfWork.Gallery;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

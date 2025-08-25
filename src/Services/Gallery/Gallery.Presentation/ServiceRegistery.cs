@@ -1,15 +1,13 @@
-﻿using EventBus.Messages.Events;
-using FluentValidation;
+﻿using FluentValidation;
+using Gallery.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Products.Application.Behaviours;
-using Products.Domain.Products.Models;
-using Products.Domain.UnitOfWork.Product;
-using Products.Infrastructure;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Gallery.Domain.UnitOfWork.Gallery;
+using Gallery.Domain.Gallery.Models;
 
-namespace Products.Presentation;
+namespace Gallery.Presentation;
 public static class ServiceRegistery
 {
     public static IServiceCollection AddServiceRegistery(this WebApplicationBuilder builder)
@@ -29,7 +27,7 @@ public static class ServiceRegistery
     public static IServiceCollection AddInfrastructureServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddAutoMapper(Assemblies.InfrastructureAssembly);
-        builder.Services.AddDbContext<ProductDbContext>(option =>
+        builder.Services.AddDbContext<GalleryDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
         builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();
         builder.Services.AddScoped<IWriteUnitOfWork, WriteUnitOfWork>();
@@ -37,12 +35,8 @@ public static class ServiceRegistery
     }
     public static IServiceCollection AddApplicationServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationCategureisAssembly);
-        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationProductAssembly);
-        builder.Services.AddMediatR(Assemblies.ApplicationProductAssembly);
-        builder.Services.AddMediatR(Assemblies.ApplicationCategureisAssembly);
-        builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
-        builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationGalleryAssembly);
+        builder.Services.AddMediatR(Assemblies.ApplicationGalleryAssembly);
 
         return builder.Services;
     }
@@ -80,9 +74,9 @@ public static class ServiceRegistery
     }
     public static class DbSeeder
     {
-        public static async Task SeedAsync(ProductDbContext context)
+        public static async Task SeedAsync(GalleryDbContext context)
         {
-            if (!context.Products.Any())
+            if (!context.Gallery.Any())
             {
                 string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string jsonPath = Path.Combine(baseDirectory, "SeedData", "ProductSeed.json");
@@ -95,53 +89,23 @@ public static class ServiceRegistery
                 {
                     PropertyNameCaseInsensitive = true
                 };
-                var products = JsonSerializer.Deserialize<List<ProductEntity>>(json, options);
+                var result = JsonSerializer.Deserialize<List<GalleryEntity>>(json, options);
 
 
-                if (products is not null)
+                if (result is not null)
                 {
-                    foreach (var product in products)
+                    foreach (var product in result)
                     {
                         product.CreationDateTime = DateTime.UtcNow;
                         product.ModificationDateTime = DateTime.UtcNow;
-                        context.Products.Add(product);
+                        context.Gallery.Add(product);
                     }
 
                     await context.SaveChangesAsync();
                 }
             }
         }
-        public static async Task SeedCategoryAsync(ProductDbContext context)
-        {
-            if (!context.ProductCategory.Any())
-            {
-                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string jsonPath = Path.Combine(baseDirectory, "SeedData", "CategorySeed.json");
-
-                if (!File.Exists(jsonPath))
-                    throw new FileNotFoundException($"Seed file not found: {jsonPath}");
-
-                string json = File.ReadAllText(jsonPath);
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
-                var products = JsonSerializer.Deserialize<List<ProductCategory>>(json, options);
-
-
-                if (products is not null)
-                {
-                    foreach (var product in products)
-                    {
-                        product.CreationDateTime = DateTime.UtcNow;
-                        product.ModificationDateTime = DateTime.UtcNow;
-                        context.ProductCategory.Add(product);
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-            }
-        }
+      
     }
 
 }

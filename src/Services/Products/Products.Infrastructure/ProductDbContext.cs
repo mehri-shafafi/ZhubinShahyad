@@ -20,6 +20,7 @@ public class ProductDbContext : DbContext
         modelBuilder.ApplyConfiguration(new ProductCategory.ProductCategoryConfiguration());
         modelBuilder.ApplyConfiguration(new ProductBrand.ProductBrandConfiguration());
     }
+
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var entries = ChangeTracker.Entries<BaseEntity<Guid>>()

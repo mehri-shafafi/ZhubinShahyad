@@ -16,6 +16,7 @@ public class GalleryDbContext : DbContext
     {
         modelBuilder.ApplyConfiguration(new GalleryEntity.GalleryConfiguration());
     }
+
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var entries = ChangeTracker.Entries<GalleryEntity>()

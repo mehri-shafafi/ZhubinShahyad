@@ -1,5 +1,5 @@
-﻿using Gallery.Domain.BaseProject.Repositories;
-using Gallery.Domain.Gallery.Models;
+﻿using Gallery.Domain.Gallery.Models;
+using Gallery.Domain.Repositories;
 using Gallery.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +21,6 @@ namespace Gallery.Domain.Menu
         {
             return await _dbContext.Gallery.FirstOrDefaultAsync(p => p.Id == id);
         }
-       
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Gallery.Domain.Gallery.Models;
 
-namespace Gallery.Domain.BaseProject.Repositories
+namespace Gallery.Domain.Repositories
 {
     public interface IGalleryReadRepository
     {

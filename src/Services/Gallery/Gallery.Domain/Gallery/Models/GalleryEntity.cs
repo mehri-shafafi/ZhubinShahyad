@@ -4,9 +4,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Text.Json;
 
 namespace Gallery.Domain.Gallery.Models;
-public class GalleryEntity : BaseEntity
+public class GalleryEntity : BaseEntity<int>
 {
-    public int Id { get; set; }        
     public string Title_FA { get; set; }       
     public string Title_EN { get; set; }        
     public string Title_AR { get; set; }      

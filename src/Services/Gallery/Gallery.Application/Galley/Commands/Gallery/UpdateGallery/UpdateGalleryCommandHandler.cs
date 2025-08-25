@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Gallery.Application.Exception;
-using Gallery.Domain.UnitOfWork.Base;
+using Gallery.Domain.UnitOfWork.Gallery;
 namespace Gallery.Application.Gallery.Commands.Base.UpdateGallery;
 
 public class UpdateGalleryCommandHandler : IRequestHandler<UpdateGalleryCommand, bool>

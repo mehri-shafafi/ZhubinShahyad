@@ -5,9 +5,9 @@ using MediatR;
 
 namespace Gallery.Presentation.GQL.Queries
 {
-    public static class GalleryQueries
+    public static class GalleriesQueries
     {
-        public static void ProductQueries(this ObjectGraphType schema, IMediator mediator)
+        public static void GalleryQueries(this ObjectGraphType schema, IMediator mediator)
         {
             schema.Field<ListGraphType<GalleryResType>>(
                 "getProducts",

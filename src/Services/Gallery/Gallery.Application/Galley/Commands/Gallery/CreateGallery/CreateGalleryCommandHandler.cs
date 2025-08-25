@@ -2,10 +2,10 @@
 using Gallery.Application.Gallery.Commands.Base.CreateGallery;
 using Gallery.Domain.Dtos.Gallery;
 using Gallery.Domain.Gallery.Models;
-using Gallery.Domain.UnitOfWork.Base;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using EventBus.Messages.Events.Gallery;
+using Gallery.Domain.UnitOfWork.Gallery;
 
 
 namespace Gallery.Application.Gallery.Commands.Base.CreateMedical;

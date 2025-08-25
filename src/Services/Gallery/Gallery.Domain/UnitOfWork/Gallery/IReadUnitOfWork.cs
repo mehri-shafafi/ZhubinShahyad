@@ -1,6 +1,6 @@
-﻿using Gallery.Domain.BaseProject.Repositories;
+﻿using Gallery.Domain.Repositories;
 
-namespace Gallery.Domain.UnitOfWork.Base
+namespace Gallery.Domain.UnitOfWork.Gallery
 {
     public interface IReadUnitOfWork
     {

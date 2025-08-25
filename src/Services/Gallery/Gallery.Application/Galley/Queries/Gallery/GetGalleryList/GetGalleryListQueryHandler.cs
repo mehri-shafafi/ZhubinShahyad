@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using Gallery.Application.Gallery.Queries.GetGalleryList;
 using Gallery.Domain.Dtos.Gallery;
-using Gallery.Domain.UnitOfWork.Base;
+using Gallery.Domain.UnitOfWork.Gallery;
 using MediatR;
 namespace Gallery.Application.Gallery.Queries.GetGalleryList
 {

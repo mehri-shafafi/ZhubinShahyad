@@ -1,6 +1,6 @@
-﻿using Gallery.Domain.BaseProject.Repositories;
-using Gallery.Domain.Menu;
-using Gallery.Domain.UnitOfWork.Base;
+﻿using Gallery.Domain.Menu;
+using Gallery.Domain.Repositories;
+using Gallery.Domain.UnitOfWork.Gallery;
 
 namespace Gallery.Infrastructure;
 
