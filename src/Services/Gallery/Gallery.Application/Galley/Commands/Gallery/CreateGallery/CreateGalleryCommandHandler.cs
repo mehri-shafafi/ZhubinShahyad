@@ -33,9 +33,6 @@ public class CreateBaseCommandHandler : IRequestHandler<CreateGalleryCommand, Ga
 
         var addBaseEvent = new AddGalleryEvent
         {
-            Title_FA = addedBase.Title_FA,
-            Title_EN = addedBase.Title_EN,
-            Title_AR = addedBase.Title_AR,
             ImageUrl = addedBase.ImageUrl,
             CreationDateTime = addedBase.CreationDateTime,
             ModificationDateTime = addedBase.ModificationDateTime,

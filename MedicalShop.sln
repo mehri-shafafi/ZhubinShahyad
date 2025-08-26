@@ -28,6 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		src\Services\Products\Products.Presentation\Dockerfile = src\Services\Products\Products.Presentation\Dockerfile
 		src\Services\News\News.Presentation\Dockerfile = src\Services\News\News.Presentation\Dockerfile
 		src\Services\Educations\Education.Presentation\Dockerfile = src\Services\Educations\Education.Presentation\Dockerfile
+		src\Services\Gallery\Gallery.Presentation\Dockerfile = src\Services\Gallery\Gallery.Presentation\Dockerfile
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "News", "News", "{53743EB8-0281-4140-B574-C512225920CB}"

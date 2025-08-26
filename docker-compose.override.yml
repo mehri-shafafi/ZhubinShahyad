@@ -43,3 +43,9 @@ services:
     ports:
       - "10002:8081"
 
+  gallery.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "1000:8084"
+
