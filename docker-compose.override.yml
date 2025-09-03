@@ -47,5 +47,5 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "1000:8084"
+      - "10004:8084"
 

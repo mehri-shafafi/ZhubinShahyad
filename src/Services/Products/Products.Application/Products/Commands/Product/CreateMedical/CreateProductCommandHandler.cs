@@ -42,7 +42,6 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
             CategoryId = addedProduct.CategoryId,
             StockQuantity = addedProduct.StockQuantity,
             SKU = addedProduct.SKU,
-            ImageURL = addedProduct.ImageURL,
             Warranty = addedProduct.Warranty,
             Rating = addedProduct.Rating,
         };

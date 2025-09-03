@@ -28,7 +28,7 @@ builder.AddMessagingConfiguration();
 builder.Services.AddScoped<AppMutations>();
 builder.Services.AddScoped<AppQueries>();
 builder.Services.AddScoped<AppSchema>();
-builder.WebHost.UseUrls("http://*:8083");
+builder.WebHost.UseUrls("http://*:8084");
 
 builder.Services.AddGraphQL().AddSystemTextJson();
 builder.Services.AddEndpointsApiExplorer();

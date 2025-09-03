@@ -164,10 +164,6 @@ namespace Products.Infrastructure.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
-                    b.Property<string>("ImageURL")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
                     b.Property<DateTime>("ModificationDateTime")
                         .HasColumnType("datetime2");
 
@@ -218,6 +214,43 @@ namespace Products.Infrastructure.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("Products.Domain.Products.Models.ProductImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreationDateTimeShamsi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<DateTime>("ModificationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModificationDateTimeShamsi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages", (string)null);
+                });
+
             modelBuilder.Entity("Products.Domain.Products.Models.ProductEntity", b =>
                 {
                     b.HasOne("Products.Domain.Products.Models.ProductBrand", "ProductBrand")
@@ -233,6 +266,17 @@ namespace Products.Infrastructure.Migrations
                     b.Navigation("ProductBrand");
                 });
 
+            modelBuilder.Entity("Products.Domain.Products.Models.ProductImages", b =>
+                {
+                    b.HasOne("Products.Domain.Products.Models.ProductEntity", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Products.Domain.Products.Models.ProductBrand", b =>
                 {
                     b.Navigation("Products");
@@ -241,6 +285,11 @@ namespace Products.Infrastructure.Migrations
             modelBuilder.Entity("Products.Domain.Products.Models.ProductCategory", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Products.Domain.Products.Models.ProductEntity", b =>
+                {
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

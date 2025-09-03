@@ -18,7 +18,6 @@ public class ProductEntity : BaseEntity
     public int? CategoryId { get; set; }
     public string StockQuantity { get; set; }
     public string SKU { get; set; }
-    public string ImageURL { get; set; }
     public string CatalogURL { get; set; }
     public string catalog_cover_image_url { get; set; }
     public string Warranty { get; set; }
@@ -27,7 +26,7 @@ public class ProductEntity : BaseEntity
     // روابط
     public ProductBrand ProductBrand { get; set; } // رابطه با برند
     public ProductCategory Category { get; set; } // رابطه با دسته‌بندی
-    public ProductImages ProductImages { get; set; } // رابطه با دسته‌بندی
+    public ICollection<ProductImages> Images { get; set; } = new List<ProductImages>();
 
     public class ProductConfiguration : IEntityTypeConfiguration<ProductEntity>
     {
@@ -43,7 +42,6 @@ public class ProductEntity : BaseEntity
             builder.Property(p => p.Price).HasColumnType("decimal(18,2)");
             builder.Property(p => p.StockQuantity);
             builder.Property(p => p.SKU).HasMaxLength(100);
-            builder.Property(p => p.ImageURL).HasMaxLength(300);
             builder.Property(p => p.CatalogURL).HasMaxLength(300);
             builder.Property(p => p.catalog_cover_image_url).HasMaxLength(300);
             builder.Property(p => p.Warranty).HasMaxLength(200);
@@ -60,30 +58,14 @@ public class ProductEntity : BaseEntity
                    .WithMany(b => b.Products)
                    .HasForeignKey(p => p.BrandId)
                    .IsRequired(false);
-        //   builder.HasData(SeedProducts());
-            // تنظیم رابطه با برند
-            builder.HasOne(p => p.ProductImages)
-                   .WithMany(b => b.Products)
-                   .HasForeignKey(p => p.Id)
-                   .IsRequired(false);
-        //   builder.HasData(SeedProducts());
-        }
-      
-        private List<ProductEntity> SeedProducts()
-        {
-            var categories = new List<ProductEntity>();
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string categorySeedPath = Path.Combine(baseDirectory, "SeedData", "ProductSeed.json");
+            //   builder.HasData(SeedProducts());
 
-            if (!File.Exists(categorySeedPath))
-            {
-                throw new FileNotFoundException($"Seed file not found: {categorySeedPath}");
-            }
+            builder.HasMany(p => p.Images)
+             .WithOne(i => i.Product)
+             .HasForeignKey(i => i.ProductId)
+             .OnDelete(DeleteBehavior.Cascade);
 
-            string json = File.ReadAllText(categorySeedPath);
-            categories = JsonSerializer.Deserialize<List<ProductEntity>>(json) ?? new List<ProductEntity>();
-
-            return categories;
         }
     }
+
 }

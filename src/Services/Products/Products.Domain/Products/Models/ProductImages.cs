@@ -16,11 +16,14 @@ namespace Products.Domain.Products.Models
         public int SortOrder { get; set; }
         // Navigation Property
         // Navigation Property
-        public ICollection<ProductEntity> Products { get; set; }
+        // Navigation Property (یک عکس متعلق به یک محصول است)
+        public ProductEntity Product { get; set; }
         public class ProductImagesConfiguration : IEntityTypeConfiguration<ProductImages>
         {
             public void Configure(EntityTypeBuilder<ProductImages> builder)
             {
+                builder.ToTable("ProductImages");
+
                 //builder.HasKey(x => x.Id);
                 builder.Property(p => p.ProductId).IsRequired();
                 builder.Property(p => p.ImageUrl).HasMaxLength(2000);

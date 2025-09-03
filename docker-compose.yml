@@ -33,3 +33,8 @@
         build:
           context: .
           dockerfile: src/Services/Educations/Education.Presentation/Dockerfile
+      gallery.api:
+        image: "${DOCKER_REGISTRY:-galloeryapi}"
+        build:
+          context: .
+          dockerfile: src/Services/Gallery/Gallery.Presentation/Dockerfile
