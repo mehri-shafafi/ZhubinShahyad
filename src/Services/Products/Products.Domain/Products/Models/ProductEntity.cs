@@ -27,6 +27,7 @@ public class ProductEntity : BaseEntity
     // روابط
     public ProductBrand ProductBrand { get; set; } // رابطه با برند
     public ProductCategory Category { get; set; } // رابطه با دسته‌بندی
+    public ProductImages ProductImages { get; set; } // رابطه با دسته‌بندی
 
     public class ProductConfiguration : IEntityTypeConfiguration<ProductEntity>
     {
@@ -58,6 +59,12 @@ public class ProductEntity : BaseEntity
             builder.HasOne(p => p.ProductBrand)
                    .WithMany(b => b.Products)
                    .HasForeignKey(p => p.BrandId)
+                   .IsRequired(false);
+        //   builder.HasData(SeedProducts());
+            // تنظیم رابطه با برند
+            builder.HasOne(p => p.ProductImages)
+                   .WithMany(b => b.Products)
+                   .HasForeignKey(p => p.Id)
                    .IsRequired(false);
         //   builder.HasData(SeedProducts());
         }

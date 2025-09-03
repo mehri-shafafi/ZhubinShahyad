@@ -14,11 +14,13 @@ public class ProductDbContext : DbContext
     public DbSet<ProductEntity> Products { get; set; }
     public DbSet<ProductCategory> ProductCategory { get; set; }
     public DbSet<ProductBrand> Brands { get; set; }
+    public DbSet<ProductImages> ProductImages { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new ProductEntity.ProductConfiguration());
         modelBuilder.ApplyConfiguration(new ProductCategory.ProductCategoryConfiguration());
         modelBuilder.ApplyConfiguration(new ProductBrand.ProductBrandConfiguration());
+        modelBuilder.ApplyConfiguration(new ProductImages.ProductImagesConfiguration());
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
