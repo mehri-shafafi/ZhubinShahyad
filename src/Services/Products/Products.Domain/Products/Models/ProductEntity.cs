@@ -32,7 +32,7 @@ public class ProductEntity : BaseEntity
     {
         public void Configure(EntityTypeBuilder<ProductEntity> builder)
         {
-            //builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);
             builder.Property(p => p.Name_AR).HasMaxLength(200);
             builder.Property(p => p.Description_AR).HasMaxLength(2000);
             builder.Property(p => p.Name_EN).HasMaxLength(200);

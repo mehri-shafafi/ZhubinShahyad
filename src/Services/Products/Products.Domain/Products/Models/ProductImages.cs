@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Products.Domain.Products.Models
 {
-    public class ProductImages : BaseEntity<int>
+    public class ProductImages : BaseEntity
     {
         public int ProductId { get; set; }
         public string ImageUrl { get; set; } = default!;
@@ -22,7 +22,7 @@ namespace Products.Domain.Products.Models
             {
                 builder.ToTable("ProductImages");
 
-                builder.HasKey(x => x.Id);
+                //builder.HasKey(x => x.Id);
                 builder.Property(p => p.ProductId).IsRequired();
                 builder.Property(p => p.ImageUrl).HasMaxLength(2000);
                 builder.Property(p => p.SortOrder).IsRequired();
