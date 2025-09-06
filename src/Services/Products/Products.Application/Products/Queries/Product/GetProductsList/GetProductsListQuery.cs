@@ -4,7 +4,7 @@ using Products.Domain.Dtos.Products;
 
 namespace Products.Application.Products.Queries.Product.GetProductsList
 {
-    public class GetProductsListQuery : ProductFilterPageReqDto, IRequest<List<ProductResDto>>
+    public class GetProductsListQuery : ProductFilterPageReqDto, IRequest<List<ProductDto>>
     {
 
     }

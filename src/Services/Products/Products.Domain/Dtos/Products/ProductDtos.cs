@@ -26,12 +26,17 @@ public class ProductDto : BaseEntity<int>
     public string Description_AR { get; set; }
     public decimal Price { get; set; }
     public int? BrandId { get; set; }
+    public string BrandName { get; set; }
     public int? CategoryId { get; set; }
-    public string StockQuantity { get; set; }
+    public string CategoryName_FA { get; set; }
+    public string CategoryName_EN { get; set; }
+    public string CategoryName_AR { get; set; }
+    public int StockQuantity { get; set; }
     public string SKU { get; set; }
-    public string ImageURL { get; set; }
+    public List<string> ImageUrls { get; set; }
+    public int ProductId { get; set; }
     public string CatalogURL { get; set; }
-    public string catalog_cover_image_url { get; set; }
+    public string CatalogCoverImageUrl { get; set; }
         public string Warranty { get; set; }
     public int Rating { get; set; }
 

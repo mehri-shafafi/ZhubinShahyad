@@ -15,13 +15,13 @@ namespace Products.Presentation.GQL.Types.Products
             Field(x => x.Description_EN, type: typeof(StringGraphType));
             Field(x => x.Description_AR, type: typeof(StringGraphType));
             Field(x => x.Description_FA, type: typeof(StringGraphType));
-            Field(x => x.ImageURL, type: typeof(StringGraphType));
+            Field(x => x.ImageUrls, type: typeof(StringGraphType));
             Field(x => x.Price, type: typeof(DecimalGraphType));
             Field(x => x.BrandId, type: typeof(IntGraphType));
             Field(x => x.CategoryId, type: typeof(IntGraphType));
             Field(x => x.StockQuantity, type: typeof(BooleanGraphType));
             Field(x => x.SKU, type: typeof(StringGraphType));
-            Field(x => x.ImageURL, type: typeof(IntGraphType));
+            Field(x => x.ImageUrls, type: typeof(IntGraphType));
             Field(x => x.Warranty, type: typeof(IntGraphType));
             Field(x => x.Rating, type: typeof(IntGraphType));
         }

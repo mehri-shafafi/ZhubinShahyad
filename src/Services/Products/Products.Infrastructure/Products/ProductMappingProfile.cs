@@ -7,10 +7,27 @@ namespace Products.Infrastructure.Products
     {
         public ProductMappingProfile()
         {
+            // اگر می‌خوای برای Create/Update از ProductReqDto استفاده کنی
             CreateMap<ProductEntity, ProductReqDto>().ReverseMap();
-            CreateMap<ProductEntity, ProductResDto>().ForMember(dest => dest.CategoryTitle_Id,
-                config =>
-                    config.MapFrom(src => $"{src.Category.Id}({src.CategoryId})")).ReverseMap();
+
+            CreateMap<ProductEntity, ProductDto>()
+     .ForMember(dest => dest.BrandName,
+         opt => opt.MapFrom(src => src.ProductBrand != null ? src.ProductBrand.Name : null))
+     .ForMember(dest => dest.CategoryName_FA,
+         opt => opt.MapFrom(src => src.Category != null ? src.Category.Name_FA : null))
+     .ForMember(dest => dest.CategoryName_EN,
+         opt => opt.MapFrom(src => src.Category != null ? src.Category.Name_EN : null))
+     .ForMember(dest => dest.CategoryName_AR,
+         opt => opt.MapFrom(src => src.Category != null ? src.Category.Name_AR : null))
+     .ForMember(dest => dest.ImageUrls,
+         opt => opt.MapFrom(src => src.Images != null
+             ? src.Images.Select(i => i.ImageUrl).ToList()
+             : new List<string>()))
+     .ForMember(dest => dest.ProductId,
+         opt => opt.MapFrom(src => src.Id))
+     .ForMember(dest => dest.CatalogCoverImageUrl,
+         opt => opt.MapFrom(src => src.catalog_cover_image_url))
+     .ReverseMap();
         }
     }
 }

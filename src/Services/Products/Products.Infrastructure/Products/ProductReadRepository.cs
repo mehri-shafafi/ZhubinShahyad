@@ -33,7 +33,13 @@ namespace Products.Domain.Menu
         }
         public async Task<List<ProductEntity>> FetchAllProductEntityAsync()
         {
-            var result= await _dbContext.Products.ToListAsync();
+            //var result = await _dbContext.Products.ToListAsync();
+            var result = await _dbContext.Products
+                                .Include(p => p.Images)      // جوین به جدول تصاویر محصول
+                                .Include(p => p.ProductBrand)             // جوین به برند
+                                .Include(p => p.Category)          // جوین به دسته‌بندی
+                                .ToListAsync();
+
             return result;
         }
         public async Task<ProductEntity> FetchProductEntityAsync(int id)

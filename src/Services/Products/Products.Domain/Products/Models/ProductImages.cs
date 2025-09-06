@@ -22,10 +22,11 @@ namespace Products.Domain.Products.Models
             {
                 builder.ToTable("ProductImages");
 
-                //builder.HasKey(x => x.Id);
+                builder.HasKey(x => x.Id);
                 builder.Property(p => p.ProductId).IsRequired();
                 builder.Property(p => p.ImageUrl).HasMaxLength(2000);
                 builder.Property(p => p.SortOrder).IsRequired();
+
 
             }
         }

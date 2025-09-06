@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Products.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class productinitdb : Migration
+    public partial class productinit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Brands",
+                name: "ProductBrands",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -27,11 +27,11 @@ namespace Products.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Brands", x => x.Id);
+                    table.PrimaryKey("PK_ProductBrands", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductCategory",
+                name: "ProductCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -53,7 +53,7 @@ namespace Products.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductCategory", x => x.Id);
+                    table.PrimaryKey("PK_ProductCategories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,8 +73,8 @@ namespace Products.Infrastructure.Migrations
                     CategoryId = table.Column<int>(type: "int", nullable: true),
                     StockQuantity = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SKU = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ImageURL = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     CatalogURL = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    catalog_cover_image_url = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     Warranty = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Rating = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -86,16 +86,46 @@ namespace Products.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Brands_BrandId",
+                        name: "FK_Products_ProductBrands_BrandId",
                         column: x => x.BrandId,
-                        principalTable: "Brands",
+                        principalTable: "ProductBrands",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Products_ProductCategory_CategoryId",
+                        name: "FK_Products_ProductCategories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "ProductCategory",
+                        principalTable: "ProductCategories",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateTable(
+                name: "ProductImages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    SortOrder = table.Column<int>(type: "int", nullable: false),
+                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModificationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreationDateTimeShamsi = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModificationDateTimeShamsi = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductImages_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductImages_ProductId",
+                table: "ProductImages",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_BrandId",
@@ -112,13 +142,16 @@ namespace Products.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ProductImages");
+
+            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Brands");
+                name: "ProductBrands");
 
             migrationBuilder.DropTable(
-                name: "ProductCategory");
+                name: "ProductCategories");
         }
     }
 }

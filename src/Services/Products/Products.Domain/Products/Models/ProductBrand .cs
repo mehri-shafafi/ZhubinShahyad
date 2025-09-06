@@ -15,6 +15,7 @@ namespace Products.Domain.Products.Models
         {
             public void Configure(EntityTypeBuilder<ProductBrand> builder)
             {
+                builder.ToTable("ProductBrands");
                 builder.HasKey(x => x.Id);
                 builder.Property(p => p.Name).IsRequired().HasMaxLength(200);
                 builder.Property(p => p.LogoURL).IsRequired().HasMaxLength(200);

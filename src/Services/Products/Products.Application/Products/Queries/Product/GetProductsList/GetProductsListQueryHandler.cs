@@ -5,7 +5,7 @@ using Products.Domain.Dtos.Products;
 using Products.Domain.UnitOfWork.Product;
 namespace Products.Application.Products.Queries.Product.GetProductsList
 {
-    internal class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuery, List<ProductResDto>>
+    internal class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuery, List<ProductDto>>
     {
 
         private readonly IReadUnitOfWork _readUnitOfWork;
@@ -16,12 +16,12 @@ namespace Products.Application.Products.Queries.Product.GetProductsList
             _readUnitOfWork = readUnitOfWork;
             _mapper = mapper;
         }
-        public async Task<List<ProductResDto>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
+        public async Task<List<ProductDto>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
         {
             var result = await _readUnitOfWork.ProductReadRepository.FetchAllProductEntityAsync();
    
 
-            var resultDto= _mapper.Map<List<ProductResDto>>(result);
+            var resultDto= _mapper.Map<List<ProductDto>>(result);
             return resultDto;
         }
     }
