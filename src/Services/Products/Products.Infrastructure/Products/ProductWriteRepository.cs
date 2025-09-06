@@ -19,7 +19,7 @@ namespace Products.Infrastructure.Products
         }
         public async Task<ProductCategory?> UpdateProductCategoriesAsync(ProductCategory productCategory)
         {
-            var existing = await _dbContext.ProductCategory.FindAsync(productCategory.Id);
+            var existing = await _dbContext.ProductCategories.FindAsync(productCategory.Id);
             if (existing == null) return null;
 
             var entry = _dbContext.Entry(existing);
@@ -40,7 +40,7 @@ namespace Products.Infrastructure.Products
 
         public async Task DeleteProductCategoriesAsync(ProductCategory ProductCategory)
         {
-            var entity = await _dbContext.ProductCategory.FindAsync(ProductCategory.Id);
+            var entity = await _dbContext.ProductCategories.FindAsync(ProductCategory.Id);
             if (entity == null)
                 throw new Exception("ProductCategory not found");
             entity.Active = false;

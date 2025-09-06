@@ -16,11 +16,11 @@ namespace Products.Domain.Menu
 
         public async Task<List<ProductCategory>> FetchAllProductCategoryAsync()
         {
-            return await _dbContext.ProductCategory.Include(p => p.Products).ToListAsync();
+            return await _dbContext.ProductCategories.Include(p => p.Products).ToListAsync();
         }
         public async Task<ProductCategory> FetchProductCategoryAsync(int id)
         {
-            return await _dbContext.ProductCategory.FirstOrDefaultAsync(p => p.Id == id);
+            return await _dbContext.ProductCategories.FirstOrDefaultAsync(p => p.Id == id);
         }
         public async Task<List<ProductBrand>> FetchAllProductBrandAsync()
         {

@@ -113,7 +113,7 @@ public static class ServiceRegistery
         }
         public static async Task SeedCategoryAsync(ProductDbContext context)
         {
-            if (!context.ProductCategory.Any())
+            if (!context.ProductCategories.Any())
             {
                 string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string jsonPath = Path.Combine(baseDirectory, "SeedData", "CategorySeed.json");
@@ -135,7 +135,7 @@ public static class ServiceRegistery
                     {
                         product.CreationDateTime = DateTime.UtcNow;
                         product.ModificationDateTime = DateTime.UtcNow;
-                        context.ProductCategory.Add(product);
+                        context.ProductCategories.Add(product);
                     }
 
                     await context.SaveChangesAsync();
