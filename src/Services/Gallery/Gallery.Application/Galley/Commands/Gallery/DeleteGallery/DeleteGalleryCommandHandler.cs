@@ -21,13 +21,13 @@ public class DeleteGalleryCommandHandler : IRequestHandler<DeleteGalleryCommand,
     }
     public async Task<bool> Handle(DeleteGalleryCommand request, CancellationToken cancellationToken)
     {
-        var product = await _readUnitOfWork.GalleryReadRepository.FetchGalleryEntityAsync(request.Id);
-        if (product == null)
+        var result = await _readUnitOfWork.GalleryReadRepository.FetchGalleryEntityAsync(request.Id);
+        if (result == null)
         {
             throw new NotFoundException("Base", request.Id);
         }
 
-        await _writeUnitOfWork.GalleryWriteRepository.DeleteBrandAsync(product);
+        await _writeUnitOfWork.GalleryWriteRepository.DeleteAsync(result);
 
         return true;
 

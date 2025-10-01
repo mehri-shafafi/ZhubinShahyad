@@ -24,12 +24,12 @@ public class GalleryReqDto : GalleryDto
 }
 
 public class GalleryDto : BaseEntity<int>
-{
-    public int Id { get; set; }           
+{         
     public string ServiceType { get; set; }   
     public string Title_FA { get; set; }       
     public string Title_EN { get; set; }       
     public string Title_AR { get; set; }        
     public string ImageUrl { get; set; }
+    public int CategoriesGalleryId { get; set; }
 
 }

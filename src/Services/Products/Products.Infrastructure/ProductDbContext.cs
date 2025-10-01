@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Products.Domain.Base;
-using Products.Domain.Products.Models;
+using Products.Domain.Products.Entity;
 
 
 namespace Products.Infrastructure;

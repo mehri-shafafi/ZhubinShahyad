@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Products.Application.Dtos.Products;
 using Products.Application.Products.Commands.Categories.Create;
 using Products.Application.Products.Commands.Categories.Delete;
 using Products.Application.Products.Commands.Categories.Update;
 using Products.Application.Products.Queries.Product.GetCateguriesList;
-using Products.Domain.Dtos.Products;
 
 namespace Products.Presentation.Controllers
 {

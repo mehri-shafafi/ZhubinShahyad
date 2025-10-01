@@ -1,4 +1,5 @@
-﻿using Gallery.Domain.Gallery.Models;
+﻿using Gallery.Domain.Dtos.Gallery;
+using Gallery.Domain.Gallery.Models;
 
 namespace Gallery.Domain.Repositories
 {
@@ -6,8 +7,8 @@ namespace Gallery.Domain.Repositories
     {
 
         #region
-        Task<List<GalleryEntity>> FetchAllGalleryEntityAsync();
-        Task<GalleryEntity> FetchGalleryEntityAsync(int id);
+        Task<List<GalleryDto>> FetchAllGalleryEntityAsync();
+        Task<GalleryDto> FetchGalleryEntityAsync(int id);
         #endregion
     }
 }

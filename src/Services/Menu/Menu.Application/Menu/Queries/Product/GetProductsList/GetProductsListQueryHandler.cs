@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using Menus.Domain.Base;
-using Menus.Domain.Dtos.Menu;
+using Menus.Application.Dtos.Menu;
 using Menus.Domain.UnitOfWork.Menu;
 namespace Menus.Application.Menus.Queries.Menu.GetMenusList
 {

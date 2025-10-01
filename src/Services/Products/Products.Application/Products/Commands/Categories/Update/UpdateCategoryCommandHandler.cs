@@ -27,7 +27,7 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
         {
             throw new NotFoundException(nameof(Product), request.Id);
         }
-        var updatedProduct = _mapper.Map<Domain.Products.Models.ProductCategory>(request);
+        var updatedProduct = _mapper.Map<Domain.Products.Models.ProductCategoryModel>(request);
         await _writeUnitOfWork.ProductWriteRepository.UpdateProductCategoriesAsync(updatedProduct);
         _logger.LogInformation($"Product {product.Id} is successfully updated.");
         return true;

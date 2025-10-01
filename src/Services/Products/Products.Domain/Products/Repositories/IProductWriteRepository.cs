@@ -5,20 +5,20 @@ namespace Products.Domain.Products.Repositories
     public interface IProductWriteRepository
     {
         #region 
-        Task<ProductCategory> AddProductCategoriesAsync(ProductCategory ProductCategory);
-        Task<ProductCategory> UpdateProductCategoriesAsync(ProductCategory ProductCategory);
-        Task DeleteProductCategoriesAsync(ProductCategory ProductCategory);
+        Task<ProductCategoryModel> AddProductCategoriesAsync(ProductCategoryModel ProductCategory);
+        Task<ProductCategoryModel> UpdateProductCategoriesAsync(ProductCategoryModel ProductCategory);
+        Task DeleteProductCategoriesAsync(ProductCategoryModel ProductCategory);
         #endregion
         #region 
-        Task<ProductEntity> AddProductAsync(ProductEntity productEntity);
-        Task<ProductEntity> UpdateProductAsync(ProductEntity productEntity);
-        Task DeleteProductAsync(ProductEntity productEntity);
+        Task<ProductModel> AddProductAsync(ProductModel productEntity);
+        Task<ProductModel> UpdateProductAsync(ProductModel productEntity);
+        Task DeleteProductAsync(ProductModel productEntity);
 
         #endregion
         #region 
-        Task<ProductBrand> AddBrandAsync(ProductBrand ProductBrand);
-        Task<ProductBrand> UpdateBrandAsync(ProductBrand ProductBrand);
-        Task DeleteBrandAsync(ProductBrand ProductBrand);
+        Task<ProductBrandModel> AddBrandAsync(ProductBrandModel ProductBrand);
+        Task<ProductBrandModel> UpdateBrandAsync(ProductBrandModel ProductBrand);
+        Task DeleteBrandAsync(ProductBrandModel ProductBrand);
         #endregion
 
     }

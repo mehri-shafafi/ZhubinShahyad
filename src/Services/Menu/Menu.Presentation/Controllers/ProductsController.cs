@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
+using Menus.Application.Dtos.Menu;
 using Menus.Application.Menu.Commands.Menu.Create;
 using Menus.Application.Menus.Commands.Menu.DeleteMedical;
 using Menus.Application.Menus.Commands.Menu.UpdateMenu;
 using Menus.Application.Menus.Queries.Menu.GetMenusList;
-using Menus.Domain.Dtos.Menu;
 using Microsoft.AspNetCore.Mvc;
 using Products.Domain.Base;
 

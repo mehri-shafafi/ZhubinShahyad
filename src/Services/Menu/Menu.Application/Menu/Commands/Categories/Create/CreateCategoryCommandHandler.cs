@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using Menus.Domain.Dtos.Menu;
+using Menus.Application.Dtos.Menu;
 using Menus.Domain.Menu.Models;
 using Menus.Domain.UnitOfWork.Menu;
 using Microsoft.Extensions.Logging;

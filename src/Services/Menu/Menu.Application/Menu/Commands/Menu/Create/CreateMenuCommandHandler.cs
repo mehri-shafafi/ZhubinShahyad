@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using Menus.Domain.Dtos.Menu;
+using Menus.Application.Dtos.Menu;
 using Menus.Domain.Menu.Models;
 using Menus.Domain.UnitOfWork.Menu;
 using Microsoft.Extensions.Logging;
@@ -14,7 +14,7 @@ public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, MenuR
     private readonly ILogger<CreateMenuCommandHandler> _logger;
 
 
-    public CreateMenuCommandHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper,  ILogger<CreateMenuCommandHandler> logger)
+    public CreateMenuCommandHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper, ILogger<CreateMenuCommandHandler> logger)
     {
         _writeUnitOfWork = writeUnitOfWork;
         _mapper = mapper;

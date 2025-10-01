@@ -22,7 +22,7 @@ namespace Gallery.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Gallery.Domain.Gallery.Models.GalleryEntity", b =>
+            modelBuilder.Entity("Gallery.Domain.Gallery.Models.CategoriesGallery", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,7 +36,54 @@ namespace Gallery.Infrastructure.Migrations
                     b.Property<string>("CreationDateTimeShamsi")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Desc_AR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Desc_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Desc_FA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModificationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModificationDateTimeShamsi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title_AR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title_FA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CategoriesGallery");
+                });
+
+            modelBuilder.Entity("Gallery.Domain.Gallery.Models.GalleryEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoriesGalleryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreationDateTimeShamsi")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
@@ -46,21 +93,27 @@ namespace Gallery.Infrastructure.Migrations
                     b.Property<string>("ModificationDateTimeShamsi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title_AR")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Title_EN")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Title_FA")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoriesGalleryId");
+
                     b.ToTable("Gallery");
+                });
+
+            modelBuilder.Entity("Gallery.Domain.Gallery.Models.GalleryEntity", b =>
+                {
+                    b.HasOne("Gallery.Domain.Gallery.Models.CategoriesGallery", "Category")
+                        .WithMany("GalleryEntities")
+                        .HasForeignKey("CategoriesGalleryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Gallery.Domain.Gallery.Models.CategoriesGallery", b =>
+                {
+                    b.Navigation("GalleryEntities");
                 });
 #pragma warning restore 612, 618
         }

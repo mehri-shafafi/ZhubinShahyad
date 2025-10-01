@@ -1,6 +1,5 @@
 ﻿using MediatR;
-using Menus.Domain.Dtos.Menu;
-
+using Menus.Application.Dtos.Menu;
 namespace Menus.Application.Menu.Commands.Menu.Create;
 
 

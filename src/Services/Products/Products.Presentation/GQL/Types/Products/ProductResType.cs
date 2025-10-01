@@ -1,5 +1,5 @@
 ﻿using GraphQL.Types;
-using Products.Domain.Dtos.Products;
+using Products.Application.Dtos.Products;
 
 namespace Products.Presentation.GQL.Types.Products
 {

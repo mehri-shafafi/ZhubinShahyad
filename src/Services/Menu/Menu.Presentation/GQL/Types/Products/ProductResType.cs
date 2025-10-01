@@ -1,5 +1,5 @@
 ﻿using GraphQL.Types;
-using Menus.Domain.Dtos.Menu;
+using Menus.Application.Dtos.Menu;
 
 namespace Menus.Presentation.GQL.Types.Menu
 {

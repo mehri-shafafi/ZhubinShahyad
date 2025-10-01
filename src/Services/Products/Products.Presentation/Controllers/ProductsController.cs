@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Products.Application.Dtos.Products;
 using Products.Application.Products.Commands.Product.CreateMedical;
 using Products.Application.Products.Commands.Product.DeleteMedical;
 using Products.Application.Products.Commands.Product.UpdateProduct;
 using Products.Application.Products.Queries.Product.GetProductsList;
-using Products.Domain.Base;
-using Products.Domain.Dtos.Products;
 
 namespace Products.Presentation.Controllers
 {

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Products.Domain.Dtos.Products;
+using Products.Application.Dtos.Products;
 
 namespace Products.Application.Products.Commands.Categories.Update;
 

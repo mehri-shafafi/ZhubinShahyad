@@ -1,7 +1,6 @@
 ﻿using Menus.Domain.Menu.Repositories;
 using Menus.Domain.UnitOfWork.Menu;
 using Menus.Infrastructure.Menu;
-using Menus.Infrastructure.Menus;
 
 namespace Menus.Infrastructure;
 

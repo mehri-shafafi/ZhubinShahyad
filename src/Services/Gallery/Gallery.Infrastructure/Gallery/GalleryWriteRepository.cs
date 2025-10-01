@@ -1,4 +1,5 @@
-﻿using Gallery.Domain.Gallery.Models;
+﻿using Gallery.Domain.Dtos.Gallery;
+using Gallery.Domain.Gallery.Models;
 using Gallery.Domain.Repositories;
 
 namespace Gallery.Infrastructure.Gallery
@@ -24,7 +25,7 @@ namespace Gallery.Infrastructure.Gallery
             await _dbContext.SaveChangesAsync();
             return result.Entity;
         }
-        public async Task DeleteBrandAsync(GalleryEntity galleryEntity)
+        public async Task DeleteAsync(GalleryDto galleryEntity)
         {
             _dbContext.Remove(galleryEntity);
             await _dbContext.SaveChangesAsync();

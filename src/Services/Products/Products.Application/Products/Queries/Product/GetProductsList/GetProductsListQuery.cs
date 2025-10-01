@@ -1,6 +1,5 @@
 ﻿using MediatR;
-using Products.Domain.Base;
-using Products.Domain.Dtos.Products;
+using Products.Application.Dtos.Products;
 
 namespace Products.Application.Products.Queries.Product.GetProductsList
 {

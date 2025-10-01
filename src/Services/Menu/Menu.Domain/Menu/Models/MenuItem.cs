@@ -12,6 +12,8 @@ public class MenuItem : BaseEntity
     public string Url { get; set; } // e.g., "/home"
     public bool Active { get; set; }
     public string IconUrl { get; set; }
+    public int DisplayOrder { get; set; }
+
 
     public class MenuConfiguration : IEntityTypeConfiguration<MenuItem>
     {
@@ -23,6 +25,9 @@ public class MenuItem : BaseEntity
             builder.Property(p => p.Title_FA).IsRequired().HasMaxLength(200);
             builder.Property(p => p.Slug).IsRequired().HasMaxLength(500);
             builder.Property(p => p.Url).IsRequired().HasMaxLength(200);
+            builder.Property(p => p.DisplayOrder)
+                  .IsRequired()
+                  .HasDefaultValue(0);
         }
 
 

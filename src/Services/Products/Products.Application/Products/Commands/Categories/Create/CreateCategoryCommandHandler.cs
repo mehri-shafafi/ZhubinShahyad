@@ -2,7 +2,7 @@
 using EventBus.Messages.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Products.Domain.Dtos.Products;
+using Products.Application.Dtos.Products;
 using Products.Domain.Products.Models;
 using Products.Domain.UnitOfWork.Product;
 
@@ -24,7 +24,7 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
 
     public async Task<ProductCategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
-        var newProduct = _mapper.Map<ProductCategory>(request);
+        var newProduct = _mapper.Map<ProductCategoryModel>(request);
         var addedProduct = await _writeUnitOfWork.ProductWriteRepository.AddProductCategoriesAsync(newProduct);
         _logger.LogInformation($"Product {addedProduct.Id} is successfully created.");
 

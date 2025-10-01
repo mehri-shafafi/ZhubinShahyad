@@ -26,7 +26,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
         {
             throw new NotFoundException(nameof(Product), request.Id);
         }
-        var updatedProduct = _mapper.Map<Domain.Products.Models.ProductEntity>(request);
+        var updatedProduct = _mapper.Map<Domain.Products.Models.ProductModel>(request);
         await _writeUnitOfWork.ProductWriteRepository.UpdateProductAsync(updatedProduct);
         _logger.LogInformation($"Product {product.Id} is successfully updated.");
         return true;

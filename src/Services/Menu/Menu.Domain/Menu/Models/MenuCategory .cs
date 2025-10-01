@@ -13,6 +13,7 @@ namespace Menus.Domain.Menu.Models
         public string Url { get; set; } // e.g., "/home"
         public bool Active { get; set; }
         public string IconUrl { get; set; }
+        public int DisplayOrder { get; set; }
 
 
         public ICollection<MenuItem> Products { get; set; }
@@ -29,6 +30,9 @@ namespace Menus.Domain.Menu.Models
                     .HasDefaultValue("https://via.placeholder.com/85.png");
                 builder.Property(p => p.CreationDateTime).IsRequired().HasDefaultValueSql("GETUTCDATE()");
                 builder.Property(p => p.ModificationDateTime).IsRequired().HasDefaultValueSql("GETUTCDATE()");
+                builder.Property(p => p.DisplayOrder)
+                  .IsRequired()
+                  .HasDefaultValue(0);
 
             }
 

@@ -11,7 +11,7 @@
         public decimal Price { get; set; }
         public int? BrandId { get; set; }
         public int? CategoryId { get; set; }
-        public string StockQuantity { get; set; }
+        public int StockQuantity { get; set; }
         public string SKU { get; set; }
         public string ImageURL { get; set; }
         public string Warranty { get; set; }

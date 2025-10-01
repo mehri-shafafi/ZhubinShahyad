@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
+using Menus.Application.Dtos.Menu;
 using Menus.Application.Menu.Commands.Categories.Create;
 using Menus.Application.Menus.Commands.Categories.Delete;
 using Menus.Application.Menus.Commands.Categories.Update;
 using Menus.Application.Menus.Queries.Menu.GetCateguriesList;
-using Menus.Domain.Dtos.Menu;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Products.Presentation.Controllers

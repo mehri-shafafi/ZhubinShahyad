@@ -1,8 +1,8 @@
-﻿using Products.Domain.Products.Models;
-using Products.Infrastructure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Products.Domain.Products.Entity;
+using Products.Domain.Products.Models;
 using Products.Domain.Products.Repositories;
-using Products.Domain.Dtos.Products;
+using Products.Infrastructure;
 
 namespace Products.Domain.Menu
 {
@@ -14,77 +14,168 @@ namespace Products.Domain.Menu
             _dbContext = dbContext;
         }
 
-        public async Task<List<ProductCategory>> FetchAllProductCategoryAsync()
+        public async Task<List<ProductCategoryModel>> FetchAllProductCategoryAsync()
         {
-            return await _dbContext.ProductCategories.Include(p => p.Products).ToListAsync();
+            return await _dbContext.ProductCategories
+                .AsNoTracking()
+                .Include(p => p.Products)
+                .Select(pc => new ProductCategoryModel
+                {
+                    Id = pc.Id,
+                    Name_FA = pc.Name_FA,
+                    Name_EN = pc.Name_EN,
+                    Name_AR = pc.Name_AR,
+                    Description = pc.Description,
+                    Permalink = pc.Permalink,
+                    Active = pc.Active,
+                    Priority = pc.Priority,
+                    BannerUrl = pc.BannerUrl,
+                    IconUrl = pc.IconUrl,
+                    ThumbnailUrl = pc.ThumbnailUrl,
+                            })
+                .ToListAsync();
         }
-        public async Task<ProductCategory> FetchProductCategoryAsync(int id)
+        public async Task<ProductCategoryModel?> FetchProductCategoryAsync(int id)
         {
-            return await _dbContext.ProductCategories.FirstOrDefaultAsync(p => p.Id == id);
+            return await _dbContext.ProductCategories
+                .AsNoTracking()
+                .Include(p => p.Products)
+                .Where(pc => pc.Id == id)
+                .Select(pc => new ProductCategoryModel
+                {
+                    Id = pc.Id,
+                    Name_FA = pc.Name_FA,
+                    Name_EN = pc.Name_EN,
+                    Name_AR = pc.Name_AR,
+                    Description = pc.Description,
+                    Permalink = pc.Permalink,
+                    Active = pc.Active,
+                    Priority = pc.Priority,
+                    BannerUrl = pc.BannerUrl,
+                    IconUrl = pc.IconUrl,
+                    ThumbnailUrl = pc.ThumbnailUrl,
+          
+                })
+                .FirstOrDefaultAsync();
         }
-        public async Task<List<ProductBrand>> FetchAllProductBrandAsync()
+        public async Task<List<ProductBrandModel>> FetchAllProductBrandAsync()
         {
-            return await _dbContext.Brands.Include(p => p.Name).ToListAsync();
+            return await _dbContext.Brands
+                .Include(b => b.Products) // چون Products navigation هست
+                .Select(b => new ProductBrandModel
+                {
+                    Id = b.Id,
+                    Name = b.Name,
+                    LogoURL = b.LogoURL,
+                    Description = b.Description,
+                    Products = b.Products.Select(p => new ProductModel
+                    {
+                        Id = p.Id,
+                        Name_FA = p.Name_FA,
+                        Name_EN = p.Name_EN,
+                        Name_AR = p.Name_AR
+                    }).ToList()
+                })
+                .ToListAsync();
         }
-        public async Task<ProductBrand> FetchProductBrandAsync(int id)
+        public async Task<ProductBrandModel?> FetchProductBrandAsync(int id)
         {
-            return await _dbContext.Brands.FirstOrDefaultAsync(p => p.Id == id);
-
+            return await _dbContext.Brands
+                .Include(b => b.Products)
+                .Where(b => b.Id == id)
+                .Select(b => new ProductBrandModel
+                {
+                    Id = b.Id,
+                    Name = b.Name,
+                    LogoURL = b.LogoURL,
+                    Description = b.Description,
+                    Products = b.Products.Select(p => new ProductModel
+                    {
+                        Id = p.Id,
+                        Name_FA = p.Name_FA,
+                        Name_EN = p.Name_EN,
+                        Name_AR = p.Name_AR
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync();
         }
-        public async Task<List<ProductEntity>> FetchAllProductEntityAsync()
+        public async Task<List<ProductModel>> FetchAllProductEntityAsync()
         {
             //var result = await _dbContext.Products.ToListAsync();
-            var result = await _dbContext.Products
-                                .Include(p => p.Images)      // جوین به جدول تصاویر محصول
-                                .Include(p => p.ProductBrand)             // جوین به برند
-                                .Include(p => p.Category)          // جوین به دسته‌بندی
-                                .ToListAsync();
+            var resultDto = await _dbContext.Products
+               .AsNoTracking()
+               .Include(p => p.ProductBrand)
+               .Include(p => p.Category)
+               .Include(p => p.Images)
+               .Select(p => new ProductModel
+               {
+                   ProductId = p.Id,
+                   Name_FA = p.Name_FA,
+                   Name_EN = p.Name_EN,
+                   Name_AR = p.Name_AR,
+                   Description_FA = p.Description_FA,
+                   Description_EN = p.Description_EN,
+                   Description_AR = p.Description_AR,
+                   Price = p.Price,
 
-            return result;
+                   BrandId = p.BrandId,
+                   BrandName = p.ProductBrand != null ? p.ProductBrand.Name : null,
+
+                   CategoryId = p.CategoryId,
+                   CategoryName_FA = p.Category != null ? p.Category.Name_FA : null,
+                   CategoryName_EN = p.Category != null ? p.Category.Name_EN : null,
+                   CategoryName_AR = p.Category != null ? p.Category.Name_AR : null,
+
+                   StockQuantity = p.StockQuantity, // یا تبدیل به int اگر در Entity رشته است
+                   SKU = p.SKU,
+
+                   ImageUrls = p.Images.Select(i => i.ImageUrl).ToList(),
+
+                   CatalogURL = p.CatalogURL,
+                   CatalogCoverImageUrl = p.catalog_cover_image_url,
+                   Warranty = p.Warranty,
+                   Rating = p.Rating
+               })
+               .ToListAsync();
+
+
+            return resultDto;
         }
-        public async Task<ProductEntity> FetchProductEntityAsync(int id)
+        public async Task<ProductModel> FetchProductEntityAsync(int id)
         {
-            return await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
-        }
-        public async Task<Tuple<List<ProductEntity>, int>> GetByFilterPagedAsync(ProductFilterPageReqDto request)
-        {
-            var filteredProducts = _dbContext.Products.AsQueryable();
-            //if (request.Id != 0)
-            //{
-            //    filteredProducts = filteredProducts.Where(p => p.Id == request.Id);
-            //}
+            var p = await _dbContext.Products
+                .Include(p => p.ProductBrand)
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
 
-            //if (!string.IsNullOrWhiteSpace(request.SearchTerm))
-            //{
-            //    request.SearchTerm = request.SearchTerm.Trim().ToLower();
-            //    filteredProducts = filteredProducts.Where(p => p.Id== request.Id);
+            if (p == null) return null;
 
-            //}
-
-            //if (request.MinPrice != null)
-            //{
-            //    filteredProducts = filteredProducts.Where(p => p.Price >= request.MinPrice);
-            //}
-
-            //if (request.MaxPrice != null)
-            //{
-            //    filteredProducts = filteredProducts.Where(p => p.Price <= request.MaxPrice);
-            //}
-
-
-            //if (request.CategoryId != 0)
-            //{
-            //    filteredProducts = filteredProducts.Where(p => p.CategoryId == request.CategoryId);
-            //}
-
-            int countOfFilteredProducts = filteredProducts.Count();
-            filteredProducts = filteredProducts.Skip(request.PageIndex * request.PageSize).Take(request.PageSize);
-
-            return
-                Tuple.Create(await filteredProducts.ToListAsync(), countOfFilteredProducts);
-
-
-
+            return new ProductModel
+            {
+                ProductId = p.Id,
+                Name_FA = p.Name_FA,
+                Name_EN = p.Name_EN,
+                Name_AR = p.Name_AR,
+                Description_FA = p.Description_FA,
+                Description_EN = p.Description_EN,
+                Description_AR = p.Description_AR,
+                Price = p.Price,
+                BrandId = p.BrandId,
+                BrandName = p.ProductBrand?.Name,
+                CategoryId = p.CategoryId,
+                CategoryName_FA = p.Category?.Name_FA,
+                CategoryName_EN = p.Category?.Name_EN,
+                CategoryName_AR = p.Category?.Name_AR,
+                StockQuantity = p.StockQuantity,
+                SKU = p.SKU,
+                ImageUrls = p.Images.Select(i => i.ImageUrl).ToList(),
+                CatalogURL = p.CatalogURL,
+                CatalogCoverImageUrl = p.catalog_cover_image_url,
+                Warranty = p.Warranty,
+                Rating = p.Rating
+            };
         }
 
         public async Task<ProductEntity> GetAsyncNoTracking(int id)

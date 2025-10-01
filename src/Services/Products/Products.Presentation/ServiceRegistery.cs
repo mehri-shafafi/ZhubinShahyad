@@ -78,71 +78,71 @@ public static class ServiceRegistery
         return builder.Services;
 
     }
-    public static class DbSeeder
-    {
-        public static async Task SeedAsync(ProductDbContext context)
-        {
-            if (!context.Products.Any())
-            {
-                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string jsonPath = Path.Combine(baseDirectory, "SeedData", "ProductSeed.json");
+    //public static class DbSeeder
+    //{
+    //    public static async Task SeedAsync(ProductDbContext context)
+    //    {
+    //        if (!context.Products.Any())
+    //        {
+    //            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    //            string jsonPath = Path.Combine(baseDirectory, "SeedData", "ProductSeed.json");
 
-                if (!File.Exists(jsonPath))
-                    throw new FileNotFoundException($"Seed file not found: {jsonPath}");
+    //            if (!File.Exists(jsonPath))
+    //                throw new FileNotFoundException($"Seed file not found: {jsonPath}");
 
-                string json = File.ReadAllText(jsonPath);
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
-                var products = JsonSerializer.Deserialize<List<ProductEntity>>(json, options);
-
-
-                if (products is not null)
-                {
-                    foreach (var product in products)
-                    {
-                        product.CreationDateTime = DateTime.UtcNow;
-                        product.ModificationDateTime = DateTime.UtcNow;
-                        context.Products.Add(product);
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-            }
-        }
-        public static async Task SeedCategoryAsync(ProductDbContext context)
-        {
-            if (!context.ProductCategories.Any())
-            {
-                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string jsonPath = Path.Combine(baseDirectory, "SeedData", "CategorySeed.json");
-
-                if (!File.Exists(jsonPath))
-                    throw new FileNotFoundException($"Seed file not found: {jsonPath}");
-
-                string json = File.ReadAllText(jsonPath);
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
-                var products = JsonSerializer.Deserialize<List<ProductCategory>>(json, options);
+    //            string json = File.ReadAllText(jsonPath);
+    //            var options = new JsonSerializerOptions
+    //            {
+    //                PropertyNameCaseInsensitive = true
+    //            };
+    //            var products = JsonSerializer.Deserialize<List<ProductModel>>(json, options);
 
 
-                if (products is not null)
-                {
-                    foreach (var product in products)
-                    {
-                        product.CreationDateTime = DateTime.UtcNow;
-                        product.ModificationDateTime = DateTime.UtcNow;
-                        context.ProductCategories.Add(product);
-                    }
+    //            if (products is not null)
+    //            {
+    //                foreach (var product in products)
+    //                {
+    //                    product.CreationDateTime = DateTime.UtcNow;
+    //                    product.ModificationDateTime = DateTime.UtcNow;
+    //                    context.Products.Add(product);
+    //                }
 
-                    await context.SaveChangesAsync();
-                }
-            }
-        }
-    }
+    //                await context.SaveChangesAsync();
+    //            }
+    //        }
+    //    }
+    //    //public static async Task SeedCategoryAsync(ProductDbContext context)
+    //    //{
+    //    //    if (!context.ProductCategories.Any())
+    //    //    {
+    //    //        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    //    //        string jsonPath = Path.Combine(baseDirectory, "SeedData", "CategorySeed.json");
+
+    //    //        if (!File.Exists(jsonPath))
+    //    //            throw new FileNotFoundException($"Seed file not found: {jsonPath}");
+
+    //    //        string json = File.ReadAllText(jsonPath);
+    //    //        var options = new JsonSerializerOptions
+    //    //        {
+    //    //            PropertyNameCaseInsensitive = true
+    //    //        };
+    //    //        var products = JsonSerializer.Deserialize<List<ProductCategoryModel>>(json, options);
+
+
+    //    //        if (products is not null)
+    //    //        {
+    //    //            foreach (var product in products)
+    //    //            {
+    //    //                product.CreationDateTime = DateTime.UtcNow;
+    //    //                product.ModificationDateTime = DateTime.UtcNow;
+    //    //                context.ProductCategories.Add(product);
+    //    //            }
+
+    //    //            await context.SaveChangesAsync();
+    //    //        }
+    //    //    }
+    //    //}
+    //}
 
 }
 

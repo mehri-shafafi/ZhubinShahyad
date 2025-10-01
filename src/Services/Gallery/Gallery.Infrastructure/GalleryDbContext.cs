@@ -11,10 +11,12 @@ public class GalleryDbContext : DbContext
 
     }
     public DbSet<GalleryEntity> Gallery { get; set; }
+    public DbSet<CategoriesGallery> categoriesGalleries { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new GalleryEntity.GalleryConfiguration());
+        modelBuilder.ApplyConfiguration(new CategoriesGallery.CategoriesGalleryConfiguration());
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

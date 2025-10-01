@@ -1,7 +1,7 @@
 ﻿using Gallery.Domain.Base;
+using Gallery.Domain.Gallery.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Text.Json;
 
 namespace Gallery.Domain.Gallery.Models;
 public class CategoriesGallery : BaseEntity<int>

@@ -33,13 +33,6 @@ namespace Menu.Infrastructure.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<string>("BannerUrl")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("https://via.placeholder.com/500x100.png");
-
                     b.Property<DateTime>("CreationDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -48,10 +41,10 @@ namespace Menu.Infrastructure.Migrations
                     b.Property<string>("CreationDateTimeShamsi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(5000)
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DisplayOrder")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("IconUrl")
                         .IsRequired()
@@ -68,15 +61,26 @@ namespace Menu.Infrastructure.Migrations
                     b.Property<string>("ModificationDateTimeShamsi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name_AR")
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title_AR")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Name_EN")
+                    b.Property<string>("Title_EN")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Title_FA")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -100,6 +104,11 @@ namespace Menu.Infrastructure.Migrations
                     b.Property<string>("CreationDateTimeShamsi")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DisplayOrder")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
                     b.Property<string>("IconUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -112,14 +121,26 @@ namespace Menu.Infrastructure.Migrations
                     b.Property<string>("ModificationDateTimeShamsi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParentId")
-                        .HasMaxLength(500)
-                        .HasColumnType("int");
-
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Title_AR")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Title_EN")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Title_FA")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -129,8 +150,6 @@ namespace Menu.Infrastructure.Migrations
 
                     b.HasIndex("MenuCategoryId");
 
-                    b.HasIndex("ParentId");
-
                     b.ToTable("MenuItems");
                 });
 
@@ -139,14 +158,6 @@ namespace Menu.Infrastructure.Migrations
                     b.HasOne("Menus.Domain.Menu.Models.MenuCategory", null)
                         .WithMany("Products")
                         .HasForeignKey("MenuCategoryId");
-
-                    b.HasOne("Menus.Domain.Menu.Models.MenuItem", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("Menus.Domain.Menu.Models.MenuCategory", b =>

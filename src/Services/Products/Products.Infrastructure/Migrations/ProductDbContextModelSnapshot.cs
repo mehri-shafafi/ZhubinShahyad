@@ -194,8 +194,8 @@ namespace Products.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("StockQuantity")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("Warranty")
                         .HasMaxLength(200)

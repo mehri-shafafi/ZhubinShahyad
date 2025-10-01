@@ -72,41 +72,7 @@ public static class ServiceRegistery
         return builder.Services;
 
     }
-    public static class DbSeeder
-    {
-        public static async Task SeedAsync(GalleryDbContext context)
-        {
-            if (!context.Gallery.Any())
-            {
-                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string jsonPath = Path.Combine(baseDirectory, "SeedData", "ProductSeed.json");
-
-                if (!File.Exists(jsonPath))
-                    throw new FileNotFoundException($"Seed file not found: {jsonPath}");
-
-                string json = File.ReadAllText(jsonPath);
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
-                var result = JsonSerializer.Deserialize<List<GalleryEntity>>(json, options);
-
-
-                if (result is not null)
-                {
-                    foreach (var product in result)
-                    {
-                        product.CreationDateTime = DateTime.UtcNow;
-                        product.ModificationDateTime = DateTime.UtcNow;
-                        context.Gallery.Add(product);
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-            }
-        }
-      
-    }
+   
 
 }
 

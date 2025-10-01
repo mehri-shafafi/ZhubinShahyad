@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using Products.Domain.Base;
-using Products.Domain.Dtos.Products;
+using Products.Application.Dtos.Products;
 using Products.Domain.UnitOfWork.Product;
 namespace Products.Application.Products.Queries.Product.GetProductsList
 {
@@ -18,11 +17,9 @@ namespace Products.Application.Products.Queries.Product.GetProductsList
         }
         public async Task<List<ProductDto>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
         {
-            var result = await _readUnitOfWork.ProductReadRepository.FetchAllProductEntityAsync();
-   
-
-            var resultDto= _mapper.Map<List<ProductDto>>(result);
-            return resultDto;
+            var resultDto = await _readUnitOfWork.ProductReadRepository.FetchAllProductEntityAsync();
+            var result = _mapper.Map<List<ProductDto>>(resultDto);
+            return result;
         }
     }
 }

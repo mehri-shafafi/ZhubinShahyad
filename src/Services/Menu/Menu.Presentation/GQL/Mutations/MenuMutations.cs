@@ -1,9 +1,9 @@
 ﻿using GraphQL;
 using GraphQL.Types;
 using MediatR;
+using Menus.Application.Dtos.Menu;
 using Menus.Application.Menu.Commands.Menu.Create;
 using Menus.Application.Menus.Commands.Menu.UpdateMenu;
-using Menus.Domain.Dtos.Menu;
 using Menus.Presentation.GQL.Types.Menu;
 using Products.Presentation.GQL.Types.Products;
 
