@@ -1,22 +1,26 @@
-﻿using Gallery.Domain.Repositories;
-using Gallery.Domain.UnitOfWork.Gallery;
-using Gallery.Infrastructure.Gallery;
+﻿
+using AutoMapper;
+using Contact.Domain.Repositories;
+using Contact.Domain.UnitOfWork.Contact;
+using Contact.Infrastructure.Contact;
 
-namespace Gallery.Infrastructure;
+namespace Contact.Infrastructure;
 
 public class WriteUnitOfWork : IWriteUnitOfWork
 {
-    private IGalleryWriteRepository _GalleryWriteRepository;
-    private readonly GalleryDbContext _context;
-    public WriteUnitOfWork(GalleryDbContext context)
+    private IContactWriteRepository _contactWriteRepository;
+    private readonly ContactDbContext _context;
+    private IMapper _mapper;
+    public WriteUnitOfWork(ContactDbContext context,IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
-    public IGalleryWriteRepository GalleryWriteRepository
+    public IContactWriteRepository ContactWriteRepository
     {
         get
         {
-            return _GalleryWriteRepository ??= new GalleryWriteRepository(_context);
+            return _contactWriteRepository ??= new ContactWriteRepository(_context,_mapper);
         }
     }
 }

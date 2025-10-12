@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CallSeeder\**" />
+    <EmbeddedResource Remove="CallSeeder\**" />
+    <None Remove="CallSeeder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="MediatR" Version="11.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
@@ -24,11 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gallery.Domain\Gallery.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="CallSeeder\" />
+    <ProjectReference Include="..\Contact.Domain\Contact.Domain.csproj" />
   </ItemGroup>
 
 </Project>

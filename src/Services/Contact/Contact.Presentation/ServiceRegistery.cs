@@ -1,13 +1,12 @@
-﻿using FluentValidation;
-using Gallery.Infrastructure;
+﻿using Contact.Domain.UnitOfWork.Contact;
+using Contact.Infrastructure;
+using Contact.Infrastructure.Contact;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using Gallery.Domain.UnitOfWork.Gallery;
-using Gallery.Domain.Gallery.Models;
 
-namespace Gallery.Presentation;
+namespace Contact.Presentation;
 public static class ServiceRegistery
 {
     public static IServiceCollection AddServiceRegistery(this WebApplicationBuilder builder)
@@ -26,8 +25,9 @@ public static class ServiceRegistery
 
     public static IServiceCollection AddInfrastructureServices(this WebApplicationBuilder builder)
     {
+
         builder.Services.AddAutoMapper(Assemblies.InfrastructureAssembly);
-        builder.Services.AddDbContext<GalleryDbContext>(option =>
+        builder.Services.AddDbContext<ContactDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
         builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();
         builder.Services.AddScoped<IWriteUnitOfWork, WriteUnitOfWork>();
@@ -35,11 +35,20 @@ public static class ServiceRegistery
     }
     public static IServiceCollection AddApplicationServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddValidatorsFromAssembly(Assemblies.ApplicationGalleryAssembly);
-        builder.Services.AddMediatR(Assemblies.ApplicationGalleryAssembly);
+        builder.Services.AddValidatorsFromAssembly(Assemblies.CreateAssembly);
+        builder.Services.AddValidatorsFromAssembly(Assemblies.UpdateAssembly);
+        builder.Services.AddValidatorsFromAssembly(Assemblies.DeleteAssembly);
+
+        builder.Services.AddMediatR(
+        Assemblies.CreateAssembly,
+        Assemblies.UpdateAssembly,
+        Assemblies.DeleteAssembly
+    );
+
 
         return builder.Services;
     }
+
     public static IServiceCollection AddMessagingConfiguration(this WebApplicationBuilder builder)
     {
         //builder.Services.AddMassTransit(x =>
@@ -72,7 +81,7 @@ public static class ServiceRegistery
         return builder.Services;
 
     }
-   
+
 
 }
 

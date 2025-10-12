@@ -1,23 +1,26 @@
-﻿using Gallery.Domain.Menu;
-using Gallery.Domain.Repositories;
-using Gallery.Domain.UnitOfWork.Gallery;
+﻿using AutoMapper;
+using Contact.Domain.Menu;
+using Contact.Domain.Repositories;
+using Contact.Domain.UnitOfWork.Contact;
 
-namespace Gallery.Infrastructure;
+namespace Contact.Infrastructure;
 
 public class ReadUnitOfWork : IReadUnitOfWork
 {
 
-    private readonly GalleryDbContext _context;
-    public ReadUnitOfWork(GalleryDbContext context)
+    private readonly ContactDbContext _context;
+    private IMapper _mapper;
+    public ReadUnitOfWork(ContactDbContext context,IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
-    private GalleryReadRepository _galleryReadRepository;
-    public IGalleryReadRepository GalleryReadRepository
+    private ContactReadRepository _contactReadRepository;
+    public IContactReadRepository ContactReadRepository
     {
         get
         {
-            return _galleryReadRepository ??= new GalleryReadRepository(_context);
+            return _contactReadRepository ??= new ContactReadRepository(_context,_mapper);
         }
     }
 

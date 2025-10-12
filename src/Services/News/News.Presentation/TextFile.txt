@@ -19,3 +19,10 @@ docker build -t gallery.api:v2 -f "src\Services\Gallery\Gallery.Presentation\Doc
 docker run -d --name gallery-api -p 10004:8084  gallery.api:v2
 docker save gallery.api:v2 -o gallery-api.tar
 scp gallery-api.tar root@89.32.250.205:/Backups/services/14040624
+
+
+
+docker build -t contact.api:v1 -f "src\Services\Contact\Contact.Presentation\Dockerfile" .
+docker run -d --name contact-api -p 10005:8085  contact.api:v1
+docker save contact.api:v2 -o contact-api.tar
+scp contact-api.tar root@89.32.250.205:/Backups/services/14040719

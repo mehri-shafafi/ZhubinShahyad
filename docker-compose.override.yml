@@ -48,4 +48,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "10004:8084"
+  contact.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "10007:8086"
 

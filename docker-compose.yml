@@ -38,3 +38,8 @@
         build:
           context: .
           dockerfile: src/Services/Gallery/Gallery.Presentation/Dockerfile
+      contact.api:
+        image: "${DOCKER_REGISTRY:-contactapi}"
+        build:
+          context: .
+          dockerfile: src/Services/Contact/Contact.Presentation/Dockerfile

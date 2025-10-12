@@ -1,13 +1,13 @@
 ﻿using GraphQL.Types;
 using MediatR;
 
-namespace Gallery.Presentation.GQL.Mutations
+namespace Contact.Presentation.GQL.Mutations
 {
-    public class AppMutations:ObjectGraphType
+    public class AppMutations : ObjectGraphType
     {
         public AppMutations(IMediator mediator)
         {
-            this.GalleryMutations(mediator);
+            this.ContactMutations(mediator);
         }
     }
 }

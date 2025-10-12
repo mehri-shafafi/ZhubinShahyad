@@ -1,13 +1,14 @@
-﻿using GraphQL.Types;
+﻿using Gallery.Presentation.GQL.Queries;
+using GraphQL.Types;
 using MediatR;
 
-namespace Gallery.Presentation.GQL.Queries
+namespace Contact.Presentation.GQL.Queries
 {
     public class AppQueries: ObjectGraphType
     {
         public AppQueries(IMediator mediator)
         {
-            this.GalleryQueries(mediator);
+            this.ContactQueries(mediator);
         }
     }
 }

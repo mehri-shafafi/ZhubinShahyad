@@ -1,6 +1,6 @@
 ﻿
-using Gallery.Presentation;
-using static Gallery.Presentation.ServiceRegistery;
+using Contact.Presentation;
+using static Contact.Presentation.ServiceRegistery;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +25,7 @@ builder.AddMessagingConfiguration();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.WebHost.UseUrls("http://*:8084");
+builder.WebHost.UseUrls("http://*:8085");
 // اضافه کردن CORS
 
 var app = builder.Build();

@@ -1,13 +1,13 @@
-﻿using Contact.Domain.Dtos.Contact;
+﻿using Contact.Domain.Contact.Models;
 
 namespace Contact.Domain.Repositories
 {
-    public interface IGalleryReadRepository
+    public interface IContactReadRepository
     {
 
         #region
-        Task<List<GalleryDto>> FetchAllGalleryEntityAsync();
-        Task<GalleryDto> FetchGalleryEntityAsync(int id);
+        Task<List<ContactModel>> FetchAllContactEntityAsync();
+        Task<ContactModel> FetchContactEntityAsync(int id);
         #endregion
     }
 }

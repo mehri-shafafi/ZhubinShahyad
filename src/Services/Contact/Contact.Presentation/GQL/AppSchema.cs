@@ -1,8 +1,8 @@
-﻿using Gallery.Presentation.GQL.Mutations;
-using Gallery.Presentation.GQL.Queries;
+﻿using Contact.Presentation.GQL.Mutations;
+using Contact.Presentation.GQL.Queries;
 using GraphQL.Types;
 
-namespace Gallery.Presentation.GQL
+namespace Contact.Presentation.GQL
 {
     public class AppSchema : Schema
     {

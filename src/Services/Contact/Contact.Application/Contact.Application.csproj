@@ -15,7 +15,8 @@
 
   <ItemGroup>
 	  <ProjectReference Include="..\..\..\..\BuildingBlocks\EventBus.Messages\EventBus.Messages.csproj" />
-	  <ProjectReference Include="..\Gallery.Domain\Gallery.Domain.csproj" />
+	  <ProjectReference Include="..\Contact.Domain\Contact.Domain.csproj" />
+	  <ProjectReference Include="..\Contact.Domain\Contact.Domain.csproj" />
   </ItemGroup>
 
 </Project>
