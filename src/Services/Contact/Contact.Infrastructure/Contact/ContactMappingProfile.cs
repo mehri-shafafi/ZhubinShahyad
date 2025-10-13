@@ -18,6 +18,8 @@ namespace Contact.Infrastructure.Contact
                 .ForMember(dist => dist.Name_FA, opt => opt.MapFrom(src => src.Name_FA))
                 .ForMember(dist => dist.Name_EN, opt => opt.MapFrom(src => src.Name_EN))
                 .ForMember(dist => dist.Name_AR, opt => opt.MapFrom(src => src.Name_AR));
+
+
         }
     }
 }

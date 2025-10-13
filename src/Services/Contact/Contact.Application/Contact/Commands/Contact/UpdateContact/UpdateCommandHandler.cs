@@ -22,14 +22,17 @@ public class UpdateCommandHandler : IRequestHandler<UpdateCommand, bool>
     }
     public async Task<bool> Handle(UpdateCommand request, CancellationToken cancellationToken)
     {
-        var result = await _readUnitOfWork.ContactReadRepository.FetchContactEntityAsync(request.Id);
-        if (result == null)
+        var ModelRequest = await _readUnitOfWork.ContactReadRepository.FetchContactEntityAsync(request.Id);
+        if (ModelRequest == null)
         {
             throw new NotFoundException(nameof(Base), request.Id);
         }
         // var updatedBase = _mapper.Map<Domain.Contact.Models.ContactEntity>(request);
-        await _writeUnitOfWork.ContactWriteRepository.UpdateContactAsync(result);
-        _logger.LogInformation($"Base {result.Id} is successfully updated.");
+       var result= await _writeUnitOfWork.ContactWriteRepository.UpdateContactAsync(ModelRequest);
+        if (result)
+        {
+            _logger.LogInformation($"Base {ModelRequest.Id} is successfully created.");
+        }
         return true;
     }
 }

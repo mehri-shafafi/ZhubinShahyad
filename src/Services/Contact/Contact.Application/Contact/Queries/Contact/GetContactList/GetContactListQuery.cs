@@ -1,4 +1,5 @@
-﻿using Contact.Domain.Dtos.Contact;
+﻿using Contact.Domain.Contact.Models;
+using Contact.Domain.Dtos.Contact;
 using MediatR;
 
 namespace Contact.Application.Contact.Queries.GetContactList

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Contact.Application.Gallery.Commands.Base.CreateMedical;
 
-public class CreateCommandHandler : IRequestHandler<CreateCommand, ContactResDto>
+public class CreateCommandHandler : IRequestHandler<CreateCommand, bool>
 {
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ public class CreateCommandHandler : IRequestHandler<CreateCommand, ContactResDto
         _logger = logger;
     }
 
-    public async Task<ContactResDto> Handle(CreateCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(CreateCommand request, CancellationToken cancellationToken)
     {
         var modelRequest = new ContactModel
         {IsRead = request.IsRead,
@@ -31,13 +31,17 @@ public class CreateCommandHandler : IRequestHandler<CreateCommand, ContactResDto
         Name = request.Name,
         Email = request.Email,
         CategoryId = request.CategoryId,
-         Subject = request.Subject
+         Subject = request.Subject,
+         Phone=request.Phone
         };
 
         var result = await _writeUnitOfWork.ContactWriteRepository.AddContactAsync(modelRequest);
-        _logger.LogInformation($"Base {result.Id} is successfully created.");
+        if (result)
+        {
+        _logger.LogInformation($"Base {modelRequest.Email} is successfully created.");
+        }
 
         //await _publishEndPoint.Publish(addBaseEvent);
-        return _mapper.Map<ContactResDto>(result);
+        return result;
     }
 }

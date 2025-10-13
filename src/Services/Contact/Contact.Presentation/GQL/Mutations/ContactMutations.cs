@@ -19,7 +19,7 @@ namespace Contact.Presentation.GQL.Mutations
                 resolve: async context =>
                 {
                     var addProduct = context.GetArgument<CreateCommand>("ContactInput");
-                    ContactResDto addProductRes = new ContactResDto();
+                    bool addProductRes = false;
                     try
                     {
                         addProductRes = await mediator.Send(addProduct);

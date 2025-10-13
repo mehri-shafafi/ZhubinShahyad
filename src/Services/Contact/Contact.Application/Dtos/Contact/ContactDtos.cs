@@ -3,12 +3,13 @@
 namespace Contact.Domain.Dtos.Contact;
 
 
-public class ContactResDto 
+public class ContactResDto :BaseEntity<int>
 {
     public string Name { get; set; }
     public string Email { get; set; }
     public string Subject { get; set; }
     public string Message { get; set; }
+    public string Phone { get; set; }
     public bool IsRead { get; set; }
     public int CategoryId { get; set; }
     public DateTime CreationDateTime { get; set; } 
@@ -30,6 +31,7 @@ public class ContactDto : BaseEntity<int>
     public string Email { get; set; }
     public string Subject { get; set; }
     public string Message { get; set; }
+    public string Phone { get; set; }
     public bool IsRead { get; set; }
     public int CategoryId { get; set; }
     public DateTime CreationDateTime { get; set; }

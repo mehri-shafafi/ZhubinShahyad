@@ -2,6 +2,7 @@
 using Contact.Application.Contact.Commands.Base.DeleteContact;
 using Contact.Application.Contact.Commands.Contact.UpdateContact;
 using Contact.Application.Contact.Queries.GetContactList;
+using Contact.Domain.Contact.Models;
 using Contact.Domain.Dtos.Contact;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -34,10 +35,13 @@ namespace Contact.Presentation.Controllers
         /// </summary>
         [Route("AddedContact")]
         [HttpPost]
-        [ProducesResponseType(typeof(ContactResDto), 200)]
-        public async Task<ActionResult<ContactResDto>> Create([FromBody] CreateCommand request)
+        public async Task<ActionResult<bool>> Create([FromBody] CreateCommand request)
         {
             var result = await _mediator.Send(request);
+            if (!result)
+            {
+                return BadRequest("Not Added");
+            }
             return Ok(result);
         }
         /// <summary>

@@ -7,8 +7,8 @@ namespace Contact.Domain.Repositories
 
 
         #region 
-        Task<ContactModel> AddContactAsync(ContactModel ContactEntity);
-        Task<ContactModel> UpdateContactAsync(ContactModel ContactEntity);
+        Task<bool> AddContactAsync(ContactModel ContactEntity);
+        Task<bool> UpdateContactAsync(ContactModel ContactEntity);
         Task DeleteAsync(ContactModel ContactEntity);
         #endregion
 

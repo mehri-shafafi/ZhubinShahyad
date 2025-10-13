@@ -30,12 +30,23 @@ namespace Contact.Infrastructure.Contact
                 return false;
             }
         }
-        public async Task<ContactModel> UpdateContactAsync(ContactModel input)
+        public async Task<bool> UpdateContactAsync(ContactModel input)
         {
-            var result = _dbContext.Update(input);
-            await _dbContext.SaveChangesAsync();
-            return result.Entity;
-        }
+
+            var model = _mapper.Map<ContactEntity>(input);
+
+            try
+            {
+                var result =  _dbContext.Update(model);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+                 }
         public async Task DeleteAsync(ContactModel input)
         {
             _dbContext.Remove(input);
