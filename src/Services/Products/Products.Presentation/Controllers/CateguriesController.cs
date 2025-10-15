@@ -10,6 +10,8 @@ using Products.Application.Products.Queries.Product.GetCateguriesList;
 namespace Products.Presentation.Controllers
 {
 
+    [ApiController]
+    [Route("api/[controller]")]
     public class CateguriesController : ControllerBase
     {
         private readonly IMediator _mediator;

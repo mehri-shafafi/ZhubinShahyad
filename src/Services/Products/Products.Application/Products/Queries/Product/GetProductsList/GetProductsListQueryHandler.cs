@@ -17,9 +17,10 @@ namespace Products.Application.Products.Queries.Product.GetProductsList
         }
         public async Task<List<ProductDto>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
         {
-            var resultDto = await _readUnitOfWork.ProductReadRepository.FetchAllProductEntityAsync();
-            var result = _mapper.Map<List<ProductDto>>(resultDto);
-            return result;
+            var result = await _readUnitOfWork.ProductReadRepository.FetchAllProductEntityAsync();
+            var resultDto = _mapper.Map<List<ProductDto>>(result);
+
+            return resultDto;
         }
     }
 }

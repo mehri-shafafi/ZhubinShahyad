@@ -28,7 +28,13 @@ public static class ServiceRegistery
 
     public static IServiceCollection AddInfrastructureServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddAutoMapper(Assemblies.InfrastructureAssembly);
+        builder.Services.AddAutoMapper(typeof(Application.Common.ProductMappingProfile),
+                                       typeof(Application.Common.BrandMappingProfile),
+                                       typeof(Application.Common.CategoryMappingProfile),
+                                       typeof(Infrastructure.Common.ProductMappingProfile),
+                                       typeof(Infrastructure.Common.BrandMappingProfile),
+                                       typeof(Infrastructure.Common.CategoryMappingProfile)
+                                       );
         builder.Services.AddDbContext<ProductDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
         builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();

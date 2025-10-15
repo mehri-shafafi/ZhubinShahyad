@@ -2,8 +2,9 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Products.Application.Exception;
-using Products.Application.Products.Commands.Categories.Update;
+using Products.Domain.Products.Models;
 using Products.Domain.UnitOfWork.Product;
+
 namespace Products.Application.Products.Commands.Categories.Update;
 
 public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, bool>
@@ -27,8 +28,8 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
         {
             throw new NotFoundException(nameof(Product), request.Id);
         }
-        var updatedProduct = _mapper.Map<Domain.Products.Models.ProductCategoryModel>(request);
-        await _writeUnitOfWork.ProductWriteRepository.UpdateProductCategoriesAsync(updatedProduct);
+        var resModel = _mapper.Map<ProductCategoryModel>(request);
+        await _writeUnitOfWork.ProductWriteRepository.UpdateProductCategoriesAsync(resModel);
         _logger.LogInformation($"Product {product.Id} is successfully updated.");
         return true;
     }

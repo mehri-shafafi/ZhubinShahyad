@@ -5,6 +5,7 @@ using Products.Application.Dtos.Products;
 using Products.Application.Products.Commands.Product.CreateMedical;
 using Products.Application.Products.Commands.Product.DeleteMedical;
 using Products.Application.Products.Commands.Product.UpdateProduct;
+using Products.Application.Products.Queries.Product.GetBrandProducts;
 using Products.Application.Products.Queries.Product.GetProductsList;
 
 namespace Products.Presentation.Controllers
@@ -71,5 +72,9 @@ namespace Products.Presentation.Controllers
             var result = await _mediator.Send(request);
             return Ok(result);
         }
+        /// <summary>
+        /// دریافت لیست برند محصولات
+        /// </summary>
+      
     }
 }

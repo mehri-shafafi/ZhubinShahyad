@@ -20,7 +20,6 @@ namespace Products.Application.Products.Queries.Product.GetCateguriesList
             var productList = await _readUnitOfWork.ProductReadRepository.FetchAllProductCategoryAsync();
             var result = _mapper.Map<List<ProductCategoryDto>>(productList);
 
-
             return result;
         }
     }

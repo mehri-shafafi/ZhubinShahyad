@@ -1,7 +1,9 @@
-﻿namespace Products.Application.Dtos.Products;
-public class ProductBrandDto
+﻿using Products.Domain.Base;
+
+namespace Products.Application.Dtos.Products;
+public class ProductBrandDto:BaseEntity<int>
 {
-    string Name { get; set; }
-    string LogoURL { get; set; }
-    string Description { get; set; }
+   public string Name { get; set; }
+   public string LogoURL { get; set; }
+    public string Description { get; set; }
 }

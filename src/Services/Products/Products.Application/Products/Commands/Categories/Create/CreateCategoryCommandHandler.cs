@@ -29,19 +29,7 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
         _logger.LogInformation($"Product {addedProduct.Id} is successfully created.");
 
 
-        var addProductEvent = new AddCategoryProductEvent
-        {
-            Name_FA = addedProduct.Name_FA,
-            Name_EN = addedProduct.Name_EN,
-            Name_AR = addedProduct.Name_AR,
-            Description = addedProduct.Description,
-            Permalink = addedProduct.Permalink,
-            Active = addedProduct.Active,
-            Priority = addedProduct.Priority,
-            BannerUrl = addedProduct.BannerUrl,
-            IconUrl = addedProduct.IconUrl,
-            ThumbnailUrl = addedProduct.ThumbnailUrl
-        };
+ 
        // await _publishEndPoint.Publish(addProductEvent);
         return _mapper.Map<ProductCategoryDto>(addedProduct);
     }
