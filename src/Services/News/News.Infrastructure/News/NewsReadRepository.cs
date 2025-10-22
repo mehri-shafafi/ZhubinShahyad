@@ -35,13 +35,37 @@ namespace News.Domain.News
         }
 
         // News_Category
-        public async Task<List<News_Category>> GetNewsCategoryAllAsync()
+        public async Task<List<News_CategoryModel>> GetNewsCategoryAllAsync()
         {
-            return await _dbContext.news_Categories.Include(p => p.Description).ToListAsync();
+
+            var result = await _dbContext.news_Articles
+              .Select(t => new News_CategoryModel
+              {
+                  Id = t.Id,
+                  Name = t.Name,
+                  Description = t.Description,
+                  Slug = t.Slug,
+                  CreatedDate = t.CreatedDate,
+                  UpdatedDate = t.UpdatedDate,
+              }).ToListAsync();
+
+
+
+            return result;
         }
-        public async Task<News_Category> GetNewsCategoryAsync(int id)
+        public async Task<News_CategoryModel> GetNewsCategoryAsync(int id)
         {
-            return await _dbContext.news_Categories.FirstOrDefaultAsync(p => p.Id == id);
+
+            return await _dbContext.news_Categories.FirstOrDefaultAsync(p => p.Id == id)
+                 .Select(t => new News_CategoryModel
+                 {
+                     Id = t.Id,
+                     Name = t.Name,
+                     Description = t.Description,
+                     Slug = t.Slug,
+                     CreatedDate = t.CreatedDate,
+                     UpdatedDate = t.UpdatedDate,
+                 }).ToListAsync();
         }
 
         // News_Comment
@@ -50,7 +74,7 @@ namespace News.Domain.News
             var result = await _dbContext.news_Articles
                .Select(t => new NewsArticleResDto
                {
-                   Id=t.Id,
+                   Id = t.Id,
                    ImageURL = t.ImageURL,
                    Summary_EN = t.Summary_EN,
                    Title_EN = t.Title_EN,
@@ -62,14 +86,14 @@ namespace News.Domain.News
                    Title_AR = t.Title_AR,
                    Content_AR = t.Content_AR,
                    ViewsCount = t.ViewsCount,
-                    CreationDateTime = t.CreationDateTime
+                   CreationDateTime = t.CreationDateTime
 
                }).ToListAsync();
-            
+
             return result;
             //return await _dbContext.news_Comments.Include(p => p.Content).ToListAsync();
         }
-     
+
 
 
 

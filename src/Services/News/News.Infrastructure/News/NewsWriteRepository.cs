@@ -30,19 +30,19 @@ namespace News.Infrastructure.News
         }
         #endregion
         #region 
-        public async Task<News_Author> AddNews_AuthorAsync(News_Author news_Author)
+        public async Task<News_AuthorModel> AddNews_AuthorAsync(News_AuthorModel news_Author)
         {
             var result = await _dbContext.AddAsync(news_Author);
             await _dbContext.SaveChangesAsync();
             return result.Entity;
         }
-        public async Task<News_Author> UpdateNews_AuthorAsync(News_Author news_Author)
+        public async Task<News_AuthorModel> UpdateNews_AuthorAsync(News_AuthorModel news_Author)
         {
             var result = _dbContext.Update(news_Author);
             await _dbContext.SaveChangesAsync();
             return result.Entity;
         }
-        public async Task DeleteNews_AuthorAsync(News_Author news_Author)
+        public async Task DeleteNews_AuthorAsync(News_AuthorModel news_Author)
         {
             _dbContext.news_Authors.Remove(news_Author);
             await _dbContext.SaveChangesAsync();

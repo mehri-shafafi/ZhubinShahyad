@@ -10,8 +10,8 @@ namespace News.Domain.News.Repositories
         Task<News_Article> GetNewsArticleAsync(int id);
         #endregion
         #region
-        Task<List<News_Author>> GetNewsAuthorAllAsync();
-        Task<News_Author> GetNewsAuthorAsync(int id);
+        Task<List<News_AuthorModel>> GetNewsAuthorAllAsync();
+        Task<News_AuthorModel> GetNewsAuthorAsync(int id);
         #endregion
         #region
         Task<List<News_Category>> GetNewsCategoryAllAsync();

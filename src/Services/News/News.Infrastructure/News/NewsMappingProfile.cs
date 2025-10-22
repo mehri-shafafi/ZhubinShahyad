@@ -8,7 +8,7 @@ namespace News.Infrastructure.News
         public NewsMappingProfile()
         {
             CreateMap<News_Article, NewsArticleResDto>().ReverseMap();
-            CreateMap<News_Author, NewsAuthorDto>().ReverseMap();
+            CreateMap<News_AuthorModel, NewsAuthorDto>().ReverseMap();
             CreateMap<News_Category, NewsCategoryDto>().ReverseMap();
         }
     }

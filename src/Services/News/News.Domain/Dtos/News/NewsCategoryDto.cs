@@ -1,5 +1,4 @@
-﻿namespace News.Domain.Dtos.News;
-public class NewsCategoryDto
+﻿public class NewsCategoryDto
 {
    public string Name { get; set; }
     public string Description { get; set; }

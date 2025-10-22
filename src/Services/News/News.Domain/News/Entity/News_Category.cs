@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace News.Domain.News.Models
+namespace News.Domain.News.Entity
 {
     public class News_Category : BaseEntity
     {

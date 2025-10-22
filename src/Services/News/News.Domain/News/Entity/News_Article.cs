@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using News.Domain.Base;
 
-namespace News.Domain.News.Models
+namespace News.Domain.News.Entity
 {
     public class News_Article : BaseEntity
     {

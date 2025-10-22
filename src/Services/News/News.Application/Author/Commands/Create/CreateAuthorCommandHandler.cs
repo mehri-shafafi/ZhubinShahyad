@@ -24,7 +24,7 @@ public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, N
 
     public async Task<NewsAuthorDto> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
     {
-        var mappedComment = _mapper.Map<News_Author>(request);
+        var mappedComment = _mapper.Map<News_AuthorModel>(request);
         var result = await _writeUnitOfWork.NewsWriteRepository.AddNews_AuthorAsync(mappedComment);
         return _mapper.Map<NewsAuthorDto>(result);
     }
