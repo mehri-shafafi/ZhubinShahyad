@@ -20,6 +20,7 @@ namespace News.Domain.News.Entity
         public DateTime PublishedDate { get; set; }
         public string Tags { get; set; }
         public string ImageURL { get; set; }
+        public bool Active { get; set; }=false;
         public long ViewsCount { get; set; }
         public News_Author news_Author { get; set; } // Navigation property
         public News_Category news_Category { get; set; } // Navigation property

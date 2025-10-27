@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using News.Domain.Dtos.News;
 using News.Domain.News.Models;
 using News.Domain.News.Repositories;
 using News.Infrastructure;
@@ -14,23 +13,99 @@ namespace News.Domain.News
             _dbContext = dbContext;
         }
         // News_Article
-        public async Task<List<News_Article>> GetNewsArticleAllAsync()
+        public async Task<List<News_ArticleModel>> GetNewsArticleAllAsync()
         {
-            return await _dbContext.news_Articles.ToListAsync();
+            return await _dbContext.news_Articles
+               .AsNoTracking()
+               .Include(p => p.news_Category)
+               .Select(pc => new News_ArticleModel
+               {
+                   Id = pc.Id,
+                   CategoryID = pc.CategoryID,
+                   AuthorID = pc.AuthorID,
+                   Content_AR = pc.Content_AR,
+                   Content_EN = pc.Content_EN,
+                   Content_FA = pc.Content_FA,
+                   CreationDateTime = pc.CreationDateTime,
+                   ImageURL = pc.ImageURL,
+                   ModificationDateTime = pc.ModificationDateTime,
+                   PublishedDate = pc.PublishedDate,
+                   Summary_AR = pc.Summary_AR,
+                   Summary_EN = pc.Summary_EN,
+                   Summary_FA = pc.Summary_FA,
+                   Tags = pc.Tags,
+                   Title_AR = pc.Title_AR,
+                   Title_EN = pc.Title_EN,
+                   Title_FA = pc.Title_FA,
+                   ViewsCount = pc.ViewsCount
+               })
+               .ToListAsync();
+
+
         }
-        public async Task<News_Article> GetNewsArticleAsync(int id)
+        public async Task<News_ArticleModel> GetNewsArticleAsync(int id)
         {
-            return await _dbContext.news_Articles.FirstOrDefaultAsync(p => p.Id == id);
+            var result= await _dbContext.news_Articles
+                .AsNoTracking()
+                .Include(p => p.news_Category)
+                .Where(pc => pc.Id == id)
+                .Select(pc => new News_ArticleModel
+                {
+                    CategoryID = pc.CategoryID,
+                    AuthorID = pc.AuthorID,
+                    Content_AR = pc.Content_AR,
+                    Content_EN = pc.Content_EN,
+                    Content_FA = pc.Content_FA,
+                    CreationDateTime = pc.CreationDateTime,
+                    ImageURL = pc.ImageURL,
+                    ModificationDateTime = pc.ModificationDateTime,
+                    PublishedDate = pc.PublishedDate,
+                    Summary_AR = pc.Summary_AR,
+                    Summary_EN = pc.Summary_EN,
+                    Summary_FA = pc.Summary_FA,
+                    Tags = pc.Tags,
+                    Title_AR = pc.Title_AR,
+                    Title_EN = pc.Title_EN,
+                    Title_FA = pc.Title_FA,
+                    ViewsCount = pc.ViewsCount
+
+                })
+                .FirstOrDefaultAsync();
+            return result;
+
         }
 
         //News_Author
-        public async Task<List<News_Author>> GetNewsAuthorAllAsync()
+        public async Task<List<News_AuthorModel>> GetNewsAuthorAllAsync()
         {
-            return await _dbContext.news_Authors.Include(p => p.Id).ToListAsync();
+            return await _dbContext.news_Authors
+               .AsNoTracking()
+               .Include(p => p.news_Articles)
+               .Select(pc => new News_AuthorModel
+               {
+                   Id = pc.Id,
+                   Bio=pc.Bio,
+                   CreationDateTime=pc.CreationDateTime,
+                   ModificationDateTime=pc.ModificationDateTime,
+                   Name = pc.Name,
+                   ProfilePictureURL=pc.ProfilePictureURL
+               }).ToListAsync();
         }
-        public async Task<News_Author> GetNewsAuthorAsync(int id)
+        public async Task<News_AuthorModel> GetNewsAuthorAsync(int id)
         {
-            return await _dbContext.news_Authors.FirstOrDefaultAsync(p => p.Id == id);
+            return await _dbContext.news_Authors
+                .Include(b=>b.news_Articles)
+                .Where(b=>b.Id==id)
+                .Select(pc=> new News_AuthorModel
+                {
+                    Id = pc.Id,
+                    Bio = pc.Bio,
+                    CreationDateTime = pc.CreationDateTime,
+                    ModificationDateTime = pc.ModificationDateTime,
+                    Name = pc.Name,
+                    ProfilePictureURL = pc.ProfilePictureURL
+                })
+                .FirstOrDefaultAsync(p => p.Id == id);
 
         }
 
@@ -38,7 +113,7 @@ namespace News.Domain.News
         public async Task<List<News_CategoryModel>> GetNewsCategoryAllAsync()
         {
 
-            var result = await _dbContext.news_Articles
+            var result = await _dbContext.news_Categories
               .Select(t => new News_CategoryModel
               {
                   Id = t.Id,
@@ -56,7 +131,7 @@ namespace News.Domain.News
         public async Task<News_CategoryModel> GetNewsCategoryAsync(int id)
         {
 
-            return await _dbContext.news_Categories.FirstOrDefaultAsync(p => p.Id == id)
+            return await _dbContext.news_Categories
                  .Select(t => new News_CategoryModel
                  {
                      Id = t.Id,
@@ -65,14 +140,14 @@ namespace News.Domain.News
                      Slug = t.Slug,
                      CreatedDate = t.CreatedDate,
                      UpdatedDate = t.UpdatedDate,
-                 }).ToListAsync();
+                 }).FirstOrDefaultAsync(p => p.Id == id);
         }
 
         // News_Comment
-        public async Task<List<NewsArticleResDto>> GetNewsCommentAllAsync()
+        public async Task<List<News_ArticleModel>> GetNewsCommentAllAsync()
         {
             var result = await _dbContext.news_Articles
-               .Select(t => new NewsArticleResDto
+               .Select(t => new News_ArticleModel
                {
                    Id = t.Id,
                    ImageURL = t.ImageURL,

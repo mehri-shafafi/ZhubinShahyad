@@ -27,7 +27,7 @@ public class UpdateArticleCommandHandler : IRequestHandler<UpdateArticleCommand,
         {
             throw new NotFoundException(nameof(result), request.Id);
         }
-        var mappedComment = _mapper.Map<News_Article>(request);
+        var mappedComment = _mapper.Map<News_ArticleModel>(request);
         await _writeUnitOfWork.NewsWriteRepository.UpdateNews_ArticleAsync(mappedComment);
         _logger.LogInformation($"Product {result.Id} is successfully updated.");
         return true;

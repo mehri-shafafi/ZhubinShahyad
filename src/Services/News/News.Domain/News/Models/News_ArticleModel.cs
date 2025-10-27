@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using News.Domain.Base;
+﻿using News.Domain.Base;
 
 namespace News.Domain.News.Models
 {

@@ -10,9 +10,9 @@ namespace News.Domain.News.Repositories
     public interface INewsWriteRepository
     {
         #region
-        Task<News_Article> AddNews_ArticleAsync(News_Article news_Article);
-        Task<News_Article> UpdateNews_ArticleAsync(News_Article news_Article);
-        Task DeleteNews_ArticleAsync(News_Article news_Article);
+        Task<News_ArticleModel> AddNews_ArticleAsync(News_ArticleModel news_Article);
+        Task<News_ArticleModel> UpdateNews_ArticleAsync(News_ArticleModel news_Article);
+        Task DeleteNews_ArticleAsync(News_ArticleModel news_Article);
         #endregion
         #region
         Task<News_AuthorModel> AddNews_AuthorAsync(News_AuthorModel news_Author);
@@ -20,9 +20,9 @@ namespace News.Domain.News.Repositories
         Task DeleteNews_AuthorAsync(News_AuthorModel news_Author);
         #endregion
         #region
-        Task<News_Category> AddNews_CategoryAsync(News_Category news_Category);
-        Task<News_Category> UpdateNews_CategoryAsync(News_Category news_Category);
-        Task DeleteNews_CategoryAsync(News_Category news_Category);
+        Task<News_CategoryModel> AddNews_CategoryAsync(News_CategoryModel news_Category);
+        Task<News_CategoryModel> UpdateNews_CategoryAsync(News_CategoryModel news_Category);
+        Task DeleteNews_CategoryAsync(News_CategoryModel news_Category);
         #endregion
         #region
         #endregion

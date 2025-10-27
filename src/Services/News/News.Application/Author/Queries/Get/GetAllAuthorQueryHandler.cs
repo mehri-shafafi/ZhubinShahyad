@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using News.Application.Author.Queries.Get;
-using News.Domain.Dtos.News;
-using News.Domain.News.Repositories;
+using News.Application.Dtos.News;
 using News.Domain.UnitOfWork.News;
 
 namespace News.Application.Author.Queries.Get

@@ -1,11 +1,4 @@
 ﻿using News.Domain.Base;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace News.Domain.News.Models
 {
@@ -19,6 +12,6 @@ namespace News.Domain.News.Models
         public DateTime UpdatedDate { get; set; }
         public ICollection<News_ArticleModel> news_ArticlesModel { get; set; } // Navigation property
 
-      
+
     }
 }

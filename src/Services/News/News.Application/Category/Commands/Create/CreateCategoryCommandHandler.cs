@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using News.Domain.Dtos.News;
+using News.Application.Dtos.News;
 using News.Domain.News.Models;
 using News.Domain.UnitOfWork.News;
 
@@ -23,7 +23,7 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
 
     public async Task<NewsCategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
-        var mappedComment = _mapper.Map<News_Category>(request);
+        var mappedComment = _mapper.Map<News_CategoryModel>(request);
         var result = await _writeUnitOfWork.NewsWriteRepository.AddNews_CategoryAsync(mappedComment);
         return _mapper.Map<NewsCategoryDto>(result);
     }

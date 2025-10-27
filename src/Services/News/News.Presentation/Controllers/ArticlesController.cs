@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using News.Application.Articles.Commands.Delete;
 using News.Application.Articles.Commands.Create;
-using News.Domain.Dtos.News;
-using News.Application.Articles.Queries.Get;
+using News.Application.Articles.Commands.Delete;
 using News.Application.Articles.Commands.Update;
+using News.Application.Articles.Queries.Get;
+using News.Application.Dtos.News;
 
 
 namespace News.Presentation.Controllers

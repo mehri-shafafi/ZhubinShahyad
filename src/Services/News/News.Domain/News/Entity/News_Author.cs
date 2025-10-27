@@ -10,6 +10,7 @@ namespace News.Domain.News.Entity
 
         public string Bio { get; set; }
         public string ProfilePictureURL { get; set; }
+        public bool Active { get; set; }=false;
         public ICollection<News_Article> news_Articles { get; set; } // Navigation property
 
         public class AuthorConfiguration : IEntityTypeConfiguration<News_Author>

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using News.Domain.Base;
+﻿using News.Domain.Base;
 
 namespace News.Domain.News.Models
 {
@@ -11,5 +9,5 @@ namespace News.Domain.News.Models
         public string Bio { get; set; }
         public string ProfilePictureURL { get; set; }
 
-            }
+    }
 }

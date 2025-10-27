@@ -4,7 +4,7 @@ using News.Application.Category.Commands.Create;
 using News.Application.Category.Commands.Delete;
 using News.Application.Category.Commands.Update;
 using News.Application.Category.Queries.Get;
-using News.Domain.Dtos.News;
+using News.Application.Dtos.News;
 
 
 namespace News.Presentation.Controllers

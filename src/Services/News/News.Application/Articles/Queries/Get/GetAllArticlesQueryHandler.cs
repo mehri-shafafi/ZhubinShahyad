@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using News.Application.Articles.Queries.Get;
-using News.Domain.Dtos.News;
+using News.Application.Dtos.News;
 using News.Domain.UnitOfWork.News;
 
 namespace News.Application.Articles.Queries.GetAllNewsComments

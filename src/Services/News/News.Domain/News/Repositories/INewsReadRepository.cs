@@ -1,22 +1,21 @@
-﻿using News.Domain.Dtos.News;
-using News.Domain.News.Models;
+﻿using News.Domain.News.Models;
 
 namespace News.Domain.News.Repositories
 {
     public interface INewsReadRepository
     {
         #region
-        Task<List<News_Article>> GetNewsArticleAllAsync();
-        Task<News_Article> GetNewsArticleAsync(int id);
+        Task<List<News_ArticleModel>> GetNewsArticleAllAsync();
+        Task<News_ArticleModel> GetNewsArticleAsync(int id);
         #endregion
         #region
         Task<List<News_AuthorModel>> GetNewsAuthorAllAsync();
         Task<News_AuthorModel> GetNewsAuthorAsync(int id);
         #endregion
         #region
-        Task<List<News_Category>> GetNewsCategoryAllAsync();
-        Task<News_Category> GetNewsCategoryAsync(int id);
+        Task<List<News_CategoryModel>> GetNewsCategoryAllAsync();
+        Task<News_CategoryModel> GetNewsCategoryAsync(int id);
         #endregion
-       
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using News.Domain.Dtos.News;
+using News.Application.Dtos.News;
 using News.Domain.News.Models;
 using News.Domain.UnitOfWork.News;
 
@@ -14,7 +14,7 @@ public class CreateArticlesCommanddHandler : IRequestHandler<CreateArticlesComma
     private readonly ILogger<CreateArticlesCommanddHandler> _logger;
 
 
-    public CreateArticlesCommanddHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper,  ILogger<CreateArticlesCommanddHandler> logger)
+    public CreateArticlesCommanddHandler(IWriteUnitOfWork writeUnitOfWork, IMapper mapper, ILogger<CreateArticlesCommanddHandler> logger)
     {
         _writeUnitOfWork = writeUnitOfWork;
         _mapper = mapper;
@@ -23,7 +23,7 @@ public class CreateArticlesCommanddHandler : IRequestHandler<CreateArticlesComma
 
     public async Task<NewsArticleResDto> Handle(CreateArticlesCommand request, CancellationToken cancellationToken)
     {
-        var mappedComment = _mapper.Map<News_Article>(request);
+        var mappedComment = _mapper.Map<News_ArticleModel>(request);
         var result = await _writeUnitOfWork.NewsWriteRepository.AddNews_ArticleAsync(mappedComment);
         return _mapper.Map<NewsArticleResDto>(result);
     }

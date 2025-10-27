@@ -18,6 +18,7 @@ namespace News.Domain.News.Entity
         public string Slug { get; set; }   //آدرس یکتا برای دسته‌بندی که در URL استفاده می‌شود (مثلاً "medical-news" برای دسته‌بندی اخبار پزشکی).
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public bool Active { get; set; } = false;
         public ICollection<News_Article> news_Articles { get; set; } // Navigation property
 
         public class CategoryNewsConfiguration : IEntityTypeConfiguration<News_Category>

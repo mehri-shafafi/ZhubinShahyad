@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using News.Domain.Dtos.News;
+using News.Application.Dtos.News;
 
 namespace News.Application.Articles.Commands.Create;
 
