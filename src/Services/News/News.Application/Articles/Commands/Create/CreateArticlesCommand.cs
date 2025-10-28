@@ -4,6 +4,6 @@ using News.Application.Dtos.News;
 namespace News.Application.Articles.Commands.Create;
 
 
-public class CreateArticlesCommand : NewsArticleResDto, IRequest<NewsArticleResDto>
+public class CreateArticlesCommand : NewsArticleResDto, IRequest<bool>
 {
 }

@@ -10,7 +10,7 @@ namespace News.Domain.News.Repositories
     public interface INewsWriteRepository
     {
         #region
-        Task<News_ArticleModel> AddNews_ArticleAsync(News_ArticleModel news_Article);
+        Task<bool> AddNews_ArticleAsync(News_ArticleModel news_Article);
         Task<News_ArticleModel> UpdateNews_ArticleAsync(News_ArticleModel news_Article);
         Task DeleteNews_ArticleAsync(News_ArticleModel news_Article);
         #endregion

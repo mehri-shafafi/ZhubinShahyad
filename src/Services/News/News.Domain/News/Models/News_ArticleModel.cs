@@ -2,7 +2,7 @@
 
 namespace News.Domain.News.Models
 {
-    public class News_ArticleModel : BaseEntity
+    public class News_ArticleModel : BaseEntity<int>
     {
         public string Title_FA { get; set; }
         public string Summary_FA { get; set; }

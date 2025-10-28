@@ -7,7 +7,7 @@ using News.Domain.UnitOfWork.News;
 
 namespace News.Application.Articles.Commands.Create;
 
-public class CreateArticlesCommanddHandler : IRequestHandler<CreateArticlesCommand, NewsArticleResDto>
+public class CreateArticlesCommanddHandler : IRequestHandler<CreateArticlesCommand, bool>
 {
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IMapper _mapper;
@@ -21,10 +21,10 @@ public class CreateArticlesCommanddHandler : IRequestHandler<CreateArticlesComma
         _logger = logger;
     }
 
-    public async Task<NewsArticleResDto> Handle(CreateArticlesCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(CreateArticlesCommand request, CancellationToken cancellationToken)
     {
         var mappedComment = _mapper.Map<News_ArticleModel>(request);
         var result = await _writeUnitOfWork.NewsWriteRepository.AddNews_ArticleAsync(mappedComment);
-        return _mapper.Map<NewsArticleResDto>(result);
+        return result;
     }
 }

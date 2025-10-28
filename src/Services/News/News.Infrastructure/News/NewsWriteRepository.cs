@@ -15,12 +15,21 @@ namespace News.Infrastructure.News
             _mapper = mapper;
         }
         #region 
-        public async Task<News_ArticleModel> AddNews_ArticleAsync(News_ArticleModel news_Article)
+        public async Task<bool> AddNews_ArticleAsync(News_ArticleModel news_Article)
         {
             var entity = _mapper.Map<News_Article>(news_Article);
-            var result = await _dbContext.AddAsync(news_Article);
-            await _dbContext.SaveChangesAsync();
-            return result.Entity;
+            try
+            {
+            var result = await _dbContext.AddAsync(entity);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) {
+                throw new Exception("انجام نشد.");
+            }
+           
+            
+      
         }
         public async Task<News_ArticleModel> UpdateNews_ArticleAsync(News_ArticleModel news_Article)
         {

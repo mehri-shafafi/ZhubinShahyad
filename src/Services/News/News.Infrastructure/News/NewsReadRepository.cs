@@ -43,37 +43,35 @@ namespace News.Domain.News
 
 
         }
-        public async Task<News_ArticleModel> GetNewsArticleAsync(int id)
+        public async Task<News_ArticleModel?> GetNewsArticleAsync(int id)
         {
-            var result= await _dbContext.news_Articles
+
+            return await _dbContext.news_Articles
                 .AsNoTracking()
-                .Include(p => p.news_Category)
-                .Where(pc => pc.Id == id)
-                .Select(pc => new News_ArticleModel
+                .Include(a => a.news_Category)
+                .Select(a => new News_ArticleModel
                 {
-                    CategoryID = pc.CategoryID,
-                    AuthorID = pc.AuthorID,
-                    Content_AR = pc.Content_AR,
-                    Content_EN = pc.Content_EN,
-                    Content_FA = pc.Content_FA,
-                    CreationDateTime = pc.CreationDateTime,
-                    ImageURL = pc.ImageURL,
-                    ModificationDateTime = pc.ModificationDateTime,
-                    PublishedDate = pc.PublishedDate,
-                    Summary_AR = pc.Summary_AR,
-                    Summary_EN = pc.Summary_EN,
-                    Summary_FA = pc.Summary_FA,
-                    Tags = pc.Tags,
-                    Title_AR = pc.Title_AR,
-                    Title_EN = pc.Title_EN,
-                    Title_FA = pc.Title_FA,
-                    ViewsCount = pc.ViewsCount
-
+                    CategoryID = a.CategoryID,
+                    AuthorID = a.AuthorID,
+                    Content_AR = a.Content_AR,
+                    Content_EN = a.Content_EN,
+                    Content_FA = a.Content_FA,
+                    CreationDateTime = a.CreationDateTime,
+                    ImageURL = a.ImageURL,
+                    ModificationDateTime = a.ModificationDateTime,
+                    PublishedDate = a.PublishedDate,
+                    Summary_AR = a.Summary_AR,
+                    Summary_EN = a.Summary_EN,
+                    Summary_FA = a.Summary_FA,
+                    Tags = a.Tags,
+                    Title_AR = a.Title_AR,
+                    Title_EN = a.Title_EN,
+                    Title_FA = a.Title_FA,
+                    ViewsCount = a.ViewsCount
                 })
-                .FirstOrDefaultAsync();
-            return result;
-
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
+
 
         //News_Author
         public async Task<List<News_AuthorModel>> GetNewsAuthorAllAsync()

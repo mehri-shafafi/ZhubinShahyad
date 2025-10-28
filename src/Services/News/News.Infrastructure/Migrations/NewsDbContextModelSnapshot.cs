@@ -22,13 +22,16 @@ namespace News.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("News.Domain.News.Models.News_Article", b =>
+            modelBuilder.Entity("News.Domain.News.Entity.News_Article", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
                     b.Property<int>("AuthorID")
                         .HasColumnType("int");
@@ -113,13 +116,16 @@ namespace News.Infrastructure.Migrations
                     b.ToTable("news_Articles");
                 });
 
-            modelBuilder.Entity("News.Domain.News.Models.News_Author", b =>
+            modelBuilder.Entity("News.Domain.News.Entity.News_Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Bio")
                         .IsRequired()
@@ -147,13 +153,16 @@ namespace News.Infrastructure.Migrations
                     b.ToTable("news_Authors");
                 });
 
-            modelBuilder.Entity("News.Domain.News.Models.News_Category", b =>
+            modelBuilder.Entity("News.Domain.News.Entity.News_Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
@@ -194,15 +203,15 @@ namespace News.Infrastructure.Migrations
                     b.ToTable("news_Categories");
                 });
 
-            modelBuilder.Entity("News.Domain.News.Models.News_Article", b =>
+            modelBuilder.Entity("News.Domain.News.Entity.News_Article", b =>
                 {
-                    b.HasOne("News.Domain.News.Models.News_Author", "news_Author")
+                    b.HasOne("News.Domain.News.Entity.News_Author", "news_Author")
                         .WithMany("news_Articles")
                         .HasForeignKey("AuthorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("News.Domain.News.Models.News_Category", "news_Category")
+                    b.HasOne("News.Domain.News.Entity.News_Category", "news_Category")
                         .WithMany("news_Articles")
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -213,12 +222,12 @@ namespace News.Infrastructure.Migrations
                     b.Navigation("news_Category");
                 });
 
-            modelBuilder.Entity("News.Domain.News.Models.News_Author", b =>
+            modelBuilder.Entity("News.Domain.News.Entity.News_Author", b =>
                 {
                     b.Navigation("news_Articles");
                 });
 
-            modelBuilder.Entity("News.Domain.News.Models.News_Category", b =>
+            modelBuilder.Entity("News.Domain.News.Entity.News_Category", b =>
                 {
                     b.Navigation("news_Articles");
                 });

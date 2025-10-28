@@ -36,13 +36,25 @@ namespace News.Presentation.Controllers
 
         [Route("AddedArticle")]
         [HttpPost]
-        [ProducesResponseType(typeof(NewsArticleResDto), 200)]
-        public async Task<NewsArticleResDto> Create(CreateArticlesCommand request)
+        [ProducesResponseType(typeof(NewsArticleResDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Create(CreateArticlesCommand request)
         {
-            return await _mediator.Send(request);
+            if (request == null)
+            {
+                return BadRequest("درخواست نامعتبر است.");
+            }
+            try
+            {
+                await _mediator.Send(request);
+                return Ok(true);
+            }
+            catch (Exception) {
+                return BadRequest("ایجاد خبر انجام نشد. ابتدا استعلام گرفته و سپس دوباره تلاش کنید.");
+
+            }
         }
 
-        // PUT api/<NewsController>/5
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(400)]

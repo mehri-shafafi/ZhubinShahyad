@@ -27,7 +27,9 @@ public static class ServiceRegistery
 
     public static IServiceCollection AddInfrastructureServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddAutoMapper(Assemblies.InfrastructureAssembly);
+        builder.Services.AddAutoMapper(typeof(Application.Common.MappingProfile),
+                               typeof(Infrastructure.Common.MappingProfile)
+                               );
         builder.Services.AddDbContext<NewsDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
         builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();

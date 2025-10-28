@@ -4,9 +4,8 @@ namespace Products.Application.Dtos.Products;
 
 public class ProductResDto : ProductDto
 {
-    public int CategoryId { get; set; }
-    public string CategoryTitle_Id { get; set; }
-    public string CategoryTitle { get; set; }
+    public bool hasError { get; set; }
+    public string ErrorDesc { get; set; }
 
 }
 public class ProductReqDto : ProductDto
