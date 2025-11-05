@@ -1,5 +1,5 @@
 ﻿namespace News.Application.Dtos.News;
-public class NewsCategoryDto
+public class NewsCategoryDto:BaseEntity<int>
 {
    public string Name { get; set; }
     public string Description { get; set; }

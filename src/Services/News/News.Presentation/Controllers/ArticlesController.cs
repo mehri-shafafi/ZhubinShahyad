@@ -1,9 +1,11 @@
-﻿using MediatR;
+﻿using Azure.Core;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using News.Application.Articles.Commands.Create;
 using News.Application.Articles.Commands.Delete;
 using News.Application.Articles.Commands.Update;
 using News.Application.Articles.Queries.Get;
+using News.Application.Articles.Queries.GetNewsCommentById;
 using News.Application.Dtos.News;
 
 
@@ -20,10 +22,25 @@ namespace News.Presentation.Controllers
             _mediator = mediator;
         }
         // GET api/<NewsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<ActionResult<NewsArticleResDto>> Get(GetArticlesByIdQuery query)
         {
-            return "value";
+            if (query == null)
+            {
+                return BadRequest("درخواست نامعتبر است.");
+            }
+            try
+            {
+               return await _mediator.Send(query);
+                
+
+            }
+            catch (Exception)
+            {
+                return BadRequest("خبری پیدا نشد.");
+
+            }
         }
 
         [Route("GetListArticle")]
@@ -58,9 +75,9 @@ namespace News.Presentation.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<bool>> Update(int id, UpdateArticleCommand request)
+        public async Task<ActionResult<bool>> Update( UpdateArticleCommand request)
         {
-            if (id != request.Id)
+            if (request.Id==0)
             {
 
                 return BadRequest("Id in body and query must be equal");

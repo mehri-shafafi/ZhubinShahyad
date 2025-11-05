@@ -37,8 +37,9 @@ namespace News.Domain.News
                    Title_AR = pc.Title_AR,
                    Title_EN = pc.Title_EN,
                    Title_FA = pc.Title_FA,
-                   ViewsCount = pc.ViewsCount
-               })
+                   ViewsCount = pc.ViewsCount,
+                   Active = pc.Active
+               }).Where(pc=>pc.Active==true)
                .ToListAsync();
 
 
@@ -51,6 +52,7 @@ namespace News.Domain.News
                 .Include(a => a.news_Category)
                 .Select(a => new News_ArticleModel
                 {
+                    Id=a.Id,
                     CategoryID = a.CategoryID,
                     AuthorID = a.AuthorID,
                     Content_AR = a.Content_AR,

@@ -22,14 +22,10 @@ public class UpdateArticleCommandHandler : IRequestHandler<UpdateArticleCommand,
     }
     public async Task<bool> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
     {
-        var result = await _readUnitOfWork.NewsReadRepository.GetNewsArticleAsync(request.Id);
-        if (result == null)
-        {
-            throw new NotFoundException(nameof(result), request.Id);
-        }
+     
         var mappedComment = _mapper.Map<News_ArticleModel>(request);
         await _writeUnitOfWork.NewsWriteRepository.UpdateNews_ArticleAsync(mappedComment);
-        _logger.LogInformation($"Product {result.Id} is successfully updated.");
+        _logger.LogInformation($"Product {request.Id} is successfully updated.");
         return true;
     }
 }

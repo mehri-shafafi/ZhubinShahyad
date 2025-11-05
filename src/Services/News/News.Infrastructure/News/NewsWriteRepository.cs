@@ -36,10 +36,17 @@ namespace News.Infrastructure.News
             var existing = await _dbContext.news_Articles.FindAsync(news_Article.Id);
             if (existing == null) return null;
 
+            news_Article.CategoryID = news_Article.CategoryID != 0 ? news_Article.CategoryID : existing.CategoryID;
+            news_Article.AuthorID = news_Article.AuthorID != 0 ? news_Article.AuthorID : existing.AuthorID;
+
+
+
             _mapper.Map(news_Article, existing);
-            var result = _dbContext.Update(news_Article);
+
             await _dbContext.SaveChangesAsync();
-            return result.Entity;
+            var resultModel = _mapper.Map<News_ArticleModel>(existing);
+
+            return resultModel;
         }
         public async Task DeleteNews_ArticleAsync(News_ArticleModel news_Article)
         {
