@@ -23,8 +23,8 @@ namespace News.Domain.News.Repositories
         Task<News_CategoryModel> AddNews_CategoryAsync(News_CategoryModel news_Category);
         Task<News_CategoryModel> UpdateNews_CategoryAsync(News_CategoryModel news_Category);
         Task DeleteNews_CategoryAsync(News_CategoryModel news_Category);
+        Task<bool> ChangeStatusAsync(ChangeNewsArticleStatusModel input);
         #endregion
-        #region
-        #endregion
+   
     }
 }

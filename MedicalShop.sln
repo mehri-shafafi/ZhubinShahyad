@@ -82,6 +82,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contact.Infrastructure", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contact.Presentation", "src\Services\Contact\Contact.Presentation\Contact.Presentation.csproj", "{57385390-BE37-4490-8B03-C194FC7A3972}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3rdTools", "3rdTools", "{36A04191-F865-4F9E-9C92-D764D7CBAB8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cache", "Cache", "{B0E272F1-83C5-4801-9C79-D5E052B10156}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisManager", "3rdTools\RedisManager\RedisManager.csproj", "{B7F812B2-09CB-44B2-9FDD-CF9ED994501B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -192,6 +198,10 @@ Global
 		{57385390-BE37-4490-8B03-C194FC7A3972}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57385390-BE37-4490-8B03-C194FC7A3972}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57385390-BE37-4490-8B03-C194FC7A3972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7F812B2-09CB-44B2-9FDD-CF9ED994501B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7F812B2-09CB-44B2-9FDD-CF9ED994501B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7F812B2-09CB-44B2-9FDD-CF9ED994501B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7F812B2-09CB-44B2-9FDD-CF9ED994501B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -229,6 +239,8 @@ Global
 		{9802CCDE-5238-4ED2-AFDE-2D3E28BEA6D5} = {86BCAF2E-41CC-47D5-A360-7C0019739FC2}
 		{5E837B9E-3C85-4D0B-80FB-92AA5B3EA43D} = {86BCAF2E-41CC-47D5-A360-7C0019739FC2}
 		{57385390-BE37-4490-8B03-C194FC7A3972} = {86BCAF2E-41CC-47D5-A360-7C0019739FC2}
+		{B0E272F1-83C5-4801-9C79-D5E052B10156} = {36A04191-F865-4F9E-9C92-D764D7CBAB8D}
+		{B7F812B2-09CB-44B2-9FDD-CF9ED994501B} = {B0E272F1-83C5-4801-9C79-D5E052B10156}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {147F30A1-569E-453B-92D1-B023ED71B1AC}

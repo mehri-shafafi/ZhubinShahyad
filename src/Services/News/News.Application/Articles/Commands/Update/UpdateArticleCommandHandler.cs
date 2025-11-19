@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using News.Application.Exception;
 using News.Domain.News.Models;
 using News.Domain.UnitOfWork.News;
 namespace News.Application.Articles.Commands.Update;
@@ -22,7 +21,7 @@ public class UpdateArticleCommandHandler : IRequestHandler<UpdateArticleCommand,
     }
     public async Task<bool> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
     {
-     
+
         var mappedComment = _mapper.Map<News_ArticleModel>(request);
         await _writeUnitOfWork.NewsWriteRepository.UpdateNews_ArticleAsync(mappedComment);
         _logger.LogInformation($"Product {request.Id} is successfully updated.");

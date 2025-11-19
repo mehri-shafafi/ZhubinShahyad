@@ -72,10 +72,25 @@ namespace News.Presentation.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+
+        [HttpPut("UpdateArticle/{id}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(400)]
         public async Task<ActionResult<bool>> Update( UpdateArticleCommand request)
+        {
+            if (request.Id==0)
+            {
+                return BadRequest("Id in body and query must be equal");
+            }
+            var res = await _mediator.Send(request);
+            return res;
+
+        }
+        
+        [HttpPut("ChangeStatus/{id}")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult<bool>> Update2(ChangeNewsArticleStatusCommand request)
         {
             if (request.Id==0)
             {
@@ -86,6 +101,9 @@ namespace News.Presentation.Controllers
             return res;
 
         }
+
+
+    
         // DELETE api/<NewsController>/5
         [HttpDelete("{id}")]
         //[Route("api/DeleteProduct")]
@@ -95,6 +113,7 @@ namespace News.Presentation.Controllers
             var res = await _mediator.Send(request);
             return res;
         }
+     
 
     }
 }

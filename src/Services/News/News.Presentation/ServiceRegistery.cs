@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using News.Domain.UnitOfWork.News;
 using News.Infrastructure;
+using StackExchange.Redis;
 using System.Text.Json.Serialization;
 
 
@@ -79,4 +80,20 @@ public static class ServiceRegistery
         return builder.Services;
 
     }
+    public static IServiceCollection AddRedisConfiguration(this WebApplicationBuilder builder)
+    {
+        // IDistributedCache ⇒ MS Redis Cache
+        builder.Services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = builder.Configuration.GetConnectionString("Redis");
+            options.InstanceName = "NewsApp_";
+        });
+
+        // ثبت ConnectionMultiplexer برای متدهایی مثل GetRecordByPatternAsync
+        builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+            ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")));
+
+        return builder.Services;
+    }
+
 }

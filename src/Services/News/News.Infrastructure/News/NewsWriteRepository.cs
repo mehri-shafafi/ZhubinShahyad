@@ -2,6 +2,7 @@
 using News.Domain.News.Entity;
 using News.Domain.News.Models;
 using News.Domain.News.Repositories;
+using System.Text.RegularExpressions;
 
 namespace News.Infrastructure.News
 {
@@ -25,11 +26,18 @@ namespace News.Infrastructure.News
                 return true;
             }
             catch (Exception ex) {
-                throw new Exception("انجام نشد.");
+                // بررسی خطای داخلی
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("FOREIGN KEY"))
+                {
+                    throw new Exception("کلید خارجی معتبر نیست، رکورد مرجع وجود ندارد.");
+                }
+
+                // سایر خطاها
+                throw new Exception("ثبت خبر انجام نشد. جزئیات: " + ex.Message);
             }
-           
-            
-      
+
+
+
         }
         public async Task<News_ArticleModel> UpdateNews_ArticleAsync(News_ArticleModel news_Article)
         {
@@ -104,6 +112,19 @@ namespace News.Infrastructure.News
             await _dbContext.SaveChangesAsync();
 
         }
+       public async Task<bool> ChangeStatusAsync(ChangeNewsArticleStatusModel input)
+        {
+            var entity = await _dbContext.news_Articles.FindAsync(input.Id);
+            if (entity == null)
+                throw new Exception("News category not found");
+            entity.Active=input.IsActive;
+            var result = _dbContext.Update(entity);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+
+
+
 
 
     }

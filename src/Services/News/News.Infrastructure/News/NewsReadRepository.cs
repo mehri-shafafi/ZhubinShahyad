@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using News.Domain.News.Models;
 using News.Domain.News.Repositories;
 using News.Infrastructure;
@@ -8,14 +9,16 @@ namespace News.Domain.News
     public class NewsReadRepository : INewsReadRepository
     {
         private readonly NewsDbContext _dbContext;
-        public NewsReadRepository(NewsDbContext dbContext)
+        private readonly IDistributedCache _cache;
+        public NewsReadRepository(NewsDbContext dbContext, IDistributedCache cache)
         {
             _dbContext = dbContext;
+            _cache = cache;
         }
         // News_Article
         public async Task<List<News_ArticleModel>> GetNewsArticleAllAsync()
         {
-            return await _dbContext.news_Articles
+            var res = await _dbContext.news_Articles
                .AsNoTracking()
                .Include(p => p.news_Category)
                .Select(pc => new News_ArticleModel
@@ -39,10 +42,9 @@ namespace News.Domain.News
                    Title_FA = pc.Title_FA,
                    ViewsCount = pc.ViewsCount,
                    Active = pc.Active
-               }).Where(pc=>pc.Active==true)
+               }).Where(pc => pc.Active == true)
                .ToListAsync();
-
-
+                        return res;
         }
         public async Task<News_ArticleModel?> GetNewsArticleAsync(int id)
         {
@@ -52,7 +54,7 @@ namespace News.Domain.News
                 .Include(a => a.news_Category)
                 .Select(a => new News_ArticleModel
                 {
-                    Id=a.Id,
+                    Id = a.Id,
                     CategoryID = a.CategoryID,
                     AuthorID = a.AuthorID,
                     Content_AR = a.Content_AR,
@@ -84,19 +86,19 @@ namespace News.Domain.News
                .Select(pc => new News_AuthorModel
                {
                    Id = pc.Id,
-                   Bio=pc.Bio,
-                   CreationDateTime=pc.CreationDateTime,
-                   ModificationDateTime=pc.ModificationDateTime,
+                   Bio = pc.Bio,
+                   CreationDateTime = pc.CreationDateTime,
+                   ModificationDateTime = pc.ModificationDateTime,
                    Name = pc.Name,
-                   ProfilePictureURL=pc.ProfilePictureURL
+                   ProfilePictureURL = pc.ProfilePictureURL
                }).ToListAsync();
         }
         public async Task<News_AuthorModel> GetNewsAuthorAsync(int id)
         {
             return await _dbContext.news_Authors
-                .Include(b=>b.news_Articles)
-                .Where(b=>b.Id==id)
-                .Select(pc=> new News_AuthorModel
+                .Include(b => b.news_Articles)
+                .Where(b => b.Id == id)
+                .Select(pc => new News_AuthorModel
                 {
                     Id = pc.Id,
                     Bio = pc.Bio,
@@ -167,6 +169,16 @@ namespace News.Domain.News
 
             return result;
             //return await _dbContext.news_Comments.Include(p => p.Content).ToListAsync();
+        }
+        public async Task<bool> ChangeStatusAsync(ChangeNewsArticleStatusModel dto)
+        {
+            var article = await _dbContext.news_Articles.FindAsync(dto.Id);
+            if (article == null) return false;
+
+            article.Active = dto.IsActive;
+            await _dbContext.SaveChangesAsync();
+
+            return true;
         }
 
 

@@ -19,6 +19,7 @@ builder.AddServiceRegistery();
 builder.AddInfrastructureServices();
 builder.AddApplicationServices();
 builder.AddMessagingConfiguration();
+builder.AddRedisConfiguration();
 
 // ✅ اضافه کردن Swagger
 builder.Services.AddEndpointsApiExplorer();
