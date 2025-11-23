@@ -21,14 +21,18 @@ namespace News.Application.Articles.Queries.GetNewsCommentById
         }
         public async Task<NewsArticleResDto> Handle(GetArticlesByIdQuery request, CancellationToken cancellationToken)
         {
-            NewsArticleResDto resCache = new NewsArticleResDto();
-            resCache = await _cache.GetRecordAsync<NewsArticleResDto>(string.Format("GetArticlesById"));
+            NewsArticleResDto? resCache = await _cache.GetRecordAsync<NewsArticleResDto>("GetArticlesById");
+
             if (resCache != null)
             {
                 return resCache;
             }
 
             var result = await _readunitOfWork.NewsReadRepository.GetNewsArticleAsync(request.Id);
+            if (result == null)
+            {
+                throw new System.Exception("Article not found");
+            }
             var resultModel = _mapper.Map<NewsArticleResDto>(result);
             await _cache.SetRecordAsync(string.Format("GetArticlesById"), resultModel, TimeSpan.FromHours(6));
             return resultModel;

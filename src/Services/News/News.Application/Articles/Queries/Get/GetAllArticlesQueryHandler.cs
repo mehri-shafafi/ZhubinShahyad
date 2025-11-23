@@ -5,6 +5,7 @@ using News.Application.Articles.Queries.Get;
 using News.Application.Dtos.News;
 using News.Domain.UnitOfWork.News;
 using RedisManager;
+using System.Collections.Generic;
 
 namespace News.Application.Articles.Queries.GetAllNewsComments
 {
@@ -23,8 +24,8 @@ namespace News.Application.Articles.Queries.GetAllNewsComments
         }
         public async Task<List<NewsArticleResDto>> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)
         {
-            List<NewsArticleResDto> resCache = new List<NewsArticleResDto>();
-            resCache = await _cache.GetRecordAsync<List<NewsArticleResDto>>(string.Format("Articles"));
+  
+            List <NewsArticleResDto>? resCache = await _cache.GetRecordAsync<List<NewsArticleResDto>>(string.Format("articles:list"));
             if (resCache != null && resCache.Count > 0)
             {
                 return resCache;
@@ -32,7 +33,7 @@ namespace News.Application.Articles.Queries.GetAllNewsComments
 
             var result = await _readUnitOfWork.NewsReadRepository.GetNewsArticleAllAsync();
             var resultModel = _mapper.Map<List<NewsArticleResDto>>(result);
-            await _cache.SetRecordAsync(string.Format("Articles"), resultModel, TimeSpan.FromHours(6));
+            await _cache.SetRecordAsync("articles:list", resultModel, TimeSpan.FromHours(6));
             return resultModel;
         }
     }
