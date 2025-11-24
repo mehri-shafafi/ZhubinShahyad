@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using News.Application.Articles.Commands.Update;
+using News.Application.Category.Commands.Create;
 using News.Application.Dtos.News;
 using News.Domain.News.Entity;
 using News.Domain.News.Models;
@@ -89,6 +90,18 @@ namespace News.Application.Common
                                             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                                             .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
                                                                                      .ReverseMap();
+            #endregion
+
+            #region categories
+            CreateMap<NewsCategoryResDto, News_CategoryModel>()
+                                         .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                                         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                                         .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                                         .ForMember(dest => dest.Slug, opt => opt.MapFrom(src => src.Slug))
+                                         .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate))
+                                         .ForMember(dest => dest.UpdatedDate, opt => opt.MapFrom(src => src.UpdatedDate))
+                                         .ForMember(dest => dest.Active, opt => opt.MapFrom(src => src.Active))
+                                                                                .ReverseMap();
             #endregion
         }
     }

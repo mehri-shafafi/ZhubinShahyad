@@ -20,7 +20,7 @@ namespace News.Application.Author.Queries.Get
         }
         public async Task<NewsAuthorDto> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
         {
-            NewsAuthorDto? resCache = await _cache.GetRecordAsync<NewsAuthorDto>("GetArticlesById");
+            NewsAuthorDto? resCache = await _cache.GetRecordAsync<NewsAuthorDto>("authorById");
 
             if (resCache != null)
             {
@@ -33,7 +33,7 @@ namespace News.Application.Author.Queries.Get
                 throw new System.Exception("Article not found");
             }
             var resultModel = _mapper.Map<NewsAuthorDto>(result);
-            await _cache.SetRecordAsync(string.Format("GetArticlesById"), resultModel, TimeSpan.FromHours(6));
+            await _cache.SetRecordAsync(string.Format("authorById"), resultModel, TimeSpan.FromHours(6));
             return resultModel;
         }
     }

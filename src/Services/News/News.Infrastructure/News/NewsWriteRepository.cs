@@ -90,11 +90,28 @@ namespace News.Infrastructure.News
         }
         #endregion
       
-        public async Task<News_CategoryModel> AddNews_CategoryAsync(News_CategoryModel news_Category)
+        public async Task<bool> AddNews_CategoryAsync(News_CategoryModel news_Category)
         {
-            var result = await _dbContext.AddAsync(news_Category);
-            await _dbContext.SaveChangesAsync();
-            return result.Entity;
+            var entity = _mapper.Map<News_Category>(news_Category);
+            try
+            {
+                var result = await _dbContext.AddAsync(entity);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // بررسی خطای داخلی
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("FOREIGN KEY"))
+                {
+                    throw new Exception("کلید خارجی معتبر نیست، رکورد مرجع وجود ندارد.");
+                }
+
+                // سایر خطاها
+                throw new Exception("ثبت دسته بندی انجام نشد. جزئیات: " + ex.Message);
+            }
+
+
         }
         public async Task<News_CategoryModel> UpdateNews_CategoryAsync(News_CategoryModel news_Category)
         {

@@ -20,7 +20,7 @@ namespace News.Domain.News.Repositories
         Task DeleteNews_AuthorAsync(News_AuthorModel news_Author);
         #endregion
         #region
-        Task<News_CategoryModel> AddNews_CategoryAsync(News_CategoryModel news_Category);
+        Task<bool> AddNews_CategoryAsync(News_CategoryModel news_Category);
         Task<News_CategoryModel> UpdateNews_CategoryAsync(News_CategoryModel news_Category);
         Task DeleteNews_CategoryAsync(News_CategoryModel news_Category);
         Task<bool> ChangeStatusAsync(ChangeNewsArticleStatusModel input);

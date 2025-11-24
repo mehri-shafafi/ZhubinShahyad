@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using News.Application.Articles.Commands.Create;
 using News.Application.Category.Commands.Create;
 using News.Application.Category.Commands.Delete;
 using News.Application.Category.Commands.Update;
@@ -29,18 +30,33 @@ namespace News.Presentation.Controllers
 
         [Route("GetListCategory")]
         [HttpGet()]
-        [ProducesResponseType(typeof(List<NewsCategoryDto>), 200)]
-        public async Task<List<NewsCategoryDto>> GetList()
+        [ProducesResponseType(typeof(List<NewsCategoryResDto>), 200)]
+        public async Task<List<NewsCategoryResDto>> GetList()
         {
             return await _mediator.Send(new GetAllCategoryQuery());
         }
 
-        [Route("AddedNewsCommand")]
+     
+
         [HttpPost]
-        [ProducesResponseType(typeof(NewsCategoryDto), 200)]
-        public async Task<NewsCategoryDto> Create(CreateCategoryCommand request)
+        [ProducesResponseType(typeof(NewsCategoryResDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreateCategory(CreateCategoryCommand request)
         {
-            return await _mediator.Send(request);
+            if (request == null)
+            {
+                return BadRequest("درخواست نامعتبر است.");
+            }
+            try
+            {
+                await _mediator.Send(request);
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                return BadRequest("ایجاد خبر انجام نشد. ابتدا استعلام گرفته و سپس دوباره تلاش کنید.");
+
+            }
         }
 
         // PUT api/<NewsController>/5

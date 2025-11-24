@@ -7,7 +7,7 @@ using News.Domain.UnitOfWork.News;
 
 namespace News.Application.Category.Commands.Create;
 
-public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, NewsCategoryDto>
+public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, bool>
 {
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IMapper _mapper;
@@ -21,10 +21,10 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
         _logger = logger;
     }
 
-    public async Task<NewsCategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
         var mappedComment = _mapper.Map<News_CategoryModel>(request);
         var result = await _writeUnitOfWork.NewsWriteRepository.AddNews_CategoryAsync(mappedComment);
-        return _mapper.Map<NewsCategoryDto>(result);
+        return result;
     }
 }

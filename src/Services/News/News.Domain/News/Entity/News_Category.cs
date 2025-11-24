@@ -14,11 +14,10 @@ namespace News.Domain.News.Entity
         public string Name { get; set; }//نام دسته‌بندی (مثلاً "اخبار صنعت پزشکی" یا "معرفی محصولات جدید").
         public string Description { get; set; }
 
-        public int ParentCategoryID { get; set; }//شناسه دسته‌بندی والد (در صورت وجود). این فیلد برای ایجاد زیرمجموعه‌ها (Subcategories) استفاده می‌شود.
         public string Slug { get; set; }   //آدرس یکتا برای دسته‌بندی که در URL استفاده می‌شود (مثلاً "medical-news" برای دسته‌بندی اخبار پزشکی).
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public bool Active { get; set; } = false;
+        public bool Active { get; set; } 
         public ICollection<News_Article> news_Articles { get; set; } // Navigation property
 
         public class CategoryNewsConfiguration : IEntityTypeConfiguration<News_Category>

@@ -3,7 +3,7 @@ using News.Application.Dtos.News;
 
 namespace News.Application.Category.Queries.Get
 {
-    public class GetAllCategoryQuery : IRequest<List<NewsCategoryDto>>
+    public class GetAllCategoryQuery : IRequest<List<NewsCategoryResDto>>
     {
 
     }
