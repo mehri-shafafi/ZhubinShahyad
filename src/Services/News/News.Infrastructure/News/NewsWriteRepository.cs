@@ -67,11 +67,26 @@ namespace News.Infrastructure.News
         }
         #endregion
         #region 
-        public async Task<News_AuthorModel> AddNews_AuthorAsync(News_AuthorModel news_Author)
+        public async Task<bool> AddNews_AuthorAsync(News_AuthorModel news_Author)
         {
-            var result = await _dbContext.AddAsync(news_Author);
-            await _dbContext.SaveChangesAsync();
-            return result.Entity;
+            var entity = _mapper.Map<News_Author>(news_Author);
+            try
+            {
+                var result = await _dbContext.AddAsync(entity);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // بررسی خطای داخلی
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("FOREIGN KEY"))
+                {
+                    throw new Exception("کلید خارجی معتبر نیست، رکورد مرجع وجود ندارد.");
+                }
+
+                // سایر خطاها
+                throw new Exception("ثبت خبر انجام نشد. جزئیات: " + ex.Message);
+            }
         }
         public async Task<News_AuthorModel> UpdateNews_AuthorAsync(News_AuthorModel news_Author)
         {

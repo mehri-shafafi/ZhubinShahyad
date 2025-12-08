@@ -29,7 +29,7 @@ namespace News.Application.Author.Queries.Get
                 return resCache;
             }
 
-            var result = await _readUnitOfWork.NewsReadRepository.GetNewsArticleAllAsync();
+            var result = await _readUnitOfWork.NewsReadRepository.GetNewsAuthorAllAsync();
             var resultModel = _mapper.Map<List<NewsAuthorDto>>(result);
             await _cache.SetRecordAsync("authores:list", resultModel, TimeSpan.FromHours(6));
             return resultModel;

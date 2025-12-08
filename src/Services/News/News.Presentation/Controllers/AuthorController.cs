@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using News.Application.Articles.Commands.Delete;
 using News.Application.Author.Commands.Create;
+using News.Application.Author.Commands.Delete;
 using News.Application.Author.Commands.Update;
 using News.Application.Author.Queries.Get;
+using News.Application.Author.Queries.GetNewsCommentById;
 using News.Application.Dtos.News;
 
 
@@ -20,11 +22,25 @@ namespace News.Presentation.Controllers
         {
             _mediator = mediator;
         }
-        // GET api/<NewsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<ActionResult<NewsAuthorDto>> Get(GetAuthorByIdQuery query)
         {
-            return "value";
+            if (query == null)
+            {
+                return BadRequest("درخواست نامعتبر است.");
+            }
+            try
+            {
+                return await _mediator.Send(query);
+
+
+            }
+            catch (Exception)
+            {
+                return BadRequest("خبری پیدا نشد.");
+
+            }
         }
 
         [Route("GetListNewsCommand")]
@@ -38,7 +54,7 @@ namespace News.Presentation.Controllers
         [Route("AddedNewsCommand")]
         [HttpPost]
         [ProducesResponseType(typeof(NewsAuthorDto), 200)]
-        public async Task<NewsAuthorDto> Create(CreateAuthorCommand request)
+        public async Task<bool> Create(CreateAuthorCommand request)
         {
             return await _mediator.Send(request);
         }
@@ -62,7 +78,7 @@ namespace News.Presentation.Controllers
         [HttpDelete("{id}")]
         //[Route("api/DeleteProduct")]
         [ProducesResponseType(typeof(bool), 200)]
-        public async Task<bool> Delete(DeleteArticlesCommand request)
+        public async Task<bool> Delete(DeleteAuthorCommand request)
         {
             var res = await _mediator.Send(request);
             return res;

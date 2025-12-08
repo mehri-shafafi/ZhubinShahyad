@@ -15,7 +15,7 @@ namespace News.Domain.News.Repositories
         Task DeleteNews_ArticleAsync(News_ArticleModel news_Article);
         #endregion
         #region
-        Task<News_AuthorModel> AddNews_AuthorAsync(News_AuthorModel news_Author);
+        Task<bool> AddNews_AuthorAsync(News_AuthorModel news_Author);
         Task<News_AuthorModel> UpdateNews_AuthorAsync(News_AuthorModel news_Author);
         Task DeleteNews_AuthorAsync(News_AuthorModel news_Author);
         #endregion

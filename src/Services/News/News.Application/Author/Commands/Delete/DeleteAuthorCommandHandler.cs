@@ -1,22 +1,25 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using News.Application.Exception;
 using News.Domain.UnitOfWork.News;
+using RedisManager;
 
 
 namespace News.Application.Author.Commands.Delete;
-public class DeleteCategoryCommandHandler : IRequestHandler<DeleteAuthorCommand, bool>
+public class DeleteAuthorCommandHandler : IRequestHandler<DeleteAuthorCommand, bool>
 {
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IReadUnitOfWork _readUnitOfWork;
+    private readonly IDistributedCache _cache;
+    private readonly ILogger<DeleteAuthorCommandHandler> _logger;
 
-    private readonly ILogger<DeleteCategoryCommandHandler> _logger;
-
-    public DeleteCategoryCommandHandler(IWriteUnitOfWork writeUnitOfWork, IReadUnitOfWork readUnitOfWork, ILogger<DeleteCategoryCommandHandler> logger)
+    public DeleteAuthorCommandHandler(IWriteUnitOfWork writeUnitOfWork, IReadUnitOfWork readUnitOfWork, ILogger<DeleteCategoryCommandHandler> logger, IDistributedCache cache)
     {
         _writeUnitOfWork = writeUnitOfWork;
         _readUnitOfWork = readUnitOfWork;
         _logger = logger;
+        _cache = cache;
     }
     public async Task<bool> Handle(DeleteAuthorCommand request, CancellationToken cancellationToken)
     {
@@ -27,7 +30,7 @@ public class DeleteCategoryCommandHandler : IRequestHandler<DeleteAuthorCommand,
         }
 
         await _writeUnitOfWork.NewsWriteRepository.DeleteNews_AuthorAsync(result);
-
+        await _cache.RemoveRecordAsync(string.Format("authores:list"));
         return true;
 
 

@@ -80,18 +80,18 @@ namespace News.Domain.News
         //News_Author
         public async Task<List<News_AuthorModel>> GetNewsAuthorAllAsync()
         {
-            return await _dbContext.news_Authors
-               .AsNoTracking()
-               .Include(p => p.news_Articles)
+            var res= await _dbContext.news_Authors
                .Select(pc => new News_AuthorModel
                {
                    Id = pc.Id,
                    Bio = pc.Bio,
+                   Active = pc.Active,
                    CreationDateTime = pc.CreationDateTime,
                    ModificationDateTime = pc.ModificationDateTime,
                    Name = pc.Name,
                    ProfilePictureURL = pc.ProfilePictureURL
-               }).ToListAsync();
+               }).Where(pc => pc.Active == true).ToListAsync();
+            return res;
         }
         public async Task<News_AuthorModel> GetNewsAuthorAsync(int id)
         {

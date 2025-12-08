@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using News.Application.Articles.Commands.Create;
 using News.Application.Articles.Commands.Delete;
@@ -32,8 +31,8 @@ namespace News.Presentation.Controllers
             }
             try
             {
-               return await _mediator.Send(query);
-                
+                return await _mediator.Send(query);
+
 
             }
             catch (Exception)
@@ -66,7 +65,8 @@ namespace News.Presentation.Controllers
                 await _mediator.Send(request);
                 return Ok(true);
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 return BadRequest("ایجاد خبر انجام نشد. ابتدا استعلام گرفته و سپس دوباره تلاش کنید.");
 
             }
@@ -76,9 +76,9 @@ namespace News.Presentation.Controllers
         [HttpPut("UpdateArticle/{id}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<bool>> Update( UpdateArticleCommand request)
+        public async Task<ActionResult<bool>> Update(UpdateArticleCommand request)
         {
-            if (request.Id==0)
+            if (request.Id == 0)
             {
                 return BadRequest("Id in body and query must be equal");
             }
@@ -86,13 +86,13 @@ namespace News.Presentation.Controllers
             return res;
 
         }
-        
+
         [HttpPut("ChangeStatus/{id}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(400)]
         public async Task<ActionResult<bool>> Update2(ChangeNewsArticleStatusCommand request)
         {
-            if (request.Id==0)
+            if (request.Id == 0)
             {
 
                 return BadRequest("Id in body and query must be equal");
@@ -103,7 +103,7 @@ namespace News.Presentation.Controllers
         }
 
 
-    
+
         // DELETE api/<NewsController>/5
         [HttpDelete("{id}")]
         //[Route("api/DeleteProduct")]
@@ -113,7 +113,7 @@ namespace News.Presentation.Controllers
             var res = await _mediator.Send(request);
             return res;
         }
-     
+
 
     }
 }

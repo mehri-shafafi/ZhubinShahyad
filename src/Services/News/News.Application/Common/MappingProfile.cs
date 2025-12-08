@@ -13,6 +13,7 @@ namespace News.Application.Common
           
             
             CreateMap<News_Author, News_AuthorModel>().ReverseMap();
+            CreateMap<NewsAuthorDto, News_AuthorModel>().ReverseMap();
             CreateMap<News_Category, News_CategoryModel>().ReverseMap();
 
             #region Article
