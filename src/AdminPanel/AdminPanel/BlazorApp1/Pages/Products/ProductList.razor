@@ -1,0 +1,72 @@
+﻿@page "/products"
+@using BlazorApp.Dtos.Products
+@inject ProductApiService ProductService
+@inject NavigationManager Nav
+
+<h3>Products</h3>
+
+<button class="btn btn-primary mb-3" @onclick="Add">
+    + Add Product
+</button>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>نام</th>
+            <th>دسته‌بندی</th>
+            <th>برند</th>
+            <th>قیمت</th>
+            <th>موجودی</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (products is null)
+        {
+            <tr><td colspan="6">Loading...</td></tr>
+        }
+        else
+        {
+            @foreach (var p in products)
+            {
+                <tr>
+                    <td>@p.Name_FA</td>
+                    <td>@p.CategoryName_FA</td>
+                    <td>@p.BrandName</td>
+                    <td>@p.Price</td>
+                    <td>@p.StockQuantity</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning"
+                                @onclick="() => Edit(p.Id)">
+                            Edit
+                        </button>
+
+                        <button class="btn btn-sm btn-danger ms-1"
+                                @onclick="() => Delete(p.Id)">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    List<ProductDto>? products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await ProductService.GetAllAsync();
+    }
+
+    void Add() => Nav.NavigateTo("/products/add");
+
+    void Edit(int id) => Nav.NavigateTo($"/products/edit/{id}");
+
+    async Task Delete(int id)
+    {
+        await ProductService.DeleteAsync(id);
+        products = await ProductService.GetAllAsync();
+    }
+}

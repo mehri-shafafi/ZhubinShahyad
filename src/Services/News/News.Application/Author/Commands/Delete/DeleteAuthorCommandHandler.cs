@@ -14,7 +14,7 @@ public class DeleteAuthorCommandHandler : IRequestHandler<DeleteAuthorCommand, b
     private readonly IDistributedCache _cache;
     private readonly ILogger<DeleteAuthorCommandHandler> _logger;
 
-    public DeleteAuthorCommandHandler(IWriteUnitOfWork writeUnitOfWork, IReadUnitOfWork readUnitOfWork, ILogger<DeleteCategoryCommandHandler> logger, IDistributedCache cache)
+    public DeleteAuthorCommandHandler(IWriteUnitOfWork writeUnitOfWork, IReadUnitOfWork readUnitOfWork, ILogger<DeleteAuthorCommandHandler> logger, IDistributedCache cache)
     {
         _writeUnitOfWork = writeUnitOfWork;
         _readUnitOfWork = readUnitOfWork;

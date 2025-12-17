@@ -1,0 +1,94 @@
+﻿@page "/products/add"
+@page "/products/edit/{Id:int}"
+
+@using BlazorApp.Dtos.Products
+@inject ProductApiService ProductService
+@inject CategoryApiService CategoryService
+@inject NavigationManager Nav
+
+<h3>@(Id == 0 ? "Add Product" : "Edit Product")</h3>
+
+<EditForm Model="model" OnValidSubmit="Save">
+    <DataAnnotationsValidator />
+
+    <div class="mb-2">
+        <label>نام فارسی</label>
+        <InputText class="form-control" @bind-Value="model.Name_FA" />
+    </div>
+
+    <div class="mb-2">
+        <label>نام انگلیسی</label>
+        <InputText class="form-control" @bind-Value="model.Name_EN" />
+    </div>
+
+    <div class="mb-2">
+        <label>قیمت</label>
+        <InputNumber class="form-control" @bind-Value="model.Price" />
+    </div>
+
+    <div class="mb-2">
+        <label>موجودی</label>
+        <InputNumber class="form-control" @bind-Value="model.StockQuantity" />
+    </div>
+
+    <div class="mb-2">
+        <label>دسته‌بندی</label>
+        <InputSelect class="form-control"
+                     @bind-Value="model.CategoryId">
+            <option value="">-- انتخاب دسته‌بندی --</option>
+            @foreach (var c in categories)
+            {
+                <option value="@c.Id">@c.Name_FA</option>
+            }
+        </InputSelect>
+    </div>
+
+    <button class="btn btn-success">Save</button>
+    <button type="button" class="btn btn-secondary ms-2"
+            @onclick="Cancel">
+        Cancel
+    </button>
+</EditForm>
+
+@code {
+    [Parameter] public int Id { get; set; }
+
+    ProductReqDto model = new();
+    List<ProductCategoryDto> categories = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await CategoryService.GetAllAsync();
+
+        if (Id != 0)
+        {
+            var dto = await ProductService.GetByIdAsync(Id);
+
+            model = new ProductReqDto
+            {
+                Name_FA = dto.Name_FA,
+                Name_EN = dto.Name_EN,
+                Name_AR = dto.Name_AR,
+                Price = dto.Price,
+                StockQuantity = dto.StockQuantity,
+                CategoryId = dto.CategoryId ?? 0,
+                BrandId = dto.BrandId
+            };
+        }
+    }
+
+    async Task Save()
+    {
+        ProductResDto? result;
+
+        if (Id == 0)
+            result = await ProductService.CreateAsync(model);
+        else
+            result = await ProductService.UpdateAsync(Id, model);
+
+        if (result != null && !result.HasError)
+            Nav.NavigateTo("/products");
+    }
+
+    void Cancel() => Nav.NavigateTo("/products");
+}
