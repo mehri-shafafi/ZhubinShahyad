@@ -1,5 +1,5 @@
-using BlazorApp1.Components;
-using BlazorApp1.Services.Products;
+using BlazorApp.Components;
+using BlazorApp.Services.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,18 +17,25 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-builder.Services.AddHttpClient<ProductApiService>(c =>
+
+
+builder.Services.AddHttpClient("ProductService", c =>
 {
-    c.BaseAddress = new Uri("https://localhost:5001/"); // ???? ????? API
+    c.BaseAddress = new Uri("http://89.32.250.205:10000/");
 });
-builder.Services.AddHttpClient<CategoryApiService>(c =>
-{
-    c.BaseAddress = new Uri("https://localhost:5001/");
-});
-builder.Services.AddHttpClient<BrandApiService>(c =>
-{
-    c.BaseAddress = new Uri("https://localhost:5001/");
-});
+
+builder.Services.AddScoped(sp =>
+    new ProductApiService(sp.GetRequiredService<IHttpClientFactory>()
+        .CreateClient("ProductService")));
+
+builder.Services.AddScoped(sp =>
+    new CategoryApiService(sp.GetRequiredService<IHttpClientFactory>()
+        .CreateClient("ProductService")));
+
+builder.Services.AddScoped(sp =>
+    new BrandApiService(sp.GetRequiredService<IHttpClientFactory>()
+        .CreateClient("ProductService")));
+
 
 app.UseHttpsRedirection();
 

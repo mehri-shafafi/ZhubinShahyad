@@ -2,6 +2,8 @@
 @page "/products/edit/{Id:int}"
 
 @using BlazorApp.Dtos.Products
+@using BlazorApp.Dtos.Products.Categories
+@using Microsoft.AspNetCore.Components.Forms
 @inject ProductApiService ProductService
 @inject CategoryApiService CategoryService
 @inject NavigationManager Nav
@@ -86,7 +88,7 @@
         else
             result = await ProductService.UpdateAsync(Id, model);
 
-        if (result != null && !result.HasError)
+        if (result != null && !result.hasError)
             Nav.NavigateTo("/products");
     }
 
