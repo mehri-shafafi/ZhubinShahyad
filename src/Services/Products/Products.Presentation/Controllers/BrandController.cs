@@ -1,13 +1,9 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Products.Application.Dtos.Products;
 using Products.Application.Products.Commands.Brand.Create;
 using Products.Application.Products.Commands.Categories.Delete;
 using Products.Application.Products.Commands.Categories.Update;
-using Products.Application.Products.Commands.Product.CreateMedical;
-using Products.Application.Products.Commands.Product.DeleteMedical;
-using Products.Application.Products.Commands.Product.UpdateProduct;
 using Products.Application.Products.Queries.Product.GetBrandProducts;
 
 namespace Products.Presentation.Controllers
@@ -19,7 +15,7 @@ namespace Products.Presentation.Controllers
     public class BrandController : ControllerBase
     {
         private readonly IMediator _mediator;
-    
+
 
         public BrandController(IMediator mediator)
         {
@@ -64,7 +60,6 @@ namespace Products.Presentation.Controllers
         /// حذف برند
         /// </summary>
         [HttpDelete("{id}")]
-        //[Route("DeleteBrand")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<ActionResult<bool>> Delete(int id)
         {

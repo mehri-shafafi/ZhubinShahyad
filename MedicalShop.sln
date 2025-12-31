@@ -90,7 +90,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisManager", "3rdTools\Re
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdminPanels", "AdminPanels", "{45088DA5-AF35-4849-81F4-959A9477B711}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp", "src\AdminPanel\AdminPanel\BlazorApp1\BlazorApp.csproj", "{078AAB97-764D-45ED-9440-9324D1615569}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "src\AdminPanel\AdminPanel\BlazorApp1\BlazorApp.csproj", "{078AAB97-764D-45ED-9440-9324D1615569}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿<div class="top-row ps-3 navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">BlazorApp1</a>
+        <a class="navbar-brand" href="">Admin Panel</a>
     </div>
 </div>
 
@@ -8,23 +8,46 @@
 
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
+
+        <!-- Dashboard -->
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                <span class="bi bi-house-door-fill-nav-menu"></span>
+                Dashboard
             </NavLink>
         </div>
 
+        <!-- Products -->
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" href="products">
+                <span class="bi bi-box-seam"></span>
+                Products
             </NavLink>
         </div>
 
+        <!-- Add Product -->
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+            <NavLink class="nav-link" href="products/add">
+                <span class="bi bi-plus-circle"></span>
+                Add Product
             </NavLink>
         </div>
+
+        <!-- Categories -->
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="categories">
+                <span class="bi bi-tags"></span>
+                Categories
+            </NavLink>
+        </div>
+
+        <!-- Brands -->
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="brands">
+                <span class="bi bi-award"></span>
+                Brands
+            </NavLink>
+        </div>
+
     </nav>
 </div>
-

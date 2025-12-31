@@ -22,7 +22,7 @@ namespace Products.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Products.Domain.Products.Models.ProductBrand", b =>
+            modelBuilder.Entity("Products.Domain.Products.Entity.ProductBrand", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,7 +62,7 @@ namespace Products.Infrastructure.Migrations
                     b.ToTable("ProductBrands", (string)null);
                 });
 
-            modelBuilder.Entity("Products.Domain.Products.Models.ProductCategory", b =>
+            modelBuilder.Entity("Products.Domain.Products.Entity.ProductCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -128,7 +128,7 @@ namespace Products.Infrastructure.Migrations
                     b.ToTable("ProductCategories");
                 });
 
-            modelBuilder.Entity("Products.Domain.Products.Models.ProductEntity", b =>
+            modelBuilder.Entity("Products.Domain.Products.Entity.ProductEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -214,7 +214,7 @@ namespace Products.Infrastructure.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Products.Domain.Products.Models.ProductImages", b =>
+            modelBuilder.Entity("Products.Domain.Products.Entity.ProductImages", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -251,13 +251,13 @@ namespace Products.Infrastructure.Migrations
                     b.ToTable("ProductImages", (string)null);
                 });
 
-            modelBuilder.Entity("Products.Domain.Products.Models.ProductEntity", b =>
+            modelBuilder.Entity("Products.Domain.Products.Entity.ProductEntity", b =>
                 {
-                    b.HasOne("Products.Domain.Products.Models.ProductBrand", "ProductBrand")
+                    b.HasOne("Products.Domain.Products.Entity.ProductBrand", "ProductBrand")
                         .WithMany("Products")
                         .HasForeignKey("BrandId");
 
-                    b.HasOne("Products.Domain.Products.Models.ProductCategory", "Category")
+                    b.HasOne("Products.Domain.Products.Entity.ProductCategory", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId");
 
@@ -266,9 +266,9 @@ namespace Products.Infrastructure.Migrations
                     b.Navigation("ProductBrand");
                 });
 
-            modelBuilder.Entity("Products.Domain.Products.Models.ProductImages", b =>
+            modelBuilder.Entity("Products.Domain.Products.Entity.ProductImages", b =>
                 {
-                    b.HasOne("Products.Domain.Products.Models.ProductEntity", "Product")
+                    b.HasOne("Products.Domain.Products.Entity.ProductEntity", "Product")
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -277,17 +277,17 @@ namespace Products.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Products.Domain.Products.Models.ProductBrand", b =>
+            modelBuilder.Entity("Products.Domain.Products.Entity.ProductBrand", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Products.Domain.Products.Models.ProductCategory", b =>
+            modelBuilder.Entity("Products.Domain.Products.Entity.ProductCategory", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Products.Domain.Products.Models.ProductEntity", b =>
+            modelBuilder.Entity("Products.Domain.Products.Entity.ProductEntity", b =>
                 {
                     b.Navigation("Images");
                 });

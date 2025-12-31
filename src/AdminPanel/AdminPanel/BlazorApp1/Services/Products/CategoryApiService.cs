@@ -10,6 +10,8 @@ public class CategoryApiService
     }
 
     public Task<List<ProductCategoryDto>> GetAllAsync()
-        => _http.GetFromJsonAsync<List<ProductCategoryDto>>(
-            "api/GetListCateguriesProduct");
+    {
+       return _http.GetFromJsonAsync<List<ProductCategoryDto>>("api/GetListCateguriesProduct");
+
+    }
 }

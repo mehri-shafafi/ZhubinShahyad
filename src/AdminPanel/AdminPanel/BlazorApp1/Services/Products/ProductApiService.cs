@@ -11,7 +11,7 @@ public class ProductApiService
 
     public Task<List<ProductDto>> GetAllAsync()
     {
-        return _http.GetFromJsonAsync<List<ProductDto>>("api/products");
+        return _http.GetFromJsonAsync<List<ProductDto>>("api/GetListProduct");
     }
 
     public Task<ProductDto> GetByIdAsync(int id)
@@ -22,7 +22,7 @@ public class ProductApiService
 
     public async Task<ProductResDto?> CreateAsync(ProductReqDto dto)
     {
-        var response = await _http.PostAsJsonAsync("api/products", dto);
+        var response = await _http.PostAsJsonAsync("api/AddedProduct", dto);
 
         return await response.Content.ReadFromJsonAsync<ProductResDto>();
     }

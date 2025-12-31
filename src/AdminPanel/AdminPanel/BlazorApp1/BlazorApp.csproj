@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Dashboard\" />
-    <Folder Include="Pages\Educations\" />
-    <Folder Include="Pages\Gallery\" />
-    <Folder Include="Pages\Contacts\" />
-    <Folder Include="Pages\News\" />
+    <Folder Include="Components\Pages\Dashboard\" />
+    <Folder Include="Components\Pages\Educations\" />
+    <Folder Include="Components\Pages\Gallery\" />
+    <Folder Include="Components\Pages\Contacts\" />
+    <Folder Include="Components\Pages\News\" />
   </ItemGroup>
 
   <ItemGroup>
