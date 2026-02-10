@@ -24,7 +24,7 @@ namespace Products.Presentation.Controllers
         /// <summary>
         /// دریافت لیست دسته  بندی ها
         /// </summary>
-        [Route("api/GetListCateguriesProduct")]
+        [Route("GetListCateguriesProduct")]
         [HttpGet]
         [ProducesResponseType(typeof(List<ProductCategoryDto>), 200)]
         public async Task<ActionResult<List<ProductCategoryDto>>> GetList()

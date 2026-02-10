@@ -60,7 +60,7 @@
         products = await ProductService.GetAllAsync();
     }
 
-    void Add() => Nav.NavigateTo("/products/add");
+    void Add() => Nav.NavigateTo("/products/create");
 
     void Edit(int id) => Nav.NavigateTo($"/products/edit/{id}");
 
