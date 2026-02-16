@@ -34,9 +34,9 @@ public class ProductDto : BaseEntity<int>
     public string Warranty { get; set; }
     public int Rating { get; set; }
     public string BrandName { get; set; }
-    public string CategoryName_FA { get; set; }
-    public string CategoryName_EN { get; set; }
-    public string CategoryName_AR { get; set; }
+    //public string CategoryName_FA { get; set; }
+    //public string CategoryName_EN { get; set; }
+    //public string CategoryName_AR { get; set; }
     public List<string> ImageUrls { get; set; }
     public string CatalogCoverImageUrl { get; set; }
 

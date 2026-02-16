@@ -3,9 +3,9 @@ docker run -d --name news-api -p 10002:8082  news.api:v2
 docker save news.api:v2 -o news-api.tar
 scp news-api.tar root@89.32.250.205:/Backups/services/14040624
 
-docker build -t products.api:v2 -f "src\Services\Products\Products.Presentation\Dockerfile" .
-docker run -d --name products-api -p 10000:8083  products.api:v2
-docker save products.api:v2 -o products-api.tar
+docker build -t products.api:v5 -f "src\Services\Products\Products.Presentation\Dockerfile" .
+docker run -d --name products-api -p 10000:8083  products.api:v5
+docker save products.api:v3 -o products-api.tar
 scp products-api.tar root@89.32.250.205:/root//Backups/services/14041018
 docker load -i Backups/services/14041018/products-api.tar
 

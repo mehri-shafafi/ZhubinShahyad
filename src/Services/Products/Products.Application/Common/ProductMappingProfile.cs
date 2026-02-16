@@ -49,10 +49,10 @@ namespace Products.Application.Common
                 .ForMember(dest => dest.CatalogCoverImageUrl, opt => opt.MapFrom(src => src.CatalogCoverImageUrl))
                 .ForMember(dest => dest.Warranty, opt => opt.MapFrom(src => src.Warranty))
                 .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.Rating))
-                .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.BrandName))
-                .ForMember(dest => dest.CategoryName_FA, opt => opt.MapFrom(src => src.CategoryName_FA))
-                .ForMember(dest => dest.CategoryName_EN, opt => opt.MapFrom(src => src.CategoryName_EN))
-                .ForMember(dest => dest.CategoryName_AR, opt => opt.MapFrom(src => src.CategoryName_AR))
+                //.ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.BrandName))
+                //.ForMember(dest => dest.CategoryName_FA, opt => opt.MapFrom(src => src.CategoryName_FA))
+                //.ForMember(dest => dest.CategoryName_EN, opt => opt.MapFrom(src => src.CategoryName_EN))
+                //.ForMember(dest => dest.CategoryName_AR, opt => opt.MapFrom(src => src.CategoryName_AR))
                 .ForMember(dest => dest.ImageUrls, opt => opt.MapFrom(src => src.ImageUrls)).ReverseMap();
 
         }

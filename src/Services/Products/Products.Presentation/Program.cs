@@ -1,4 +1,4 @@
-﻿using GraphQL.Server;
+﻿using GraphQL;
 using Products.Presentation;
 using Products.Presentation.GQL;
 using Products.Presentation.GQL.Mutations;
@@ -31,7 +31,7 @@ builder.Services.AddScoped<AppQueries>();
 builder.Services.AddScoped<AppSchema>();
 builder.WebHost.UseUrls("http://*:8083");
 
-builder.Services.AddGraphQL().AddSystemTextJson();
+builder.Services.AddGraphQL(b => b.AddSystemTextJson());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // اضافه کردن CORS

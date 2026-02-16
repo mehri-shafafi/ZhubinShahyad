@@ -106,40 +106,12 @@ namespace Products.Domain.Menu
                .AsNoTracking()
                .Include(p => p.ProductBrand)
                .Include(p => p.Category)
-               .Include(p => p.Images)
-               .Select(p => new ProductModel
-               {
-                   ProductId = p.Id,
-                   Name_FA = p.Name_FA,
-                   Name_EN = p.Name_EN,
-                   Name_AR = p.Name_AR,
-                   Description_FA = p.Description_FA,
-                   Description_EN = p.Description_EN,
-                   Description_AR = p.Description_AR,
-                   Price = p.Price,
-
-                   BrandId = p.BrandId,
-                   BrandName = p.ProductBrand != null ? p.ProductBrand.Name : null,
-
-                   CategoryId = p.CategoryId,
-                   CategoryName_FA = p.Category != null ? p.Category.Name_FA : null,
-                   CategoryName_EN = p.Category != null ? p.Category.Name_EN : null,
-                   CategoryName_AR = p.Category != null ? p.Category.Name_AR : null,
-
-                   StockQuantity = p.StockQuantity, // یا تبدیل به int اگر در Entity رشته است
-                   SKU = p.SKU,
-
-                   ImageUrls = p.Images.Select(i => i.ImageUrl).ToList(),
-
-                   CatalogURL = p.CatalogURL,
-                   CatalogCoverImageUrl = p.catalog_cover_image_url,
-                   Warranty = p.Warranty,
-                   Rating = p.Rating
-               })
+               //.Include(p => p.Images)
+               
                .ToListAsync();
 
 
-            return resultDto;
+            return new List<ProductModel>();
         }
         public async Task<ProductModel> FetchProductEntityAsync(int id)
         {
