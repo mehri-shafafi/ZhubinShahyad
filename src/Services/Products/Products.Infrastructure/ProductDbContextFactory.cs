@@ -10,7 +10,8 @@ namespace Products.Infrastructure
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory()) // مهم برای EF CLI
-                .AddJsonFile("appsettings.json", optional: false)
+                .AddJsonFile("appsettings.json", optional: true)
+              //  .AddEnvironmentVariables()
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<ProductDbContext>();

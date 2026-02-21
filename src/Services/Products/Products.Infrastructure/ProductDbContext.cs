@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Products.Domain.Base;
 using Products.Domain.Products.Entity;
+using Products.Infrastructure.Products;
 
 
 namespace Products.Infrastructure;
@@ -17,10 +18,10 @@ public class ProductDbContext : DbContext
     public DbSet<ProductImages> ProductImages { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new ProductEntity.ProductConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductCategory.ProductCategoryConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductBrand.ProductBrandConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductImages.ProductImagesConfiguration());
+        modelBuilder.ApplyConfiguration(new ProductConfiguration());
+        modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
+        modelBuilder.ApplyConfiguration(new ProductBrandConfiguration());
+        modelBuilder.ApplyConfiguration(new ProductImagesConfiguration());
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
