@@ -15,7 +15,6 @@ public class ProductReqDto : ProductDto
 
 }
 
-public class ProductDto : BaseEntity<int>
 {
     public int ProductId { get; set; }
     public string Name_FA { get; set; }
