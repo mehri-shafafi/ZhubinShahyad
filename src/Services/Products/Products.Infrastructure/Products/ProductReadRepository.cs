@@ -130,7 +130,7 @@ public class ProductReadRepository : IProductReadRepository
 
                ImageUrls = p.Images.Select(i => i.ImageUrl).ToList(),
 
-               CatalogURL = p.CatalogURL,
+               CatalogUrl = p.CatalogURL,
                CatalogCoverImageUrl = p.catalog_cover_image_url,
                Warranty = p.Warranty,
                Rating = p.Rating
@@ -169,15 +169,53 @@ public class ProductReadRepository : IProductReadRepository
             StockQuantity = p.StockQuantity,
             SKU = p.SKU,
             ImageUrls = p.Images.Select(i => i.ImageUrl).ToList(),
-            CatalogURL = p.CatalogURL,
+            CatalogUrl = p.CatalogURL,
             CatalogCoverImageUrl = p.catalog_cover_image_url,
             Warranty = p.Warranty,
             Rating = p.Rating
         };
     }
 
-    public async Task<ProductEntity> GetAsyncNoTracking(int id)
+    public async Task<ProductModel> GetAsyncNoTracking(int id)
     {
-        return await _dbContext.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        var p = await _dbContext.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        return new ProductModel
+        {
+            ProductId = p.Id,
+            Name_FA = p.Name_FA,
+            Name_EN = p.Name_EN,
+            Name_AR = p.Name_AR,
+            Description_FA = p.Description_FA,
+            Description_EN = p.Description_EN,
+            Description_AR = p.Description_AR,
+            Price = p.Price,
+            BrandId = p.BrandId,
+            BrandName = p.ProductBrand?.Name,
+            CategoryId = p.CategoryId,
+            CategoryName_FA = p.Category?.Name_FA,
+            CategoryName_EN = p.Category?.Name_EN,
+            CategoryName_AR = p.Category?.Name_AR,
+            StockQuantity = p.StockQuantity,
+            SKU = p.SKU,
+            ImageUrls = p.Images.Select(i => i.ImageUrl).ToList(),
+            CatalogUrl = p.CatalogURL,
+            CatalogCoverImageUrl = p.catalog_cover_image_url,
+            Warranty = p.Warranty,
+            Rating = p.Rating
+        };
+    }
+
+    public async Task<UpdateProductImageModel> GetProductImageByIdAsync(int id)
+    {
+
+        var result = await _dbContext.ProductImages.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        return new UpdateProductImageModel
+        {
+            Id = id,
+            ImageUrl = result?.ImageUrl,
+            ProductId = result?.ProductId,
+            SortOrder = result?.SortOrder
+        };
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Products.Application.Dtos.Products;
+using Products.Application.Dtos.Categories;
 using Products.Application.Products.Commands.Categories.Create;
 using Products.Application.Products.Commands.Categories.Delete;
 using Products.Application.Products.Commands.Categories.Update;
@@ -10,24 +10,22 @@ using Products.Application.Products.Queries.Product.GetCateguriesList;
 namespace Products.Presentation.Controllers;
 
 
-[ApiController]
 [Route("api/categories")]
-public class CateguriesController : ControllerBase
+[ApiController]
+public class CategoriesController : ControllerBase
 {
     private readonly IMediator _mediator;
-    public readonly IMapper _mapper;
 
-    public CateguriesController(IMediator mediator, IMapper mapper)
+    public CategoriesController(IMediator mediator)
     {
         _mediator = mediator;
-        _mapper = mapper;
     }
 
     [HttpGet("list")]
     [ProducesResponseType(typeof(List<ProductCategoryDto>), 200)]
     public async Task<ActionResult<List<ProductCategoryDto>>> GetListAsync()
     {
-        var result = await _mediator.Send(new GetCateguriesListQuery());
+        var result = await _mediator.Send(new GetCategoriesQuery());
         return Ok(result);
     }
 

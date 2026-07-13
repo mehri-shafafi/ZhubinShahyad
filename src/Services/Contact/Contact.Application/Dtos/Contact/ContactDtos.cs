@@ -12,7 +12,7 @@ public class ContactResDto :BaseEntity<int>
     public string Phone { get; set; }
     public bool IsRead { get; set; }
     public int CategoryId { get; set; }
-    public DateTime CreationDateTime { get; set; } 
+    public DateTime CreationDateTime { get; set; }
     public DateTime ModificationDateTime { get; set; }
     public string CreationDateTimeShamsi { get; set; } 
     public string ModificationDateTimeShamsi { get; set; } 

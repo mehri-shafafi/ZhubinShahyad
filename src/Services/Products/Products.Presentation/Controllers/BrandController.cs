@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Products.Application.Dtos.Products;
+using Products.Application.Dtos.Brands;
 using Products.Application.Products.Commands.Brand.Create;
 using Products.Application.Products.Commands.Categories.Delete;
 using Products.Application.Products.Commands.Categories.Update;

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Products.Application.Dtos.Products;
+using Products.Application.Dtos.Brands;
 using Products.Domain.Products.Models;
 using Products.Domain.UnitOfWork.Product;
 

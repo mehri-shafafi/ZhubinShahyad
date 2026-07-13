@@ -2,7 +2,7 @@
 using EventBus.Messages.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Products.Application.Dtos.Products;
+using Products.Application.Dtos.Categories;
 using Products.Domain.Products.Models;
 using Products.Domain.UnitOfWork.Product;
 

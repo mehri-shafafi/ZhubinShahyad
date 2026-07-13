@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using Products.Application.Dtos.Products;
+using Products.Application.Dtos.Brands;
 using Products.Domain.UnitOfWork.Product;
 namespace Products.Application.Products.Queries.Product.GetBrandProducts
 {

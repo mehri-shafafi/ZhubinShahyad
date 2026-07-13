@@ -11,11 +11,11 @@ public class ProductModel : BaseEntity
     public string? Description_EN { get; set; }
     public string? Description_AR { get; set; }
     public decimal Price { get; set; }
-    public int? BrandId { get; set; }
-    public int? CategoryId { get; set; }
+    public int BrandId { get; set; }
+    public int CategoryId { get; set; }
     public int StockQuantity { get; set; }
     public string SKU { get; set; }
-    public string CatalogURL { get; set; }
+    public string CatalogUrl { get; set; }
     public string catalog_cover_image_url { get; set; }
     public string Warranty { get; set; }
     public int Rating { get; set; }
@@ -23,7 +23,7 @@ public class ProductModel : BaseEntity
     public string CategoryName_FA { get; set; }
     public string CategoryName_EN { get; set; }
     public string CategoryName_AR { get; set; }
-    public List<string> ImageUrls { get; set; }
+    public List<string> ImageUrls { get; set; } = new();
     public string CatalogCoverImageUrl { get; set; }
 
 }

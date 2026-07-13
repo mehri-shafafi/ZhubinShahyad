@@ -19,7 +19,8 @@ namespace Products.Domain.Products.Repositories
         Task<ProductModel> FetchProductEntityAsync(int id);
         // Task<ProductEntity> FetchProductAsync(int id);
         // Task<ProductEntity> FetchProductAsyncNoTracking(int id);
-        Task<ProductEntity> GetAsyncNoTracking(int id);
+        Task<ProductModel> GetAsyncNoTracking(int id);
+        Task<UpdateProductImageModel> GetProductImageByIdAsync(int id);
         #endregion
     }
 }

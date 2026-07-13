@@ -11,8 +11,8 @@ public class ProductEntity : BaseEntity
     public string? Description_EN { get; set; }
     public string? Description_AR { get; set; }
     public decimal Price { get; set; }
-    public int? BrandId { get; set; }
-    public int? CategoryId { get; set; }
+    public int BrandId { get; set; }
+    public int CategoryId { get; set; }
     public int StockQuantity { get; set; }
     public string SKU { get; set; }
     public string CatalogURL { get; set; }

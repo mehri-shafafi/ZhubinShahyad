@@ -28,7 +28,7 @@ public static class ServiceRegistery
 
     public static IServiceCollection AddInfrastructureServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddAutoMapper(typeof(Application.Common.MappingProfile),
+        builder.Services.AddAutoMapper(cfg => { }, typeof(Application.Common.MappingProfile),
                                typeof(Infrastructure.Common.MappingProfile)
                                );
         builder.Services.AddDbContext<NewsDbContext>(option =>

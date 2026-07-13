@@ -28,7 +28,7 @@ public static class ServiceRegistery
 
     public static IServiceCollection AddInfrastructureServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddAutoMapper(typeof(Application.Common.ProductMappingProfile),
+        builder.Services.AddAutoMapper(cfg => { }, typeof(Application.Common.ProductMappingProfile),
                                        typeof(Application.Common.BrandMappingProfile),
                                        typeof(Application.Common.CategoryMappingProfile),
                                        typeof(Infrastructure.Common.ProductMappingProfile),

@@ -1,12 +1,12 @@
 ﻿using Contact.Domain.UnitOfWork.Contact;
 using Contact.Infrastructure;
-using Contact.Infrastructure.Contact;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 namespace Contact.Presentation;
+
 public static class ServiceRegistery
 {
     public static IServiceCollection AddServiceRegistery(this WebApplicationBuilder builder)
@@ -26,7 +26,7 @@ public static class ServiceRegistery
     public static IServiceCollection AddInfrastructureServices(this WebApplicationBuilder builder)
     {
 
-        builder.Services.AddAutoMapper(Assemblies.InfrastructureAssembly);
+        builder.Services.AddAutoMapper(cfg => { }, Assemblies.InfrastructureAssembly);
         builder.Services.AddDbContext<ContactDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
         builder.Services.AddScoped<IReadUnitOfWork, ReadUnitOfWork>();

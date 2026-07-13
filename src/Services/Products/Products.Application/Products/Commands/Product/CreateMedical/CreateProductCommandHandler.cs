@@ -7,7 +7,7 @@ using Products.Domain.UnitOfWork.Product;
 
 namespace Products.Application.Products.Commands.Product.CreateMedical;
 
-public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ProductResDto>
+public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ProductResponseDto<ProductDetailsDto>>
 {
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IMapper _mapper;
@@ -21,13 +21,20 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         _logger = logger;
     }
 
-    public async Task<ProductResDto> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async  Task<ProductResponseDto<ProductDetailsDto>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var newProduct = _mapper.Map<ProductModel>(request);
         var addedProduct = await _writeUnitOfWork.ProductWriteRepository.AddProductAsync(newProduct);
+
         _logger.LogInformation($"Product {addedProduct.Id} is successfully created.");
 
-        //await _publishEndPoint.Publish(addProductEvent);
-        return _mapper.Map<ProductResDto>(addedProduct);
+         var product = _mapper.Map <ProductDetailsDto>(addedProduct);
+        return new ProductResponseDto<ProductDetailsDto>
+        {
+            IsSuccess = true,
+            Message = "Success",
+            StatusCode = 200,
+            Data = product
+        };
     }
 }

@@ -5,6 +5,7 @@ namespace Products.Domain.Base
     public abstract class BaseEntity<TKey>
     {
         public TKey Id { get; set; }
+        public bool IsActive { get; set; } = true;
         public DateTime CreationDateTime { get; set; } = DateTime.UtcNow;
         public DateTime ModificationDateTime { get; set; } = DateTime.UtcNow;
         public string CreationDateTimeShamsi { get; set; } = DateTime.UtcNow.ToShamsiString();

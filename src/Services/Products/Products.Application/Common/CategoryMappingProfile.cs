@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Products.Application.Dtos.Products;
+using Products.Application.Dtos.Categories;
 using Products.Application.Products.Commands.Categories.Create;
 using Products.Application.Products.Commands.Categories.Update;
 using Products.Domain.Products.Entity;

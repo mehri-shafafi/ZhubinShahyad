@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Products.Application.Dtos.Products;
+using Products.Application.Dtos.Brands;
 
 namespace Products.Application.Products.Commands.Brand.Create;
 

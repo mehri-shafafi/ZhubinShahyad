@@ -1,15 +1,13 @@
 ﻿using FluentValidation;
-using Products.Application.Products.Commands.Product.UpdateProduct;
 
-namespace Products.Application.Products.Commands.Update
+namespace Products.Application.Products.Commands.Product.UpdateProduct;
+
+public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
 {
-    public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
+    public UpdateProductCommandValidator()
     {
-        public UpdateProductCommandValidator()
-        {
-            
-
-        }
+        
 
     }
+
 }

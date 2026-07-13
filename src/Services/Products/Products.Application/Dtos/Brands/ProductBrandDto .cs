@@ -1,6 +1,6 @@
 ﻿using Products.Domain.Base;
 
-namespace Products.Application.Dtos.Products;
+namespace Products.Application.Dtos.Brands;
 public class ProductBrandDto:BaseEntity<int>
 {
    public string Name { get; set; }

@@ -1,6 +1,6 @@
 ﻿using Products.Domain.Base;
 
-namespace Products.Application.Dtos.Products;
+namespace Products.Application.Dtos.Categories;
 public class ProductCategoryDto : BaseEntity
 {
     public string Name_FA { get; set; }
