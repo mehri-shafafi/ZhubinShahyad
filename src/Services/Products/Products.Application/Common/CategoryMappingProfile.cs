@@ -37,7 +37,7 @@ namespace Products.Application.Common
                                                                 (dest => dest.ThumbnailUrl, opt => opt.MapFrom(src => src.ThumbnailUrl))
                                                                 .ReverseMap();
 
-            CreateMap<ProductCategoryDto, ProductCategoryModel>()
+            CreateMap<CategoryDto, ProductCategoryModel>()
                                                         .ForMember
                                                                 (dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                                                        .ForMember

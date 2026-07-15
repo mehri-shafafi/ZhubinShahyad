@@ -3,7 +3,7 @@ using Products.Application.Dtos.Categories;
 
 namespace Products.Application.Products.Commands.Categories.Update;
 
-public class UpdateCategoryCommand : ProductCategoryDto, IRequest<bool>
+public class UpdateCategoryCommand : CategoryDto, IRequest<bool>
 {
 
 }

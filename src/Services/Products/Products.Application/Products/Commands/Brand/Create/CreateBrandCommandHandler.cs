@@ -7,7 +7,7 @@ using Products.Domain.UnitOfWork.Product;
 
 namespace Products.Application.Products.Commands.Brand.Create;
 
-public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, ProductBrandDto>
+public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, BrandDto>
 {
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IMapper _mapper;
@@ -21,12 +21,12 @@ public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, Pro
         _logger = logger;
     }
 
-    public async Task<ProductBrandDto> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
+    public async Task<BrandDto> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
     {
         var BrandModel = _mapper.Map<ProductBrandModel>(request);
         var result = await _writeUnitOfWork.ProductWriteRepository.AddBrandAsync(BrandModel);
         _logger.LogInformation($"Product {result.Id} is successfully created.");
 
-        return _mapper.Map<ProductBrandDto>(result);
+        return _mapper.Map<BrandDto>(result);
     }
 }

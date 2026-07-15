@@ -7,7 +7,8 @@ using Products.Application.Products.Commands.Product.DeleteMedical;
 using Products.Application.Products.Commands.Product.DeleteProductImage;
 using Products.Application.Products.Commands.Product.UpdateProduct;
 using Products.Application.Products.Commands.Product.UpdateProductImage;
-using Products.Application.Products.Queries.Product.GetProductsList;
+using Products.Application.Products.Queries.Product.ById.GetProductsList;
+using Products.Application.Products.Queries.Product.List.GetProductsList;
 
 namespace Products.Presentation.Controllers;
 
@@ -25,10 +26,18 @@ public class ProductsController : ControllerBase
     }
     /// دریافت لیست محصولات
     [HttpGet("list")]
-    [ProducesResponseType(typeof(List<ProductResponseDto<ProductListDto>>), 200)]
-    public async Task<ActionResult<List<ProductResponseDto<ProductListDto>>>> GetListAsync()
+    [ProducesResponseType(typeof(List<ProductResponseDto<ProductDto>>), 200)]
+    public async Task<ActionResult<List<ProductResponseDto<ProductDto>>>> GetListAsync()
     {
         var result = await _mediator.Send(new GetProductsListQuery()); 
+        return Ok(result);
+    }
+    /// دریافت لیست محصول
+    [HttpGet("getproductbyid")]
+    [ProducesResponseType(typeof(ProductResponseDto<ProductDto>), 200)]
+    public async Task<ActionResult<ProductResponseDto<ProductDto>>> GetProductByIdAsync([FromQuery] int id) 
+    { 
+        var result = await _mediator.Send(new GetProductByIdQuery { ProductId=id}); 
         return Ok(result);
     }
     [HttpGet("productForClient")]

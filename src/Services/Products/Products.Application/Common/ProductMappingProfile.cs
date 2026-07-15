@@ -12,12 +12,14 @@ public class ProductMappingProfile : Profile
     public ProductMappingProfile()
     {
         // اگر می‌خوای برای Create/Update از ProductReqDto استفاده کنی
-        CreateMap<ProductModel, ProductListDto>();
+        CreateMap<ProductModel, ProductDto>();
         CreateMap<ProductModel, ProductDetailsDto>();
 
         //Create
-        CreateMap<CreateProductCommand, ProductModel>();
+        CreateMap<CreateProductCommand, ProductModel>()
+            .ForMember(x => x.catalog_cover_image_url, opt => opt.MapFrom(src => src.CatalogCoverImageUrl));
         CreateMap<ProductModel, ProductEntity>()
+                .ForMember(x => x.catalog_cover_image_url, opt => opt.MapFrom(src => src.CatalogCoverImageUrl))
                                                 .ForMember(x => x.Id, opt => opt.Ignore())
                                                 .ForMember(
                                                             desc => desc.Images,

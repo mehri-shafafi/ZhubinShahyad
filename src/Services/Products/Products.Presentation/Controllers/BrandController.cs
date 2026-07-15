@@ -1,10 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Products.Application.Dtos.Brands;
+using Products.Application.Dtos.Products;
 using Products.Application.Products.Commands.Brand.Create;
 using Products.Application.Products.Commands.Categories.Delete;
 using Products.Application.Products.Commands.Categories.Update;
-using Products.Application.Products.Queries.Product.GetBrandProducts;
+using Products.Application.Products.Queries.Product.ById.GetBrand;
+using Products.Application.Products.Queries.Product.ById.GetProductsList;
+using Products.Application.Products.Queries.Product.List.GetBrandProducts;
 
 namespace Products.Presentation.Controllers;
 
@@ -23,15 +26,23 @@ public class BrandController : ControllerBase
     }
 
     [HttpGet("list")]
-    [ProducesResponseType(typeof(ProductBrandDto), 200)]
-    public async Task<ActionResult<List<ProductBrandDto>>> GetListAsync()
+    [ProducesResponseType(typeof(BrandDto), 200)]
+    public async Task<ActionResult<List<BrandDto>>> GetListAsync()
     {
         var result = await _mediator.Send(new GetBrandProductsListQuery()); // این کوئری بهتره تغییر نام بده برای محصولات
         return Ok(result);
     }
 
+    /// دریافت لیست برند
+    [HttpGet("getbrandbyid")]
+    [ProducesResponseType(typeof(BrandDto), 200)]
+    public async Task<ActionResult<BrandDto>> GetBrandByIdAsync([FromQuery] int id)
+    {
+        var result = await _mediator.Send(new GetBrandByIdQuery { BrandId = id });
+        return Ok(result);
+    }
     [HttpPost("create")]
-    public async Task<ActionResult<ProductBrandDto>> CreateAsync([FromBody] CreateBrandCommand request)
+    public async Task<ActionResult<BrandDto>> CreateAsync([FromBody] CreateBrandCommand request)
     {
         var result = await _mediator.Send(request);
         return Ok(result);

@@ -28,7 +28,7 @@ namespace Products.Application.Common
                                                                 .ReverseMap();
 
 
-            CreateMap<ProductBrandModel, ProductBrandDto>()
+            CreateMap<ProductBrandModel, BrandDto>()
                                                         .ForMember
                                                                 (dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                                                        .ForMember

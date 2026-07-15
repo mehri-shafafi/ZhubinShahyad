@@ -1,11 +1,12 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Products.Application.Dtos.Brands;
 using Products.Application.Dtos.Categories;
 using Products.Application.Products.Commands.Categories.Create;
 using Products.Application.Products.Commands.Categories.Delete;
 using Products.Application.Products.Commands.Categories.Update;
-using Products.Application.Products.Queries.Product.GetCateguriesList;
+using Products.Application.Products.Queries.Product.ById.GetBrand;
+using Products.Application.Products.Queries.Product.List.GetCateguriesList;
 
 namespace Products.Presentation.Controllers;
 
@@ -22,17 +23,24 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpGet("list")]
-    [ProducesResponseType(typeof(List<ProductCategoryDto>), 200)]
-    public async Task<ActionResult<List<ProductCategoryDto>>> GetListAsync()
+    [ProducesResponseType(typeof(List<CategoryDto>), 200)]
+    public async Task<ActionResult<List<CategoryDto>>> GetListAsync()
     {
         var result = await _mediator.Send(new GetCategoriesQuery());
         return Ok(result);
     }
 
+    [HttpGet("getcategorybyid")]
+    [ProducesResponseType(typeof(CategoryDto), 200)]
+    public async Task<ActionResult<CategoryDto>> GetBCategoryByIdAsync([FromQuery] int id)
+    {
+        var result = await _mediator.Send(new GetCategoryByIdQuery { CategoryId = id });
+        return Ok(result);
+    }
 
     [HttpPost("create")]
-    [ProducesResponseType(typeof(ProductCategoryDto), 200)]
-    public async Task<ActionResult<ProductCategoryDto>> CreateAsync([FromBody] CreateCategoryCommand request)
+    [ProducesResponseType(typeof(CategoryDto), 200)]
+    public async Task<ActionResult<CategoryDto>> CreateAsync([FromBody] CreateCategoryCommand request)
     {
         var result = await _mediator.Send(request);
         return Ok(result);

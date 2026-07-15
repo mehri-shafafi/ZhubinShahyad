@@ -1,7 +1,7 @@
 ﻿using Products.Domain.Base;
 
 namespace Products.Application.Dtos.Categories;
-public class ProductCategoryDto : BaseEntity
+public class CategoryDto : BaseEntity
 {
     public string Name_FA { get; set; }
     public string Name_EN { get; set; }

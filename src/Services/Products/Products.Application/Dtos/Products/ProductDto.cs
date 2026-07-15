@@ -1,6 +1,6 @@
 ﻿namespace Products.Application.Dtos.Products;
 //برای لیست محصولات
-public class ProductListDto
+public class ProductDto
 {
     public int ProductId { get; set; }
 

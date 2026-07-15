@@ -8,7 +8,7 @@ using Products.Domain.UnitOfWork.Product;
 
 namespace Products.Application.Products.Commands.Categories.Create;
 
-public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, ProductCategoryDto>
+public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, CategoryDto>
 {
     private readonly IWriteUnitOfWork _writeUnitOfWork;
     private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
         _logger = logger;
     }
 
-    public async Task<ProductCategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<CategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
         var newProduct = _mapper.Map<ProductCategoryModel>(request);
         var addedProduct = await _writeUnitOfWork.ProductWriteRepository.AddProductCategoriesAsync(newProduct);
@@ -31,6 +31,6 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
 
  
        // await _publishEndPoint.Publish(addProductEvent);
-        return _mapper.Map<ProductCategoryDto>(addedProduct);
+        return _mapper.Map<CategoryDto>(addedProduct);
     }
 }
