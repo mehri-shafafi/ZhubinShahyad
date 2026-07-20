@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Products.Application.Dtos.Products;
-
 namespace Products.Application.Products.Commands.Product.CreateMedical;
 
 
@@ -26,5 +25,5 @@ public class CreateProductCommand : IRequest<ProductResponseDto<ProductDetailsDt
     public int Rating { get; set; }
     public string? CatalogUrl { get; set; }
     public List<string> ImageUrls { get; set; } = new();
-    public string CatalogCoverImageUrl { get; set; }
+    public string? CatalogCoverImageUrl { get; set; }
 }

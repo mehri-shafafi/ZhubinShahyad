@@ -16,11 +16,9 @@ public class ProductDetailsDto
 
     public decimal Price { get; set; }
 
-    public string? BrandName { get; set; }
+    public int CategoryId { get; set; }
+    public int BrandId { get; set; }
 
-    public string? CategoryName_FA { get; set; }
-    public string? CategoryName_EN { get; set; }
-    public string? CategoryName_AR { get; set; }
 
     public string? Warranty { get; set; }
 

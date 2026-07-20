@@ -31,5 +31,9 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.OpenApi" Version="2.7.5" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\media\Files\img\Products\" />
+	</ItemGroup>
 	
 </Project>

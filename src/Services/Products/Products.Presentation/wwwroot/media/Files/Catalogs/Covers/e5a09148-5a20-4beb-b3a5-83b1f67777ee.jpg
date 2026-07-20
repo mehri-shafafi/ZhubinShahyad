@@ -1,0 +1,5 @@
+
+change visible :
+<add IBKey="PromissoryInqiury" VisibleToMelliPortalUser="True" visible="False" IsTest="False" accEmptyVisible="True" nightMode="True" />
+<add IBKey="PromissoryRequest" VisibleToMelliPortalUser="True" visible="False" IsTest="False" accEmptyVisible="True" nightMode="True" />
+		
