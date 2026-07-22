@@ -42,4 +42,7 @@ app.MapControllers();              // بعد از Authorization
 app.UseSwagger();                  // بعد از CORS و قبل از Run
 app.UseSwaggerUI();
 app.UseStaticFiles();
+
+
+
 app.Run();
