@@ -14,7 +14,6 @@ namespace News.Domain.News.Models
         public string Summary_AR { get; set; }
         public string Content_AR { get; set; }
         public int AuthorID { get; set; }
-        public bool? Active { get; set; } 
          public int CategoryID { get; set; }
         public DateTime PublishedDate { get; set; }
         public string Tags { get; set; }

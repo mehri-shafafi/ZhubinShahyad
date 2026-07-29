@@ -61,7 +61,7 @@ namespace News.Infrastructure.News
             var entity = await _dbContext.news_Articles.FindAsync(news_Article.Id);
             if (entity == null)
                 throw new Exception("ProductCategory not found");
-            entity.Active = false;
+            entity.IsActive = false;
             var result = _dbContext.Update(entity);
             await _dbContext.SaveChangesAsync();
         }
@@ -99,7 +99,7 @@ namespace News.Infrastructure.News
             var entity = await _dbContext.news_Authors.FindAsync(news_Author.Id);
             if (entity == null)
                 throw new Exception("News category not found");
-            entity.Active = false;
+            entity.IsActive = false;
             var result = _dbContext.Update(entity);
             await _dbContext.SaveChangesAsync();
         }
@@ -139,7 +139,7 @@ namespace News.Infrastructure.News
             var entity = await _dbContext.news_Articles.FindAsync(news_Category.Id);
             if (entity == null)
                 throw new Exception("News category not found");
-            entity.Active = false;
+            entity.IsActive = false;
             var result = _dbContext.Update(entity);
             await _dbContext.SaveChangesAsync();
 
@@ -149,7 +149,7 @@ namespace News.Infrastructure.News
             var entity = await _dbContext.news_Articles.FindAsync(input.Id);
             if (entity == null)
                 throw new Exception("News category not found");
-            entity.Active=input.IsActive;
+            entity.IsActive=input.IsActive;
             var result = _dbContext.Update(entity);
             await _dbContext.SaveChangesAsync();
             return true;

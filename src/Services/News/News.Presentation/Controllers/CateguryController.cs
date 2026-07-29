@@ -78,9 +78,9 @@ namespace News.Presentation.Controllers
         [HttpDelete("{id}")]
         //[Route("api/DeleteProduct")]
         [ProducesResponseType(typeof(bool), 200)]
-        public async Task<bool> Delete(DeleteCategoryCommand request)
+        public async Task<bool> Delete(int id)
         {
-            var res = await _mediator.Send(request);
+            var res = await _mediator.Send(new DeleteCategoryCommand { Id=id});
             return res;
         }
 

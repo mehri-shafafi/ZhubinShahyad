@@ -149,16 +149,21 @@ public class ProductWriteRepository : IProductWriteRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteProductAsync(ProductModel productEntity)
+    public async Task DeleteProductAsync(int id)
     {
+
+
         var entity = await _dbContext.Products
-            .FirstOrDefaultAsync(p => p.Id == productEntity.Id);
+            .FirstOrDefaultAsync(p => p.Id == id);
 
         if (entity != null)
         {
-            _dbContext.Products.Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            throw new Exception("News category not found");
         }
+        entity.IsActive = false;
+        var result = _dbContext.Update(entity);
+        await _dbContext.SaveChangesAsync();
     }
-    #endregion
 }
+    #endregion
+

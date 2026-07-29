@@ -13,7 +13,7 @@ namespace Products.Domain.Products.Repositories
         Task<ProductModel> AddProductAsync(ProductModel productEntity);
         Task<ProductModel> UpdateProductAsync(UpdateProductModel productEntity);
         Task<UpdateProductImageModel> UpdateProductImageAsync(UpdateProductImageModel productEntity);
-        Task DeleteProductAsync(ProductModel productEntity);
+        Task DeleteProductAsync(int id);
         Task DeleteProductImageAsync(UpdateProductImageModel productImage );
 
         #endregion

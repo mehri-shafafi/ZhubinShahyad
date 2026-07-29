@@ -125,6 +125,8 @@ public class ProductsController : ControllerBase
         await using var stream = new FileStream(filePath, FileMode.Create);
         await file.CopyToAsync(stream);
 
+ 
+        Console.WriteLine($"Saving file to: {filePath}");
         return $"{baseUrl}/media/Files/{folderName}/{fileName}";
 
     }

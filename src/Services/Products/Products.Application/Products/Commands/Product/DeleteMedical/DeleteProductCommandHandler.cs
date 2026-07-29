@@ -21,13 +21,12 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
     }
     public async Task<bool> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _readUnitOfWork.ProductReadRepository.FetchProductEntityAsync(request.Id);
-        if (product == null)
+        if (request.Id == 0)
         {
-            throw new NotFoundException("Product", request.Id);
+            throw new NotFoundException("Product Id not Empty", "12345678");
         }
 
-        await _writeUnitOfWork.ProductWriteRepository.DeleteProductAsync(product);
+        await _writeUnitOfWork.ProductWriteRepository.DeleteProductAsync(request.Id);
 
         return true;
 

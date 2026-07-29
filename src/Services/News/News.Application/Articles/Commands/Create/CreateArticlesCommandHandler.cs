@@ -28,7 +28,11 @@ public class CreateArticlesCommanddHandler : IRequestHandler<CreateArticlesComma
     {
         var mappedComment = _mapper.Map<News_ArticleModel>(request);
         var result = await _writeUnitOfWork.NewsWriteRepository.AddNews_ArticleAsync(mappedComment);
-        await _cache.RemoveRecordAsync(string.Format("GetArticlesById"));
+       
+        if (result)
+        {
+        await _cache.RemoveRecordAsync(string.Format("GetArticles"));
+        }
 
         return result;
     }

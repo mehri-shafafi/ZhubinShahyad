@@ -11,7 +11,6 @@ public class NewsArticleResDto : BaseEntity<int>
     public string Title_AR { get; set; }
     public string Summary_AR { get; set; }
     public string Content_AR { get; set; }
-    public bool? Active { get; set; } 
 
     public int AuthorID { get; set; }//شناسه نویسنده مقاله. معمولاً به جدول دیگری متصل می‌شود که اطلاعات نویسنده‌ها در آن است. (Foreign Key)
     public int CategoryID { get; set; }//شناسه دسته‌بندی مقاله. برای گروه‌بندی مقالات (مثل: علمی، خبری، آموزشی و...) استفاده می‌شود. (Foreign Key)

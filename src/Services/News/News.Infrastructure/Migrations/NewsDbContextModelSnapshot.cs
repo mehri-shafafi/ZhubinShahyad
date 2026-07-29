@@ -30,9 +30,6 @@ namespace News.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
                     b.Property<int>("AuthorID")
                         .HasColumnType("int");
 
@@ -58,6 +55,9 @@ namespace News.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("ModificationDateTime")
                         .HasColumnType("datetime2");
@@ -124,9 +124,6 @@ namespace News.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Bio")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -134,6 +131,9 @@ namespace News.Infrastructure.Migrations
 
                     b.Property<DateTime>("CreationDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("ModificationDateTime")
                         .HasColumnType("datetime2");
@@ -176,6 +176,9 @@ namespace News.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("ModificationDateTime")
                         .HasColumnType("datetime2");

@@ -65,15 +65,13 @@ namespace News.Presentation.Controllers
                 await _mediator.Send(request);
                 return Ok(true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("ایجاد خبر انجام نشد. ابتدا استعلام گرفته و سپس دوباره تلاش کنید.");
+                return BadRequest(ex.Message);
 
             }
         }
 
-
-        [HttpPut("UpdateArticle/{id}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(400)]
         public async Task<ActionResult<bool>> Update(UpdateArticleCommand request)
@@ -108,9 +106,9 @@ namespace News.Presentation.Controllers
         [HttpDelete("{id}")]
         //[Route("api/DeleteProduct")]
         [ProducesResponseType(typeof(bool), 200)]
-        public async Task<bool> Delete(DeleteArticlesCommand request)
+        public async Task<bool> Delete(int id)
         {
-            var res = await _mediator.Send(request);
+            var res = await _mediator.Send(new DeleteArticlesCommand { Id=id});
             return res;
         }
 

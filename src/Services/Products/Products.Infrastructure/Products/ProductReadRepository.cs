@@ -152,6 +152,7 @@ public class ProductReadRepository : IProductReadRepository
 
         return new ProductModel
         {
+            Id=p.Id,
             ProductId = p.Id,
             Name_FA = p.Name_FA,
             Name_EN = p.Name_EN,

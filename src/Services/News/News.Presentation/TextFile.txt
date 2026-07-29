@@ -73,8 +73,10 @@ docker load -i /root/Backups/services/staging/gallery-api-staging.tar
 docker load -i /root/Backups/services/staging/contact-api-staging.tar
 
 و اجرا:
-docker run -d --name products-api-staging -p 11000:8083 -e ASPNETCORE_ENVIRONMENT=Staging products.api:staging
-docker run -d --name news-api-staging -p 11002:8082 -e ASPNETCORE_ENVIRONMENT=Staging news.api:staging
-docker run -d --name education-api-staging -p 11003:8081 -e ASPNETCORE_ENVIRONMENT=Staging education.api:staging
-docker run -d --name gallery-api-staging -p 11004:8084 -e ASPNETCORE_ENVIRONMENT=Staging gallery.api:staging
-docker run -d --name contact-api-staging -p 11005:8085 -e ASPNETCORE_ENVIRONMENT=Staging contact.api:staging
+docker rm -f products.api:staging; 
+docker run -d --name products-api-staging --link redis:redis -p 11000:8083 -e ASPNETCORE_ENVIRONMENT=Staging products.api:staging
+docker rm -f news-api-staging; 
+docker run -d --name news-api-staging --link redis:redis -p 11002:8082 -e ASPNETCORE_ENVIRONMENT=Staging news.api:staging
+docker rm -f education-api-staging; docker run -d --name education-api-staging --link redis:redis -p 11003:8081 -e ASPNETCORE_ENVIRONMENT=Staging education.api:staging
+docker rm -f gallery-api-staging; docker run -d --name gallery-api-staging --link redis:redis  -p 11004:8084 -e ASPNETCORE_ENVIRONMENT=Staging gallery.api:staging
+docker rm -f contact-api-staging; docker run -d --name contact-api-staging --link redis:redis -p 11005:8085 -e ASPNETCORE_ENVIRONMENT=Staging contact.api:staging

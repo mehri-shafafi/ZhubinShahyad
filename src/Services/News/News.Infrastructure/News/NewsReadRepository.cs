@@ -20,6 +20,7 @@ namespace News.Domain.News
         {
             var res = await _dbContext.news_Articles
                .AsNoTracking()
+               .Where(pc => pc.IsActive == true)
                .Include(p => p.news_Category)
                .Select(pc => new News_ArticleModel
                {
@@ -41,10 +42,8 @@ namespace News.Domain.News
                    Title_EN = pc.Title_EN,
                    Title_FA = pc.Title_FA,
                    ViewsCount = pc.ViewsCount,
-                   Active = pc.Active
-               }).Where(pc => pc.Active == true)
-               .ToListAsync();
-                        return res;
+               }).ToListAsync();
+            return res;
         }
         public async Task<News_ArticleModel?> GetNewsArticleAsync(int id)
         {
@@ -80,22 +79,22 @@ namespace News.Domain.News
         //News_Author
         public async Task<List<News_AuthorModel>> GetNewsAuthorAllAsync()
         {
-            var res= await _dbContext.news_Authors
+            var res = await _dbContext.news_Authors
                .Select(pc => new News_AuthorModel
                {
                    Id = pc.Id,
                    Bio = pc.Bio,
-                   Active = pc.Active,
+                   IsActive = pc.IsActive,
                    CreationDateTime = pc.CreationDateTime,
                    ModificationDateTime = pc.ModificationDateTime,
                    Name = pc.Name,
                    ProfilePictureURL = pc.ProfilePictureURL
-               }).Where(pc => pc.Active == true).ToListAsync();
+               }).Where(pc => pc.IsActive == true).ToListAsync();
             return res;
         }
-        public async Task<News_AuthorModel> GetNewsAuthorAsync(int id)
+        public async Task<News_AuthorModel?> GetNewsAuthorAsync(int id)
         {
-            return await _dbContext.news_Authors
+            var res= await _dbContext.news_Authors
                 .Include(b => b.news_Articles)
                 .Where(b => b.Id == id)
                 .Select(pc => new News_AuthorModel
@@ -108,6 +107,7 @@ namespace News.Domain.News
                     ProfilePictureURL = pc.ProfilePictureURL
                 })
                 .FirstOrDefaultAsync(p => p.Id == id);
+            return res;
 
         }
 
@@ -130,10 +130,10 @@ namespace News.Domain.News
 
             return result;
         }
-        public async Task<News_CategoryModel> GetNewsCategoryAsync(int id)
+        public async Task<News_CategoryModel?> GetNewsCategoryAsync(int id)
         {
 
-            return await _dbContext.news_Categories
+            var res= await _dbContext.news_Categories
                  .Select(t => new News_CategoryModel
                  {
                      Id = t.Id,
@@ -143,6 +143,7 @@ namespace News.Domain.News
                      CreatedDate = t.CreatedDate,
                      UpdatedDate = t.UpdatedDate,
                  }).FirstOrDefaultAsync(p => p.Id == id);
+            return res;
         }
 
         // News_Comment
@@ -170,20 +171,6 @@ namespace News.Domain.News
             return result;
             //return await _dbContext.news_Comments.Include(p => p.Content).ToListAsync();
         }
-        public async Task<bool> ChangeStatusAsync(ChangeNewsArticleStatusModel dto)
-        {
-            var article = await _dbContext.news_Articles.FindAsync(dto.Id);
-            if (article == null) return false;
-
-            article.Active = dto.IsActive;
-            await _dbContext.SaveChangesAsync();
-
-            return true;
-        }
-
-
-
-
 
     }
 }

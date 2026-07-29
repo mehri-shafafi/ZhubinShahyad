@@ -12,7 +12,7 @@ using News.Application.Dtos.News;
 namespace News.Presentation.Controllers
 {
 
-    [Route("api/NewsAuthor/")]
+    [Route("api/Author/")]
     [ApiController]
     public class AuthorController : ControllerBase
     {
@@ -23,7 +23,7 @@ namespace News.Presentation.Controllers
             _mediator = mediator;
         }
         [HttpPost]
-        [Route("[action]")]
+        [Route("getauthorbyid")]
         public async Task<ActionResult<NewsAuthorDto>> Get(GetAuthorByIdQuery query)
         {
             if (query == null)
@@ -43,7 +43,7 @@ namespace News.Presentation.Controllers
             }
         }
 
-        [Route("GetListNewsCommand")]
+        [Route("getlistauthor")]
         [HttpGet()]
         [ProducesResponseType(typeof(List<NewsAuthorDto>), 200)]
         public async Task<List<NewsAuthorDto>> GetList()
@@ -51,7 +51,7 @@ namespace News.Presentation.Controllers
             return await _mediator.Send(new GetAllAuthorQuery());
         }
 
-        [Route("AddedNewsCommand")]
+        [Route("createauthor")]
         [HttpPost]
         [ProducesResponseType(typeof(NewsAuthorDto), 200)]
         public async Task<bool> Create(CreateAuthorCommand request)
@@ -60,9 +60,9 @@ namespace News.Presentation.Controllers
         }
 
         // PUT api/<NewsController>/5
-        [HttpPut("{id}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(400)]
+        [HttpPut("updateauthor/{id}")]
         public async Task<ActionResult<bool>> Update(int id, UpdateAuthorCommand request)
         {
             if (id != request.Id)
@@ -74,13 +74,11 @@ namespace News.Presentation.Controllers
             return res;
 
         }
-        // DELETE api/<NewsController>/5
-        [HttpDelete("{id}")]
-        //[Route("api/DeleteProduct")]
         [ProducesResponseType(typeof(bool), 200)]
-        public async Task<bool> Delete(DeleteAuthorCommand request)
+        [HttpDelete("DeleteProduct/{id}")]
+        public async Task<bool> DeleteAuthor(int id)
         {
-            var res = await _mediator.Send(request);
+            var res = await _mediator.Send(new DeleteArticlesCommand { Id=id});
             return res;
         }
 

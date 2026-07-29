@@ -23,15 +23,16 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, L
     public async Task<List<NewsArticleResDto>> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)
     {
 
-        List<NewsArticleResDto>? resCache = await _cache.GetRecordAsync<List<NewsArticleResDto>>(string.Format("articles:list"));
+        List<NewsArticleResDto>? resCache = await _cache.GetRecordAsync<List<NewsArticleResDto>>(string.Format("GetArticles"));
         if (resCache != null && resCache.Count > 0)
         {   
             return resCache;
         }
 
         var result = await _readUnitOfWork.NewsReadRepository.GetNewsArticleAllAsync();
+
         var resultModel = _mapper.Map<List<NewsArticleResDto>>(result);
-        await _cache.SetRecordAsync("articles:list", resultModel, TimeSpan.FromHours(6));
+        await _cache.SetRecordAsync("GetArticles", resultModel, TimeSpan.FromHours(6));
         return resultModel;
     }
 }

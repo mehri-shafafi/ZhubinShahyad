@@ -6,15 +6,15 @@ namespace News.Domain.News.Repositories
     {
         #region
         Task<List<News_ArticleModel>> GetNewsArticleAllAsync();
-        Task<News_ArticleModel> GetNewsArticleAsync(int id);
+        Task<News_ArticleModel?> GetNewsArticleAsync(int id);
         #endregion
         #region
         Task<List<News_AuthorModel>> GetNewsAuthorAllAsync();
-        Task<News_AuthorModel> GetNewsAuthorAsync(int id);
+        Task<News_AuthorModel?> GetNewsAuthorAsync(int id);
         #endregion
         #region
         Task<List<News_CategoryModel>> GetNewsCategoryAllAsync();
-        Task<News_CategoryModel> GetNewsCategoryAsync(int id);
+        Task<News_CategoryModel?> GetNewsCategoryAsync(int id);
         #endregion
 
     }
