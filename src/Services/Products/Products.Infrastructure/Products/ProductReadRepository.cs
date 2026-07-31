@@ -106,6 +106,7 @@ public class ProductReadRepository : IProductReadRepository
            .Include(p => p.ProductBrand)
            .Include(p => p.Category)
            .Include(p => p.Images)
+           .Where(p=>p.IsActive==true)
            .Select(p => new ProductModel
            {
                ProductId = p.Id,

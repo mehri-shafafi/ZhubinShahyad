@@ -156,7 +156,7 @@ public class ProductWriteRepository : IProductWriteRepository
         var entity = await _dbContext.Products
             .FirstOrDefaultAsync(p => p.Id == id);
 
-        if (entity != null)
+        if (entity is null)
         {
             throw new Exception("News category not found");
         }
