@@ -60,18 +60,21 @@ public class ProductsController : ControllerBase
         string? catalogUrl = null;
         string? catalogCoverImageUrl = null;
         var imageUrls = new List<string>();
-        var imagePath = @"C:\Uploads\Products";
+        var imagePath = "https://zhubinshahyad.com";
+
+        var folderName = request.FolderName ?? "Unknown";
+
 
         if (request.CatalogUrl is not null)
         {
             catalogUrl =
-           await SaveFileAndGetUrlAsync(request.CatalogUrl, "Catalogs", imagePath, "/root/media/Files/Catalogs");
+           await SaveFileAndGetUrlAsync(request.CatalogUrl, "Catalogs", imagePath, "/var/www/html/media/Files/Catalogs");
         }
 
         if (request.CatalogCoverImageUrl is not null)
         {
             catalogCoverImageUrl =
-           await SaveFileAndGetUrlAsync(request.CatalogCoverImageUrl, "Catalogs/Covers", imagePath, "/root/media/Files/Catalogs/Covers");
+           await SaveFileAndGetUrlAsync(request.CatalogCoverImageUrl, "Catalogs/Covers", imagePath, "/var/www/html/media/Files/Catalogs/Covers");
         }
 
 
@@ -80,7 +83,7 @@ public class ProductsController : ControllerBase
 
             var imageUrl = await SaveFileAndGetUrlAsync(
             image,
-            "img/Products",
+            folderName,
             imagePath, "/var/www/html/media/Files/img/Products");
 
             imageUrls.Add(imageUrl);
@@ -118,8 +121,9 @@ public class ProductsController : ControllerBase
                                                                 string fileBaseUrl)
 
     {
+        var finalUploadPath = Path.Combine(uploadPath, folderName);
 
-        Directory.CreateDirectory(uploadPath);
+        Directory.CreateDirectory(finalUploadPath);
 
         var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
 
@@ -129,8 +133,8 @@ public class ProductsController : ControllerBase
         await file.CopyToAsync(stream);
 
 
-        Console.WriteLine($"Saing file to: {filePath}");
-        return $"{fileBaseUrl}/media/Files/{folderName}/{fileName}";
+        return $"{fileBaseUrl}{uploadPath}/{folderName}/{fileName}";
+
 
     }
 
@@ -145,7 +149,7 @@ public class ProductsController : ControllerBase
 
         var newImageUrls = new List<string>();
 
-        var imagePath = @"C:\Uploads\Products";
+        var imagePath = "https://zhubinshahyad.com";
 
         // کاتالوگ جدید
         if (request.CatalogUrl != null)
@@ -154,7 +158,7 @@ public class ProductsController : ControllerBase
                 request.CatalogUrl,
                 "Catalogs",
                 imagePath,
-                "/root/media/Files/Catalogs");
+                "/var/www/html/media/Files/Catalogs");
         }
 
         // کاور جدید
@@ -164,7 +168,7 @@ public class ProductsController : ControllerBase
                 request.CatalogCoverImageUrl,
                 "Catalogs/Covers",
                 imagePath,
-                "/root/media/Files/Catalogs/Covers");
+                "/var/www/html/media/Files/Catalogs/Covers");
         }
 
         // تصاویر جدید

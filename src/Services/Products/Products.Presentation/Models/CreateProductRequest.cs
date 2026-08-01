@@ -9,6 +9,7 @@
         public string? Description_FA { get; set; }
         public string? Description_EN { get; set; }
         public string? Description_AR { get; set; }
+        public string? FolderName { get; set; }
 
         public decimal Price { get; set; }
 
