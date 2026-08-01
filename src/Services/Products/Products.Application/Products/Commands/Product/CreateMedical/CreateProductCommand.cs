@@ -22,6 +22,7 @@ public class CreateProductCommand : IRequest<ProductResponseDto<ProductDetailsDt
 
     public string SKU { get; set; }
     public string? Warranty { get; set; }
+    public int SortOrder { get; set; }
     public int Rating { get; set; }
     public string? CatalogUrl { get; set; }
     public List<string> ImageUrls { get; set; } = new();

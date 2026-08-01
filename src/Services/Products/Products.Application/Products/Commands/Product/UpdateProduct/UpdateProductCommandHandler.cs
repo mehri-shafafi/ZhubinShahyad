@@ -20,16 +20,31 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
         _mapper = mapper;
         _logger = logger;
     }
-    public async Task<bool> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(
+      UpdateProductCommand request,
+      CancellationToken cancellationToken)
     {
-        var product = await _readUnitOfWork.ProductReadRepository.GetAsyncNoTracking(request.ProductId);
+        var product = await _readUnitOfWork
+            .ProductReadRepository
+            .GetAsyncNoTracking(request.ProductId);
+
         if (product == null)
         {
-            throw new NotFoundException(nameof(Product), request.ProductId);
+            throw new NotFoundException(
+                nameof(Product),
+                request.ProductId);
         }
-        var updatedProduct = _mapper.Map<UpdateProductModel>(request);
-        await _writeUnitOfWork.ProductWriteRepository.UpdateProductAsync(updatedProduct);
-        _logger.LogInformation($"Product {product.Id} is successfully updated.");
+
+        var updatedProduct =
+            _mapper.Map<UpdateProductModel>(request);
+
+        await _writeUnitOfWork
+            .ProductWriteRepository
+            .UpdateProductAsync(updatedProduct);
+
+        _logger.LogInformation(
+            $"Product {product.Id} is successfully updated.");
+
         return true;
     }
 }

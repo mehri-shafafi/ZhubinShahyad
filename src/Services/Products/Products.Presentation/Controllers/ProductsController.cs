@@ -111,10 +111,13 @@ public class ProductsController : ControllerBase
         return Ok(result);
     }
 
-    private static async Task<string> SaveFileAndGetUrlAsync(IFormFile file, string folderName, string baseUrl, string uploadPath)
+    private static async Task<string> SaveFileAndGetUrlAsync(
+                                                                IFormFile file,
+                                                                string folderName,
+                                                                string uploadPath,
+                                                                string fileBaseUrl)
+
     {
-
-
 
         Directory.CreateDirectory(uploadPath);
 
@@ -125,27 +128,115 @@ public class ProductsController : ControllerBase
         await using var stream = new FileStream(filePath, FileMode.Create);
         await file.CopyToAsync(stream);
 
- 
-        Console.WriteLine($"Saving file to: {filePath}");
-        return $"{baseUrl}/media/Files/{folderName}/{fileName}";
+
+        Console.WriteLine($"Saing file to: {filePath}");
+        return $"{fileBaseUrl}/media/Files/{folderName}/{fileName}";
 
     }
 
-    /// ویرایش محصول
-    [HttpPut("update/{id:int}")]
+    [HttpPut("update")]
     [ProducesResponseType(typeof(bool), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult<bool>> UpdateAsync(int id, [FromBody] UpdateProductCommand request)
+    public async Task<ActionResult<bool>> UpdateAsync(
+        [FromForm] UpdateProductRequest request)
     {
-        if (id != request.ProductId)
-            return BadRequest("Id in route and body must match");
+        string? catalogUrl = null;
+        string? catalogCoverImageUrl = null;
 
-        var result = await _mediator.Send(request);
+        var newImageUrls = new List<string>();
+
+        var imagePath = @"C:\Uploads\Products";
+
+        // کاتالوگ جدید
+        if (request.CatalogUrl != null)
+        {
+            catalogUrl = await SaveFileAndGetUrlAsync(
+                request.CatalogUrl,
+                "Catalogs",
+                imagePath,
+                "/root/media/Files/Catalogs");
+        }
+
+        // کاور جدید
+        if (request.CatalogCoverImageUrl != null)
+        {
+            catalogCoverImageUrl = await SaveFileAndGetUrlAsync(
+                request.CatalogCoverImageUrl,
+                "Catalogs/Covers",
+                imagePath,
+                "/root/media/Files/Catalogs/Covers");
+        }
+
+        // تصاویر جدید
+        if (request.Images != null && request.Images.Any())
+        {
+            foreach (var image in request.Images)
+            {
+                var imageUrl = await SaveFileAndGetUrlAsync(
+                    image,
+                    "img/Products",
+                    imagePath,
+                    "/var/www/html/media/Files/img/Products");
+
+                newImageUrls.Add(imageUrl);
+            }
+        }
+
+        var command = new UpdateProductCommand
+        {
+            ProductId = request.ProductId,
+
+            Name_FA = request.Name_FA,
+            Name_EN = request.Name_EN,
+            Name_AR = request.Name_AR,
+
+            Description_FA = request.Description_FA,
+            Description_EN = request.Description_EN,
+            Description_AR = request.Description_AR,
+
+            Price = request.Price,
+
+            BrandId = request.BrandId,
+            CategoryId = request.CategoryId,
+
+            StockQuantity = request.StockQuantity,
+
+            SKU = request.SKU,
+
+            Warranty = request.Warranty,
+
+            Rating = request.Rating,
+
+            // اگر فایل جدید ارسال نشده باشد null می‌ماند
+            CatalogUrl = catalogUrl,
+            CatalogCoverImageUrl = catalogCoverImageUrl,
+
+            // تصاویر جدید
+            NewImageUrls = newImageUrls,
+
+            // تصاویر حذف شده
+            DeletedImageUrls = request.DeletedImageUrls ?? new List<string>()
+        };
+
+        var result = await _mediator.Send(command);
+
         return Ok(result);
     }
+    ///// ویرایش محصول
+    //[HttpPut("update")]
+    //[ProducesResponseType(typeof(bool), 200)]
+    //[ProducesResponseType(400)]
+    //public async Task<ActionResult<bool>> UpdateAsync(int id, [FromBody] UpdateProductCommand request)
+    //{
+    //    if (id != request.ProductId)
+    //        return BadRequest("Id in route and body must match");
+
+    //    var result = await _mediator.Send(request);
+    //    return Ok(result);
+    //}
 
     /// حذف محصول
-    [HttpDelete("delete/{id:int}")]
+    [HttpDelete("delete")]
     [ProducesResponseType(typeof(bool), 200)]
     public async Task<ActionResult<bool>> DeleteAsync(int id)
     {

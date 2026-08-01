@@ -65,7 +65,9 @@ public class ProductWriteRepository : IProductWriteRepository
     public async Task<ProductModel> UpdateProductAsync(UpdateProductModel product)
     {
 
-        var entity = await _dbContext.Products.Include(x => x.Images).FirstOrDefaultAsync(x => x.Id == product.ProductId);
+        var entity = await _dbContext.Products
+            .Include(x => x.Images).
+            FirstOrDefaultAsync(x => x.Id == product.ProductId);
 
         if (entity == null)
             throw new Exception("Product not found");
@@ -77,8 +79,27 @@ public class ProductWriteRepository : IProductWriteRepository
 
         if (product.CategoryId.HasValue)
             entity.CategoryId = product.CategoryId.Value;
-        await _dbContext.SaveChangesAsync();
 
+        // حذف تصاویر
+        if (product.DeletedImageUrls.Any())
+        {
+            entity.Images
+         .Where(x => product.DeletedImageUrls.Contains(x.ImageUrl))
+         .ToList()
+         .ForEach(x => x.IsActive = false);
+        }
+
+        // اضافه کردن تصاویر جدید
+        foreach (var imageUrl in product.NewImageUrls)
+        {
+            entity.Images.Add(new ProductImages
+            {
+                ProductId = entity.Id,
+                ImageUrl = imageUrl
+            });
+        }
+
+        await _dbContext.SaveChangesAsync();
         return _mapper.Map<ProductModel>(entity);
     }
     public async Task<UpdateProductImageModel> UpdateProductImageAsync(UpdateProductImageModel productImage)

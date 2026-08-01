@@ -24,4 +24,10 @@ public class UpdateProductModel
     public string CatalogUrl { get; set; }
 
     public string? CatalogCoverImageUrl { get; set; }
+    // تصاویر جدیدی که آپلود شده‌اند
+    public List<string> NewImageUrls { get; set; } = new();
+
+
+    // تصاویری که کاربر حذف کرده
+    public List<string> DeletedImageUrls { get; set; } = new();
 }

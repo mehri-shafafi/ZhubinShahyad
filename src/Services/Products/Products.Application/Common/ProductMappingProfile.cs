@@ -17,7 +17,7 @@ public class ProductMappingProfile : Profile
 
         //Create
         CreateMap<CreateProductCommand, ProductModel>()
-            .ForMember(x => x.catalog_cover_image_url, opt => opt.MapFrom(src => src.CatalogCoverImageUrl));
+            .ForMember(x => x.CatalogCoverImageUrl, opt => opt.MapFrom(src => src.CatalogCoverImageUrl));
         CreateMap<ProductModel, ProductEntity>()
                 .ForMember(x => x.catalog_cover_image_url, opt => opt.MapFrom(src => src.CatalogCoverImageUrl))
                                                 .ForMember(x => x.Id, opt => opt.Ignore())

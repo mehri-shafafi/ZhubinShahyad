@@ -119,19 +119,14 @@ public class ProductReadRepository : IProductReadRepository
                Price = p.Price,
 
                BrandId = p.BrandId,
-               BrandName = p.ProductBrand != null ? p.ProductBrand.Name : null,
 
                CategoryId = p.CategoryId,
-               CategoryName_FA = p.Category != null ? p.Category.Name_FA : null,
-               CategoryName_EN = p.Category != null ? p.Category.Name_EN : null,
-               CategoryName_AR = p.Category != null ? p.Category.Name_AR : null,
-
                StockQuantity = p.StockQuantity, // یا تبدیل به int اگر در Entity رشته است
                SKU = p.SKU,
 
                ImageUrls = p.Images.Select(i => i.ImageUrl).ToList(),
 
-               CatalogUrl = p.CatalogURL,
+               CatalogURL = p.CatalogURL,
                CatalogCoverImageUrl = p.catalog_cover_image_url,
                Warranty = p.Warranty,
                Rating = p.Rating
@@ -163,18 +158,19 @@ public class ProductReadRepository : IProductReadRepository
             Description_AR = p.Description_AR,
             Price = p.Price,
             BrandId = p.BrandId,
-            BrandName = p.ProductBrand?.Name,
             CategoryId = p.CategoryId,
-            CategoryName_FA = p.Category?.Name_FA,
-            CategoryName_EN = p.Category?.Name_EN,
-            CategoryName_AR = p.Category?.Name_AR,
             StockQuantity = p.StockQuantity,
             SKU = p.SKU,
             ImageUrls = p.Images.Select(i => i.ImageUrl).ToList(),
-            CatalogUrl = p.CatalogURL,
+            CatalogURL = p.CatalogURL,
             CatalogCoverImageUrl = p.catalog_cover_image_url,
             Warranty = p.Warranty,
-            Rating = p.Rating
+            Rating = p.Rating,
+            IsActive=p.IsActive,
+            ModificationDateTimeShamsi = p.ModificationDateTimeShamsi,
+            CreationDateTimeShamsi = p.CreationDateTimeShamsi,
+            CreationDateTime=p.CreationDateTime,
+            ModificationDateTime = p.ModificationDateTime
         };
     }
 
@@ -192,15 +188,11 @@ public class ProductReadRepository : IProductReadRepository
             Description_AR = p.Description_AR,
             Price = p.Price,
             BrandId = p.BrandId,
-            BrandName = p.ProductBrand?.Name,
             CategoryId = p.CategoryId,
-            CategoryName_FA = p.Category?.Name_FA,
-            CategoryName_EN = p.Category?.Name_EN,
-            CategoryName_AR = p.Category?.Name_AR,
             StockQuantity = p.StockQuantity,
             SKU = p.SKU,
             ImageUrls = p.Images.Select(i => i.ImageUrl).ToList(),
-            CatalogUrl = p.CatalogURL,
+            CatalogURL = p.CatalogURL,
             CatalogCoverImageUrl = p.catalog_cover_image_url,
             Warranty = p.Warranty,
             Rating = p.Rating
