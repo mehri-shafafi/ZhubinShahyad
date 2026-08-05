@@ -6,17 +6,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    //options.AddPolicy("AllowAll", policy =>
-    //{
-    //    policy.AllowAnyOrigin()
-    //          .AllowAnyMethod()
-    //          .AllowAnyHeader();
-    //});
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
     options.AddPolicy("ReactPolicy", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173",
-                        "http://127.0.0.1:5173")
+            .WithOrigins("http://localhost:*")
 
             .AllowAnyHeader()
             .AllowAnyMethod();
@@ -44,8 +43,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-//app.UseCors("AllowAll");           // قبل از Authorization
-app.UseCors("ReactPolicy");           // قبل از Authorization
+app.UseCors("AllowAll");           // قبل از Authorization
 app.UseAuthorization();            // قبل از MapControllers
 app.MapControllers();              // بعد از Authorization
 

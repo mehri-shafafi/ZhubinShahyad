@@ -27,19 +27,9 @@ public class CreateBaseCommandHandler : IRequestHandler<CreateGalleryCommand, Ga
     public async Task<GalleryResDto> Handle(CreateGalleryCommand request, CancellationToken cancellationToken)
     {
         var newBase = _mapper.Map<GalleryEntity>(request);
-        var addedBase = await _writeUnitOfWork.GalleryWriteRepository.AddGalleryAsync(newBase);
-        _logger.LogInformation($"Base {addedBase.Id} is successfully created.");
+        var result = await _writeUnitOfWork.GalleryWriteRepository.AddGalleryAsync(newBase);
+        _logger.LogInformation($"Base {result.Id} is successfully created.");
 
-
-        var addBaseEvent = new AddGalleryEvent
-        {
-            ImageUrl = addedBase.ImageUrl,
-            CreationDateTime = addedBase.CreationDateTime,
-            ModificationDateTime = addedBase.ModificationDateTime,
-            CreationDateTimeShamsi = addedBase.CreationDateTimeShamsi,
-            ModificationDateTimeShamsi = addedBase.ModificationDateTimeShamsi
-        };
-        //await _publishEndPoint.Publish(addBaseEvent);
-        return _mapper.Map<GalleryResDto>(addedBase);
+        return _mapper.Map<GalleryResDto>(result);
     }
 }

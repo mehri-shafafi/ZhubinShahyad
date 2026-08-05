@@ -60,7 +60,7 @@ public class ProductsController : ControllerBase
         string? catalogUrl = null;
         string? catalogCoverImageUrl = null;
         var imageUrls = new List<string>();
-        var imagePath = "https://zhubinshahyad.com";
+        var baseUrl = "https://zhubinshahyad.com";
 
         var folderName = request.FolderName ?? "Unknown";
 
@@ -68,13 +68,13 @@ public class ProductsController : ControllerBase
         if (request.CatalogUrl is not null)
         {
             catalogUrl =
-           await SaveFileAndGetUrlAsync(request.CatalogUrl, "Catalogs", imagePath, "/var/www/html/media/Files/Catalogs");
+           await SaveFileAndGetUrlAsync(request.CatalogUrl, "Catalogs", baseUrl, "var/www/html/media/FilesStaging/Catalogs");
         }
 
         if (request.CatalogCoverImageUrl is not null)
         {
             catalogCoverImageUrl =
-           await SaveFileAndGetUrlAsync(request.CatalogCoverImageUrl, "Catalogs/Covers", imagePath, "/var/www/html/media/Files/Catalogs/Covers");
+           await SaveFileAndGetUrlAsync(request.CatalogCoverImageUrl, "Catalogs/Covers", baseUrl, "var/www/html/media/FilesStaging/Catalogs/Covers");
         }
 
 
@@ -84,7 +84,8 @@ public class ProductsController : ControllerBase
             var imageUrl = await SaveFileAndGetUrlAsync(
             image,
             folderName,
-            imagePath, "/var/www/html/media/Files/img/Products");
+            baseUrl,
+            "var/www/html/media/FilesStaging/img/Products");
 
             imageUrls.Add(imageUrl);
 
@@ -115,27 +116,31 @@ public class ProductsController : ControllerBase
     }
 
     private static async Task<string> SaveFileAndGetUrlAsync(
-                                                                IFormFile file,
-                                                                string folderName,
-                                                                string uploadPath,
-                                                                string fileBaseUrl)
-
+        IFormFile file,
+        string folderName,
+        string baseUrl,
+        string physicalPath)
     {
-        var finalUploadPath = Path.Combine(uploadPath, folderName);
+        var finalUploadPath = Path.Combine(physicalPath, folderName);
 
+        if (finalUploadPath.Contains("\\"))
+        {
+            finalUploadPath = finalUploadPath.Replace("\\", "/");
+        }
         Directory.CreateDirectory(finalUploadPath);
 
-        var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+        var fileName = file.FileName;
 
-        var filePath = Path.Combine(uploadPath, fileName);
+        // مسیر فیزیکی فایل
+        var physicalFilePath = Path.Combine(finalUploadPath, fileName);
 
-        await using var stream = new FileStream(filePath, FileMode.Create);
+        await using var stream = new FileStream(physicalFilePath, FileMode.Create);
         await file.CopyToAsync(stream);
 
+        // آدرس قابل دسترسی از وب
+        var fileUrl = $"{baseUrl.TrimEnd('/')}/{finalUploadPath}/{fileName}";
 
-        return $"{fileBaseUrl}{uploadPath}/{folderName}/{fileName}";
-
-
+        return fileUrl;
     }
 
     [HttpPut("update")]
@@ -158,7 +163,7 @@ public class ProductsController : ControllerBase
                 request.CatalogUrl,
                 "Catalogs",
                 imagePath,
-                "/var/www/html/media/Files/Catalogs");
+                "var/www/html/media/FilesStaging/Catalogs");
         }
 
         // کاور جدید
@@ -168,7 +173,7 @@ public class ProductsController : ControllerBase
                 request.CatalogCoverImageUrl,
                 "Catalogs/Covers",
                 imagePath,
-                "/var/www/html/media/Files/Catalogs/Covers");
+                "var/www/html/media/FilesStaging/Catalogs/Covers");
         }
 
         // تصاویر جدید
@@ -178,9 +183,9 @@ public class ProductsController : ControllerBase
             {
                 var imageUrl = await SaveFileAndGetUrlAsync(
                     image,
-                    "img/Products",
+                    request.FolderName,
                     imagePath,
-                    "/var/www/html/media/Files/img/Products");
+                    "var/www/html/media/FilesStaging/img/Products");
 
                 newImageUrls.Add(imageUrl);
             }
