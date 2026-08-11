@@ -41,7 +41,7 @@ Products
 docker build -t products.api:staging -f "src\Services\Products\Products.Presentation\Dockerfile" .
 docker run -d --name products-api-staging -p 11000:8083 -e ASPNETCORE_ENVIRONMENT=Staging products.api:staging
 docker save products.api:staging -o products-api-staging.tar
-scp products-api-staging.tar root@89.32.250.205:/root/Backups/services/staging/14050429
+scp products-api-staging.tar root@89.32.250.205:/root/Backups/services/staging/14050517-2
 
 Education
 docker build -t education.api:staging -f "src\Services\Education\Education.Presentation\Dockerfile" .
@@ -63,10 +63,10 @@ scp contact-api-staging.tar root@89.32.250.205:/root/Backups/services/staging
 
 روی سرور
 mkdir -p /root/Backups/services/staging
-docker load -i Backups/services/14050429/products-api.tar
+docker load -i Backups/services/staging/14050517/products-api-staging.tar
 
 
-docker load -i Backups/services/staging/14050429/products-api-staging.tar
+docker load -i Backups/services/staging/14050517-2/products-api-staging.tar
 docker load -i /root/Backups/services/staging/news-api-staging.tar
 docker load -i /root/Backups/services/staging/education-api-staging.tar
 docker load -i /root/Backups/services/staging/gallery-api-staging.tar
@@ -74,7 +74,7 @@ docker load -i /root/Backups/services/staging/contact-api-staging.tar
 
 و اجرا:
 docker rm -f products-api-staging; 
-docker run -d --name products-api-staging --link redis:redis -p 11000:8083 -e ASPNETCORE_ENVIRONMENT=Staging products.api.staging:v1
+docker run -d --name products-api-staging --link redis-staging:redis -p 11000:8083 -e ASPNETCORE_ENVIRONMENT=Staging products.api:staging
 docker rm -f news-api-staging; 
 docker run -d --name news-api-staging --link redis:redis -p 11002:8082 -e ASPNETCORE_ENVIRONMENT=Staging news.api:staging
 docker rm -f education-api-staging; docker run -d --name education-api-staging --link redis:redis -p 11003:8081 -e ASPNETCORE_ENVIRONMENT=Staging education.api.staging:v1

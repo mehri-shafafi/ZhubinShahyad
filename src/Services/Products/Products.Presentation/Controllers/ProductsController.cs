@@ -68,13 +68,13 @@ public class ProductsController : ControllerBase
         if (request.CatalogUrl is not null)
         {
             catalogUrl =
-           await SaveFileAndGetUrlAsync(request.CatalogUrl, "Catalogs", baseUrl, "var/www/html/media/FilesStaging/Catalogs");
+           await SaveFileAndGetUrlAsync(request.CatalogUrl, "Catalogs", baseUrl, "/var/www/html/media/FilesStaging/Catalogs");
         }
 
         if (request.CatalogCoverImageUrl is not null)
         {
             catalogCoverImageUrl =
-           await SaveFileAndGetUrlAsync(request.CatalogCoverImageUrl, "Catalogs/Covers", baseUrl, "var/www/html/media/FilesStaging/Catalogs/Covers");
+           await SaveFileAndGetUrlAsync(request.CatalogCoverImageUrl, "Catalogs/Covers", baseUrl, "/var/www/html/media/FilesStaging/Catalogs/Covers");
         }
 
 
@@ -85,7 +85,7 @@ public class ProductsController : ControllerBase
             image,
             folderName,
             baseUrl,
-            "var/www/html/media/FilesStaging/img/Products");
+            "/var/www/html/media/FilesStaging/img/Products");
 
             imageUrls.Add(imageUrl);
 
@@ -129,7 +129,7 @@ public class ProductsController : ControllerBase
         }
         Directory.CreateDirectory(finalUploadPath);
 
-        var fileName = file.FileName;
+        var fileName = Path.GetFileName(file.FileName);
 
         // مسیر فیزیکی فایل
         var physicalFilePath = Path.Combine(finalUploadPath, fileName);
@@ -138,9 +138,12 @@ public class ProductsController : ControllerBase
         await file.CopyToAsync(stream);
 
         // آدرس قابل دسترسی از وب
-        var fileUrl = $"{baseUrl.TrimEnd('/')}/{finalUploadPath}/{fileName}";
+        var webPath = finalUploadPath
+                                    .Replace("/var/www/html", "")
+                                    .Replace("\\", "/")
+                                    .TrimEnd('/');
 
-        return fileUrl;
+        return $"{baseUrl.TrimEnd('/')}{webPath}/{Uri.EscapeDataString(fileName)}";
     }
 
     [HttpPut("update")]
@@ -151,6 +154,7 @@ public class ProductsController : ControllerBase
     {
         string? catalogUrl = null;
         string? catalogCoverImageUrl = null;
+        ProductDto? product = null;
 
         var newImageUrls = new List<string>();
 
@@ -163,7 +167,7 @@ public class ProductsController : ControllerBase
                 request.CatalogUrl,
                 "Catalogs",
                 imagePath,
-                "var/www/html/media/FilesStaging/Catalogs");
+                "/var/www/html/media/FilesStaging/Catalogs");
         }
 
         // کاور جدید
@@ -173,19 +177,53 @@ public class ProductsController : ControllerBase
                 request.CatalogCoverImageUrl,
                 "Catalogs/Covers",
                 imagePath,
-                "var/www/html/media/FilesStaging/Catalogs/Covers");
+                "/var/www/html/media/FilesStaging/Catalogs/Covers");
         }
 
+
+        var productResult = await _mediator.Send(
+                                         new GetProductByIdQuery
+                                         {
+                                             ProductId = request.ProductId
+                                         });
+
+        product = productResult.Data;
+
+        string? folderName = null;
+        if (product?.ImageUrls != null && product.ImageUrls.Any())
+        {
+            var existingImageUrl = product.ImageUrls.FirstOrDefault();
+
+            if (!string.IsNullOrWhiteSpace(existingImageUrl))
+            {
+                var uri = new Uri(existingImageUrl);
+
+                var segments = uri.AbsolutePath
+                    .Split('/', StringSplitOptions.RemoveEmptyEntries);
+
+                // media / FilesStaging / img / Products / 43534554 / image.jpg
+                if (segments.Length >= 2)
+                {
+                    folderName = segments[^2];
+                }
+            }
+        }
+        folderName ??= request.FolderName;
+        if (string.IsNullOrWhiteSpace(folderName))
+        {
+            return BadRequest("پوشه تصاویر محصول مشخص نیست.");
+        }
         // تصاویر جدید
         if (request.Images != null && request.Images.Any())
         {
+
             foreach (var image in request.Images)
             {
                 var imageUrl = await SaveFileAndGetUrlAsync(
                     image,
-                    request.FolderName,
+                    folderName,
                     imagePath,
-                    "var/www/html/media/FilesStaging/img/Products");
+                    "/var/www/html/media/FilesStaging/img/Products");
 
                 newImageUrls.Add(imageUrl);
             }

@@ -27,11 +27,12 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 
 
         var newProduct = _mapper.Map<ProductModel>(request);
+        newProduct.IsActive=true;
         var addedProduct = await _writeUnitOfWork.ProductWriteRepository.AddProductAsync(newProduct);
 
         _logger.LogInformation($"Product {addedProduct.Id} is successfully created.");
 
-         var product = _mapper.Map <ProductDetailsDto>(addedProduct);
+         var product = _mapper.Map<ProductDetailsDto>(addedProduct);
         return new ProductResponseDto<ProductDetailsDto>
         {
             IsSuccess = true,
