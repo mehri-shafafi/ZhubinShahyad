@@ -1,15 +1,14 @@
-﻿using EventBus.Messages.Events;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Products.Application.Behaviours;
-using Products.Domain.Products.Models;
 using Products.Domain.UnitOfWork.Product;
 using Products.Infrastructure;
-using System.Text.Json;
+using Products.Infrastructure.Services.Storage;
 using System.Text.Json.Serialization;
 
 namespace Products.Presentation;
+
 public static class ServiceRegistery
 {
     public static IServiceCollection AddServiceRegistery(this WebApplicationBuilder builder)
@@ -21,6 +20,7 @@ public static class ServiceRegistery
             options.JsonSerializerOptions.WriteIndented = true;
         });
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddScoped<IFileStorageService, FileStorageService>();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         return builder.Services;
@@ -52,38 +52,7 @@ public static class ServiceRegistery
 
         return builder.Services;
     }
-    public static IServiceCollection AddMessagingConfiguration(this WebApplicationBuilder builder)
-    {
-        //builder.Services.AddMassTransit(x =>
-        //{
-        //    x.AddConsumers(typeof(IntegrationBaseEvent).Assembly);
-        //    x.UsingRabbitMq((ctx, cfg) =>
-        //    {
-        //        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
-        //        cfg.ConfigureEndpoints(ctx);
-        //    });
 
-
-        //});
-        // OPTIONAL, but can be used to configure the bus options
-        //builder.Services.AddOptions<MassTransitHostOptions>()
-        //    .Configure(options =>
-        //    {
-        //        // if specified, waits until the bus is started before
-        //        // returning from IHostedService.StartAsync
-        //        // default is false
-        //        options.WaitUntilStarted = true;
-
-        //        // if specified, limits the wait time when starting the bus
-        //        options.StartTimeout = TimeSpan.FromSeconds(10);
-
-        //        // if specified, limits the wait time when stopping the bus
-        //        options.StopTimeout = TimeSpan.FromSeconds(30);
-        //    });
-
-        return builder.Services;
-
-    }
     //public static class DbSeeder
     //{
     //    public static async Task SeedAsync(ProductDbContext context)

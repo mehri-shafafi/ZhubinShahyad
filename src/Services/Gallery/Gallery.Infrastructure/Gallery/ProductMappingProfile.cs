@@ -9,6 +9,8 @@ namespace Gallery.Infrastructure.Gallery
         {
             CreateMap<GalleryEntity, GalleryReqDto>().ReverseMap();
             CreateMap<GalleryEntity, GalleryResDto>().ReverseMap();
+            CreateMap<GalleryResDto, GalleryDto>();
+            CreateMap<GalleryDto, GalleryResDto>();
         }
     }
 }

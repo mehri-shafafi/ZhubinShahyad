@@ -2,14 +2,13 @@
 using Contact.Application.Contact.Commands.Base.DeleteContact;
 using Contact.Application.Contact.Commands.Contact.UpdateContact;
 using Contact.Application.Contact.Queries.GetContactList;
-using Contact.Domain.Contact.Models;
 using Contact.Domain.Dtos.Contact;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contact.Presentation.Controllers
 {
-    [Route("api/")]
+    [Route("api/contacts")]
     [ApiController]
     public class ContactController : ControllerBase
     {
@@ -22,8 +21,7 @@ namespace Contact.Presentation.Controllers
         /// <summary>
         /// دریافت لیست محصولات
         /// </summary>
-        [Route("GetListContact")]
-        [HttpGet]
+        [HttpGet("getcontacts")]
         public async Task<ActionResult<List<ContactResDto>>> GetList()
         {
             var result = await _mediator.Send(new GetContactListQuery()); // این کوئری بهتره تغییر نام بده برای محصولات
@@ -33,8 +31,7 @@ namespace Contact.Presentation.Controllers
         /// <summary>
         /// ایجاد محصول جدید
         /// </summary>
-        [Route("AddedContact")]
-        [HttpPost]
+        [HttpPost("createcontaxt")]
         public async Task<ActionResult<bool>> Create([FromBody] CreateCommand request)
         {
             var result = await _mediator.Send(request);
@@ -48,7 +45,7 @@ namespace Contact.Presentation.Controllers
         /// ویرایش محصول
         /// </summary>
         //[Route("api/UpdateProduct")]
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public async Task<ActionResult<bool>> Update(int id, [FromBody] UpdateCommand request)
         {
             if (id != request.Id)
@@ -61,7 +58,7 @@ namespace Contact.Presentation.Controllers
         /// <summary>
         /// حذف محصول
         /// </summary>
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<ActionResult<bool>> Delete(int id)
         {
             var request = new DeleteCommand { Id = id };

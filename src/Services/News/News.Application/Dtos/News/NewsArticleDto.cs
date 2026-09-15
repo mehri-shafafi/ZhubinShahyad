@@ -23,5 +23,4 @@ public class NewsArticleResDto : BaseEntity<int>
     public long ViewsCount { get; set; }//تعداد دفعاتی که مقاله مشاهده شده است. برای آمار و نمایش محبوب‌ترین مقالات استفاده می‌شود.
 
     public DateTime PostedDate { get; set; }
-    //public DateTime PostedDate { get; set; }
 }

@@ -33,6 +33,7 @@ internal class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuer
         var result = await _readUnitOfWork.ProductReadRepository.FetchAllProductEntityAsync();
         var products = _mapper.Map<List<ProductDetailsDto>>(result);
 
+
         return new ProductResponseDto<List<ProductDetailsDto>>
         {
             IsSuccess = true,

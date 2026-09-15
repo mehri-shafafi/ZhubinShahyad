@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Products.Application.Products.Commands.Product.CreateMedical;
 
 namespace Products.Application.Products.Commands.Product.UpdateProduct;
 
@@ -27,17 +28,13 @@ public class UpdateProductCommand : IRequest<bool>
 
     public double Rating { get; set; }
 
-
-    // فقط در صورت ارسال فایل جدید مقدار می‌گیرد
     public string? CatalogUrl { get; set; }
 
     public string? CatalogCoverImageUrl { get; set; }
 
+    public List<ProductImageDto> NewImages { get; set; } = new();
 
-    // تصاویر جدیدی که آپلود شده‌اند
-    public List<string> NewImageUrls { get; set; } = new();
+    public List<ProductImageDto> ExistingImages { get; set; } = new();
 
-
-    // تصاویر قدیمی که کاربر حذف کرده
     public List<string> DeletedImageUrls { get; set; } = new();
 }

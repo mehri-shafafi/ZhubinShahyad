@@ -9,9 +9,8 @@ using Products.Application.Products.Commands.Product.UpdateProduct;
 using Products.Application.Products.Commands.Product.UpdateProductImage;
 using Products.Application.Products.Queries.Product.ById.GetProductsList;
 using Products.Application.Products.Queries.Product.List.GetProductsList;
+using Products.Infrastructure.Services.Storage;
 using Products.Presentation.Models;
-using System.Net.Mail;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Products.Presentation.Controllers;
 
@@ -21,11 +20,17 @@ public class ProductsController : ControllerBase
 {
     private readonly IMediator _mediator;
     public readonly IMapper _mapper;
+    private readonly IFileStorageService _fileStorageService;
 
-    public ProductsController(IMediator mediator, IMapper mapper)
+    private const string BaseUrl = "https://zhubinshahyad.com";
+    private const string ProductImagesPath = "/var/www/html/media/FilesStaging/img/Products";
+    private const string ProductCatalogsPath = "/var/www/html/media/FilesStaging/Products";
+
+    public ProductsController(IMediator mediator, IMapper mapper, IFileStorageService fileStorageService)
     {
         _mediator = mediator;
         _mapper = mapper;
+        _fileStorageService = fileStorageService;
     }
     /// دریافت لیست محصولات
     [HttpGet("list")]
@@ -40,9 +45,25 @@ public class ProductsController : ControllerBase
     [ProducesResponseType(typeof(ProductResponseDto<ProductDto>), 200)]
     public async Task<ActionResult<ProductResponseDto<ProductDto>>> GetProductByIdAsync([FromQuery] int id)
     {
+        ProductDto? product = null;
+
         var result = await _mediator.Send(new GetProductByIdQuery { ProductId = id });
+        product = result.Data;
+
+
+        var fileUrl = product?.ImageUrls?
+            .OrderBy(x => x.SortOrder)
+            .FirstOrDefault()?.ImageUrl
+            ?? product?.CatalogURL
+            ?? product?.CatalogCoverImageUrl;
+
+        var folderName = _fileStorageService.ExtractProductFolder(fileUrl);
+
+        result.Data.FolderName = folderName ?? "";
         return Ok(result);
     }
+
+
     [HttpGet("productForClient")]
     //[ProducesResponseType(typeof(List<ProductResDto>), 200)]
     public async Task<ActionResult<List<ProductDetailsDto>>> GetProductForClientQuery()
@@ -59,37 +80,42 @@ public class ProductsController : ControllerBase
     {
         string? catalogUrl = null;
         string? catalogCoverImageUrl = null;
-        var imageUrls = new List<string>();
-        var baseUrl = "https://zhubinshahyad.com";
 
         var folderName = request.FolderName ?? "Unknown";
 
 
         if (request.CatalogUrl is not null)
         {
-            catalogUrl =
-           await SaveFileAndGetUrlAsync(request.CatalogUrl, "Catalogs", baseUrl, "/var/www/html/media/FilesStaging/Catalogs");
+            catalogUrl = await _fileStorageService.SaveFileAndGetUrlAsync(request.CatalogUrl, "Catalogs", Path.Combine(
+                                                                                                "/var/www/html/media/FilesStaging/Products",
+                                                                                                folderName));
         }
 
         if (request.CatalogCoverImageUrl is not null)
         {
             catalogCoverImageUrl =
-           await SaveFileAndGetUrlAsync(request.CatalogCoverImageUrl, "Catalogs/Covers", baseUrl, "/var/www/html/media/FilesStaging/Catalogs/Covers");
+           await _fileStorageService.SaveFileAndGetUrlAsync(request.CatalogCoverImageUrl, "Covers", Path.Combine("/var/www/html/media/FilesStaging/Products",
+                                                                                                                folderName, "Catalogs"));
         }
 
+        var imageDtos = new List<ProductImageDto>();
 
-        foreach (var image in request.Images)
+        for (int i = 0; i < request.Images.Count; i++)
         {
+            var image = request.Images[i];
 
-            var imageUrl = await SaveFileAndGetUrlAsync(
-            image,
-            folderName,
-            baseUrl,
-            "/var/www/html/media/FilesStaging/img/Products");
+            var imageUrl = await _fileStorageService.SaveFileAndGetUrlAsync(
+           image,
+           folderName,
+           "/var/www/html/media/FilesStaging/img/Products");
 
-            imageUrls.Add(imageUrl);
-
+            imageDtos.Add(new ProductImageDto
+            {
+                ImageUrl = imageUrl,
+                SortOrder = i+1
+            });
         }
+
         var command = new CreateProductCommand
         {
             Name_FA = request.Name_FA,
@@ -108,43 +134,14 @@ public class ProductsController : ControllerBase
             CatalogUrl = catalogUrl,
             CatalogCoverImageUrl = catalogCoverImageUrl,
 
-            ImageUrls = imageUrls
+            ImageUrls = imageDtos
         };
 
         var result = await _mediator.Send(command);
         return Ok(result);
     }
 
-    private static async Task<string> SaveFileAndGetUrlAsync(
-        IFormFile file,
-        string folderName,
-        string baseUrl,
-        string physicalPath)
-    {
-        var finalUploadPath = Path.Combine(physicalPath, folderName);
 
-        if (finalUploadPath.Contains("\\"))
-        {
-            finalUploadPath = finalUploadPath.Replace("\\", "/");
-        }
-        Directory.CreateDirectory(finalUploadPath);
-
-        var fileName = Path.GetFileName(file.FileName);
-
-        // مسیر فیزیکی فایل
-        var physicalFilePath = Path.Combine(finalUploadPath, fileName);
-
-        await using var stream = new FileStream(physicalFilePath, FileMode.Create);
-        await file.CopyToAsync(stream);
-
-        // آدرس قابل دسترسی از وب
-        var webPath = finalUploadPath
-                                    .Replace("/var/www/html", "")
-                                    .Replace("\\", "/")
-                                    .TrimEnd('/');
-
-        return $"{baseUrl.TrimEnd('/')}{webPath}/{Uri.EscapeDataString(fileName)}";
-    }
 
     [HttpPut("update")]
     [ProducesResponseType(typeof(bool), 200)]
@@ -152,33 +149,10 @@ public class ProductsController : ControllerBase
     public async Task<ActionResult<bool>> UpdateAsync(
         [FromForm] UpdateProductRequest request)
     {
-        string? catalogUrl = null;
         string? catalogCoverImageUrl = null;
-        ProductDto? product = null;
+        string? catalogUrl = null;
 
-        var newImageUrls = new List<string>();
-
-        var imagePath = "https://zhubinshahyad.com";
-
-        // کاتالوگ جدید
-        if (request.CatalogUrl != null)
-        {
-            catalogUrl = await SaveFileAndGetUrlAsync(
-                request.CatalogUrl,
-                "Catalogs",
-                imagePath,
-                "/var/www/html/media/FilesStaging/Catalogs");
-        }
-
-        // کاور جدید
-        if (request.CatalogCoverImageUrl != null)
-        {
-            catalogCoverImageUrl = await SaveFileAndGetUrlAsync(
-                request.CatalogCoverImageUrl,
-                "Catalogs/Covers",
-                imagePath,
-                "/var/www/html/media/FilesStaging/Catalogs/Covers");
-        }
+        var newImages = new List<ProductImageDto>();
 
 
         var productResult = await _mediator.Send(
@@ -187,103 +161,115 @@ public class ProductsController : ControllerBase
                                              ProductId = request.ProductId
                                          });
 
-        product = productResult.Data;
-
-        string? folderName = null;
-        if (product?.ImageUrls != null && product.ImageUrls.Any())
+        var product = productResult.Data;
+        if (product is null)
         {
-            var existingImageUrl = product.ImageUrls.FirstOrDefault();
-
-            if (!string.IsNullOrWhiteSpace(existingImageUrl))
-            {
-                var uri = new Uri(existingImageUrl);
-
-                var segments = uri.AbsolutePath
-                    .Split('/', StringSplitOptions.RemoveEmptyEntries);
-
-                // media / FilesStaging / img / Products / 43534554 / image.jpg
-                if (segments.Length >= 2)
-                {
-                    folderName = segments[^2];
-                }
-            }
+            return NotFound("محصول یافت نشد.");
         }
-        folderName ??= request.FolderName;
+
+        var existingImageUrl = product?.ImageUrls?
+                                        .FirstOrDefault()?
+                                        .ImageUrl;
+        var folderName = _fileStorageService.ExtractProductFolder(existingImageUrl);
+
         if (string.IsNullOrWhiteSpace(folderName))
         {
             return BadRequest("پوشه تصاویر محصول مشخص نیست.");
         }
-        // تصاویر جدید
-        if (request.Images != null && request.Images.Any())
+
+
+        // کاتالوگ جدید
+        if (request.CatalogUrl != null)
         {
-
-            foreach (var image in request.Images)
-            {
-                var imageUrl = await SaveFileAndGetUrlAsync(
-                    image,
-                    folderName,
-                    imagePath,
-                    "/var/www/html/media/FilesStaging/img/Products");
-
-                newImageUrls.Add(imageUrl);
-            }
+            catalogUrl = await _fileStorageService.SaveFileAndGetUrlAsync(
+                request.CatalogUrl,
+                "Catalogs",
+                "/var/www/html/media/FilesStaging/Catalogs");
         }
 
-        var command = new UpdateProductCommand
+        // کاور جدید
+        if (request.CatalogCoverImageUrl != null)
         {
-            ProductId = request.ProductId,
+            catalogCoverImageUrl = await _fileStorageService.SaveFileAndGetUrlAsync(
+                request.CatalogCoverImageUrl,
+                "Catalogs/Covers",
+                "/var/www/html/media/FilesStaging/Catalogs/Covers");
+        }
 
-            Name_FA = request.Name_FA,
-            Name_EN = request.Name_EN,
-            Name_AR = request.Name_AR,
 
-            Description_FA = request.Description_FA,
-            Description_EN = request.Description_EN,
-            Description_AR = request.Description_AR,
-
-            Price = request.Price,
-
-            BrandId = request.BrandId,
-            CategoryId = request.CategoryId,
-
-            StockQuantity = request.StockQuantity,
-
-            SKU = request.SKU,
-
-            Warranty = request.Warranty,
-
-            Rating = request.Rating,
-
-            // اگر فایل جدید ارسال نشده باشد null می‌ماند
-            CatalogUrl = catalogUrl,
-            CatalogCoverImageUrl = catalogCoverImageUrl,
-
+      
             // تصاویر جدید
-            NewImageUrls = newImageUrls,
+            if (request.Images != null && request.Images.Any())
+            {
 
-            // تصاویر حذف شده
-            DeletedImageUrls = request.DeletedImageUrls ?? new List<string>()
-        };
+                foreach (var image in request.Images)
+                {
+                    var imageUrl = await _fileStorageService.SaveFileAndGetUrlAsync(
+                        image.Image,
+                        folderName,
+                        "/var/www/html/media/FilesStaging/img/Products");
 
-        var result = await _mediator.Send(command);
+                    newImages.Add(new ProductImageDto
+                    {
+                        ImageUrl = imageUrl,
+                        SortOrder = image.SortOrder
+                    });
+                }
+            }
 
-        return Ok(result);
+            var existingImages = request.ExistingImages?
+                .Select(x => new ProductImageDto
+                {
+                    ImageUrl = x.ImageUrl,
+                    SortOrder = x.SortOrder
+                })
+                .ToList()
+                ?? [];
+
+            var command = new UpdateProductCommand
+            {
+                ProductId = request.ProductId,
+
+                Name_FA = request.Name_FA,
+                Name_EN = request.Name_EN,
+                Name_AR = request.Name_AR,
+
+                Description_FA = request.Description_FA,
+                Description_EN = request.Description_EN,
+                Description_AR = request.Description_AR,
+
+                Price = request.Price,
+
+                BrandId = request.BrandId,
+                CategoryId = request.CategoryId,
+
+                StockQuantity = request.StockQuantity,
+
+                SKU = request.SKU,
+
+                Warranty = request.Warranty,
+
+                Rating = request.Rating,
+
+                // اگر فایل جدید ارسال نشده باشد null می‌ماند
+                CatalogUrl = catalogUrl,
+                CatalogCoverImageUrl = catalogCoverImageUrl,
+                ExistingImages = existingImages,
+                // تصاویر جدید
+                NewImages = newImages,
+                // تصاویر حذف شده
+                DeletedImageUrls = request.DeletedImageUrls ?? new List<string>()
+            };
+
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        
     }
-    ///// ویرایش محصول
-    //[HttpPut("update")]
-    //[ProducesResponseType(typeof(bool), 200)]
-    //[ProducesResponseType(400)]
-    //public async Task<ActionResult<bool>> UpdateAsync(int id, [FromBody] UpdateProductCommand request)
-    //{
-    //    if (id != request.ProductId)
-    //        return BadRequest("Id in route and body must match");
 
-    //    var result = await _mediator.Send(request);
-    //    return Ok(result);
-    //}
 
     /// حذف محصول
-    [HttpDelete("delete")]
+    [HttpDelete("{id}")]
     [ProducesResponseType(typeof(bool), 200)]
     public async Task<ActionResult<bool>> DeleteAsync(int id)
     {
@@ -314,5 +300,6 @@ public class ProductsController : ControllerBase
         var result = await _mediator.Send(request);
         return Ok(result);
     }
+
 
 }

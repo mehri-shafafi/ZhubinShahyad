@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using News.Application.Articles.Commands.Delete;
 using News.Application.Author.Commands.Create;
-using News.Application.Author.Commands.Delete;
 using News.Application.Author.Commands.Update;
 using News.Application.Author.Queries.Get;
 using News.Application.Author.Queries.GetNewsCommentById;
@@ -12,7 +11,7 @@ using News.Application.Dtos.News;
 namespace News.Presentation.Controllers
 {
 
-    [Route("api/Author/")]
+    [Route("api/Author")]
     [ApiController]
     public class AuthorController : ControllerBase
     {
@@ -22,9 +21,8 @@ namespace News.Presentation.Controllers
         {
             _mediator = mediator;
         }
-        [HttpPost]
-        [Route("getauthorbyid")]
-        public async Task<ActionResult<NewsAuthorDto>> Get(GetAuthorByIdQuery query)
+        [HttpPost("getauthorbyid")]
+        public async Task<ActionResult<NewsAuthorDto>> Get([FromBody] GetAuthorByIdQuery query)
         {
             if (query == null)
             {
@@ -43,16 +41,14 @@ namespace News.Presentation.Controllers
             }
         }
 
-        [Route("getlistauthor")]
-        [HttpGet()]
+        [HttpGet("getauthors")]
         [ProducesResponseType(typeof(List<NewsAuthorDto>), 200)]
         public async Task<List<NewsAuthorDto>> GetList()
         {
             return await _mediator.Send(new GetAllAuthorQuery());
         }
 
-        [Route("createauthor")]
-        [HttpPost]
+        [HttpPost("createauthor")]
         [ProducesResponseType(typeof(NewsAuthorDto), 200)]
         public async Task<bool> Create(CreateAuthorCommand request)
         {
@@ -62,7 +58,7 @@ namespace News.Presentation.Controllers
         // PUT api/<NewsController>/5
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(400)]
-        [HttpPut("updateauthor/{id}")]
+        [HttpPut("updateauthor")]
         public async Task<ActionResult<bool>> Update(int id, UpdateAuthorCommand request)
         {
             if (id != request.Id)
@@ -75,10 +71,10 @@ namespace News.Presentation.Controllers
 
         }
         [ProducesResponseType(typeof(bool), 200)]
-        [HttpDelete("DeleteProduct/{id}")]
+        [HttpDelete("deleteauthor/{id}")]
         public async Task<bool> DeleteAuthor(int id)
         {
-            var res = await _mediator.Send(new DeleteArticlesCommand { Id=id});
+            var res = await _mediator.Send(new DeleteArticlesCommand { Id = id });
             return res;
         }
 

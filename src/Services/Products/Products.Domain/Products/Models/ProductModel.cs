@@ -33,6 +33,11 @@ public class ProductModel : BaseEntity
 
     public bool IsActive { get; set; }
 
-    public List<string> ImageUrls { get; set; } = [];
+    public List<ProductImageModel> ImageUrls { get; set; } = new();
 
+}
+public class ProductImageModel
+{
+    public string ImageUrl { get; set; }
+    public int SortOrder { get; set; }
 }

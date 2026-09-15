@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Products.Presentation.Controllers
 {
-    [Route("api/")]
+    [Route("api/galleries")]
     [ApiController]
     public class GalleryController : ControllerBase
     {
@@ -23,8 +23,7 @@ namespace Products.Presentation.Controllers
         /// <summary>
         /// دریافت لیست محصولات
         /// </summary>
-        [Route("GetListGallery")]
-        [HttpGet]
+        [HttpGet("getgalleries")]
         public async Task<ActionResult<List<GalleryResDto>>> GetList()
         {
             var result = await _mediator.Send(new GetGalleryListQuery()); // این کوئری بهتره تغییر نام بده برای محصولات
@@ -34,8 +33,8 @@ namespace Products.Presentation.Controllers
         /// <summary>
         /// ایجاد محصول جدید
         /// </summary>
-        [Route("AddedGallery")]
-        [HttpPost]
+
+        [HttpPost("careategallry")]
         [ProducesResponseType(typeof(GalleryResDto), 200)]
         public async Task<ActionResult<GalleryResDto>> Create([FromBody] CreateGalleryCommand request)
         {
@@ -46,7 +45,7 @@ namespace Products.Presentation.Controllers
         /// ویرایش محصول
         /// </summary>
         //[Route("api/UpdateProduct")]
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public async Task<ActionResult<bool>> Update(int id, [FromBody] UpdateGalleryCommand request)
         {
             if (id != request.Id)
@@ -59,7 +58,7 @@ namespace Products.Presentation.Controllers
         /// <summary>
         /// حذف محصول
         /// </summary>
-        [HttpDelete("{id}")]
+        [HttpDelete("delete{id}")]
         public async Task<ActionResult<bool>> Delete(int id)
         {
             var request = new DeleteGalleryCommand { Id = id };

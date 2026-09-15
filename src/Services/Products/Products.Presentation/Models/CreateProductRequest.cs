@@ -24,6 +24,11 @@
         public IFormFile? CatalogUrl { get; set; }
         public IFormFile? CatalogCoverImageUrl { get; set; }
 
-        public List<IFormFile> Images { get; set; }
+        public List<IFormFile> Images { get; set; } = new();
+    }
+    public class ProductImageRequest
+    {
+        public IFormFile Image { get; set; }
+        public int SortOrder { get; set; }
     }
 }

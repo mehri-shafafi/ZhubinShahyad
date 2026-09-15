@@ -2,6 +2,7 @@
 using Products.Application.Dtos.Products;
 using Products.Application.Products.Commands.Product.CreateMedical;
 using Products.Application.Products.Commands.Product.UpdateProduct;
+using Products.Application.Products.Queries.Product.List.GetProductsList;
 using Products.Domain.Products.Entity;
 using Products.Domain.Products.Models;
 
@@ -13,7 +14,19 @@ public class ProductMappingProfile : Profile
     {
         // اگر می‌خوای برای Create/Update از ProductReqDto استفاده کنی
         CreateMap<ProductModel, ProductDto>();
-        CreateMap<ProductModel, ProductDetailsDto>();
+        CreateMap<ProductModel, ProductDetailsDto>()
+            .ForMember(
+                dest => dest.ImageUrls,
+                opt => opt.MapFrom(src =>
+                    src.ImageUrls.Select(x => new ProductImageDto
+                    {
+                        ImageUrl = x.ImageUrl,
+                        SortOrder = x.SortOrder
+                    }).ToList()
+                )
+
+            )
+            .ForMember(x => x.CatalogCoverImageUrl, opt => opt.MapFrom(src => src.CatalogCoverImageUrl));
 
         //Create
         CreateMap<CreateProductCommand, ProductModel>()
@@ -25,20 +38,30 @@ public class ProductMappingProfile : Profile
                                                             desc => desc.Images,
                                                             opt => opt.MapFrom(src => src.ImageUrls.Select(x => new ProductImages
                                                             {
-                                                                ImageUrl = x
+                                                                ImageUrl = x.ImageUrl,
+                                                                SortOrder = x.SortOrder,
                                                             }).ToList()
                                                             )
                                                             );
-        CreateMap<ProductEntity, ProductModel>()
-             .ForMember(x => x.Id, opt => opt.Ignore())
-                                                .ForMember(
-                                                    dest => dest.ImageUrls,
-                                                    opt => opt.MapFrom(src =>
-                                                        src.Images.Select(x => x.ImageUrl).ToList()
-                                                    )
-                                                );
-
-
+        CreateMap<ProductModel, ProductDetailsDto>()
+            .ForMember(
+                dest => dest.ImageUrls,
+                opt => opt.MapFrom(src =>
+                    src.ImageUrls.Select(x => new ProductImageModel
+                    {
+                        ImageUrl = x.ImageUrl,
+                        SortOrder = x.SortOrder
+                    }).ToList()
+                ))
+            .ForMember(x => x.CatalogCoverImageUrl, opt => opt.MapFrom(src => src.CatalogCoverImageUrl));
+        CreateMap<ProductModel, ProductDto>();
+        CreateMap<GetProductsListQuery, ProductModel>();
+        CreateMap<ProductImageModel, ProductImageDto>().ReverseMap();
+        CreateMap<ProductModel, ProductDetailsDto>()
+    .ForMember(
+        dest => dest.CatalogCoverImageUrl,
+        opt => opt.MapFrom(src => src.CatalogCoverImageUrl)
+    );
         //Upadate
         CreateMap<UpdateProductCommand, UpdateProductModel>().ForAllMembers(opt =>
                                                                              opt.Condition((src, dest, srcMember) => srcMember != null));

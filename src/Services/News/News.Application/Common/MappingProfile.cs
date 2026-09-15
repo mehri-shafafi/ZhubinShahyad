@@ -70,7 +70,7 @@ namespace News.Application.Common
             //                                .ForMember(dest => dest.Active, opt => opt.MapFrom(src => src.Active))
             //                                 .ReverseMap();
 
-            CreateMap<UpdateNewsArticleRequestDto, UpdateArticleCommand>()
+            CreateMap<UpdateNewsRequestDto, UpdateNewsCommand>()
                                             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                                             .ForMember(dest => dest.Title_FA, opt => opt.MapFrom(src => src.Title_FA))
                                             .ForMember(dest => dest.Summary_FA, opt => opt.MapFrom(src => src.Summary_FA))

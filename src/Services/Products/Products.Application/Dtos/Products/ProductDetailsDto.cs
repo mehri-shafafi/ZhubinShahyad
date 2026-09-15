@@ -1,4 +1,6 @@
-﻿namespace Products.Application.Dtos.Products;
+﻿using Products.Application.Products.Commands.Product.CreateMedical;
+
+namespace Products.Application.Dtos.Products;
 
 //برای نمایش جزئیات محصول
 
@@ -24,8 +26,9 @@ public class ProductDetailsDto
 
     public int Rating { get; set; }
 
-    public List<string> ImageUrls { get; set; } = [];
+    public List<ProductImageDto> ImageUrls { get; set; } = new();
 
     public string? CatalogUrl { get; set; }
+    public string? CatalogCoverImageUrl { get; set; }
 }
 

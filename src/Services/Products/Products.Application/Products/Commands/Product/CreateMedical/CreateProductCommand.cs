@@ -25,6 +25,11 @@ public class CreateProductCommand : IRequest<ProductResponseDto<ProductDetailsDt
     public int SortOrder { get; set; }
     public int Rating { get; set; }
     public string? CatalogUrl { get; set; }
-    public List<string> ImageUrls { get; set; } = new();
+    public List<ProductImageDto> ImageUrls { get; set; } = new();
     public string? CatalogCoverImageUrl { get; set; }
+}
+public class ProductImageDto
+{
+    public string ImageUrl { get; set; }
+    public int SortOrder { get; set; }
 }

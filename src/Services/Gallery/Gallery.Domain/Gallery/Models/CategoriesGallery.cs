@@ -1,9 +1,9 @@
 ﻿using Gallery.Domain.Base;
-using Gallery.Domain.Gallery.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Gallery.Domain.Gallery.Models;
+
 public class CategoriesGallery : BaseEntity<int>
 {
     public string Title_FA { get; set; }
@@ -19,6 +19,8 @@ public class CategoriesGallery : BaseEntity<int>
     {
         public void Configure(EntityTypeBuilder<CategoriesGallery> builder)
         {
+            builder.ToTable("CategoriesGallery");
+
             builder.Property(p => p.Title_AR).HasMaxLength(500);
             builder.Property(p => p.Title_FA).HasMaxLength(500);
             builder.Property(p => p.Title_EN).HasMaxLength(500);

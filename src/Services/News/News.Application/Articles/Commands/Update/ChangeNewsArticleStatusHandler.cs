@@ -11,9 +11,9 @@ namespace News.Application.Articles.Commands.Update
         private readonly IWriteUnitOfWork _writeUnitOfWork;
         private readonly IReadUnitOfWork _readUnitOfWork;
         private readonly IMapper _mapper;
-        private readonly ILogger<UpdateArticleCommandHandler> _logger;
+        private readonly ILogger<UpdateNewsCommandHandler> _logger;
 
-        public ChangeNewsArticleStatusHandler(IWriteUnitOfWork writeUnitOfWork, IReadUnitOfWork readUnitOfWork, IMapper mapper, ILogger<UpdateArticleCommandHandler> logger)
+        public ChangeNewsArticleStatusHandler(IWriteUnitOfWork writeUnitOfWork, IReadUnitOfWork readUnitOfWork, IMapper mapper, ILogger<UpdateNewsCommandHandler> logger)
         {
             _writeUnitOfWork = writeUnitOfWork;
             _readUnitOfWork = readUnitOfWork;

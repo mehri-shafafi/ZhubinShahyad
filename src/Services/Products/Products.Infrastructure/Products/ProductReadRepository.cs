@@ -124,7 +124,7 @@ public class ProductReadRepository : IProductReadRepository
                StockQuantity = p.StockQuantity, // یا تبدیل به int اگر در Entity رشته است
                SKU = p.SKU,
 
-               ImageUrls = p.Images.Select(i => i.ImageUrl).ToList(),
+               ImageUrls = p.Images.Select(i => new ProductImageModel { ImageUrl = i.ImageUrl, SortOrder = i.SortOrder }).ToList(),
 
                CatalogURL = p.CatalogURL,
                CatalogCoverImageUrl = p.catalog_cover_image_url,
@@ -161,7 +161,7 @@ public class ProductReadRepository : IProductReadRepository
             CategoryId = p.CategoryId,
             StockQuantity = p.StockQuantity,
             SKU = p.SKU,
-            ImageUrls = p.Images.Select(i => i.ImageUrl).ToList(),
+            ImageUrls = p.Images.Select(i => new ProductImageModel { ImageUrl=i.ImageUrl,SortOrder=i.SortOrder }).ToList(),
             CatalogURL = p.CatalogURL,
             CatalogCoverImageUrl = p.catalog_cover_image_url,
             Warranty = p.Warranty,
@@ -191,7 +191,7 @@ public class ProductReadRepository : IProductReadRepository
             CategoryId = p.CategoryId,
             StockQuantity = p.StockQuantity,
             SKU = p.SKU,
-            ImageUrls = p.Images.Select(i => i.ImageUrl).ToList(),
+            ImageUrls = p.Images.Select(i => new ProductImageModel { ImageUrl = i.ImageUrl, SortOrder = i.SortOrder }).ToList(),
             CatalogURL = p.CatalogURL,
             CatalogCoverImageUrl = p.catalog_cover_image_url,
             Warranty = p.Warranty,

@@ -2,7 +2,7 @@
 
 namespace News.Application.Articles.Commands.Update
 {
-    public class UpdateArticleCommandValidator : AbstractValidator<UpdateArticleCommand>
+    public class UpdateArticleCommandValidator : AbstractValidator<UpdateNewsCommand>
     {
         public UpdateArticleCommandValidator()
         {

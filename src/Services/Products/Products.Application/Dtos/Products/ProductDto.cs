@@ -1,4 +1,6 @@
-﻿namespace Products.Application.Dtos.Products;
+﻿using Products.Application.Products.Commands.Product.CreateMedical;
+
+namespace Products.Application.Dtos.Products;
 //برای لیست محصولات
 public class ProductDto
 {
@@ -26,11 +28,12 @@ public class ProductDto
     public string? CatalogCoverImageUrl { get; set; }
 
     public string Warranty { get; set; }
+    public string FolderName { get; set; }
 
     public int Rating { get; set; }
 
     public bool IsActive { get; set; }
 
-    public List<string> ImageUrls { get; set; } = [];
+    public List<ProductImageDto> ImageUrls { get; set; } = [];
 
 }
