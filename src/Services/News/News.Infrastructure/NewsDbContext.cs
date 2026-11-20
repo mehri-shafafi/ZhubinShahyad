@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using News.Domain.Base;
 using News.Domain.News.Entity;
-using News.Domain.News.Models;
+using System.Reflection;
 
 
 namespace News.Infrastructure;
@@ -16,8 +17,23 @@ public class NewsDbContext : DbContext
     public DbSet<News_Category> news_Categories { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new News_Article.NewsArticleNewsConfiguration());
-        modelBuilder.ApplyConfiguration(new News_Author.AuthorConfiguration());
-        modelBuilder.ApplyConfiguration(new News_Category.CategoryNewsConfiguration());
+        modelBuilder.HasDefaultSchema("News");
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
+    }
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        var entries = ChangeTracker.Entries<BaseEntity<Guid>>()
+            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
+
+        foreach (var entry in entries)
+        {
+            if (entry.State == EntityState.Added)
+                entry.Entity.CreationDateTime = DateTime.UtcNow;
+
+            entry.Entity.ModificationDateTime = DateTime.UtcNow;
+        }
+
+        return base.SaveChangesAsync(cancellationToken);
     }
 }

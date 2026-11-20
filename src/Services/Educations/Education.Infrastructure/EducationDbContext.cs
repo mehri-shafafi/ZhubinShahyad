@@ -1,6 +1,7 @@
 ﻿using Education.Domain.Education.Dtos;
 using Education.Domain.Education.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 
 namespace Education.Infrastructure;
@@ -16,8 +17,8 @@ public class EducationDbContext : DbContext
     public DbSet<TrainingCategory> trainingCategories { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new Training.TrainingConfiguration());
-        modelBuilder.ApplyConfiguration(new TrainingTranslation.TrainingTranslationConfiguration());
-        modelBuilder.ApplyConfiguration(new TrainingCategory.TrainingCategoryConfiguration());
+        modelBuilder.HasDefaultSchema("Education");
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
     }
 }

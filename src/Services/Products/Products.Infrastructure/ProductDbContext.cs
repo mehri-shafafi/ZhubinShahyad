@@ -2,6 +2,7 @@
 using Products.Domain.Base;
 using Products.Domain.Products.Entity;
 using Products.Infrastructure.Products;
+using System.Reflection;
 
 
 namespace Products.Infrastructure;
@@ -18,10 +19,9 @@ public class ProductDbContext : DbContext
     public DbSet<ProductImages> ProductImages { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new ProductConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductBrandConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductImagesConfiguration());
+        modelBuilder.HasDefaultSchema("Product");
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

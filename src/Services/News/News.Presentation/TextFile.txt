@@ -1,70 +1,70 @@
 ﻿News Production
 docker build -t news.api:v1 -f "src\Services\News\News.Presentation\Dockerfile" .
 docker run -d --name news-api -p 10002:8082  news.api:v1
-docker save news.api:v1 -o news-api-5.tar
-scp news-api-5.tar root@89.32.250.205:/root/Backups/services/Productions/14050606
-docker load -i Backups/services/Productions/140506066/news-api-5.tar
+docker save news.api:v1 -o news-api.tar
+scp news-api-5.tar root@89.42.208.27:/root/Backups/services/Productions/14050802
+docker load -i Backups/services/Productions/14050802/news-api-5.tar
 
 Product Production
 docker build -t products.api:v1 -f "src\Services\Products\Products.Presentation\Dockerfile" .
 docker run -d --name products-api -p 10000:8083  products.api:v1
 docker save products.api:v1 -o products-api.tar
-scp products-api.tar root@89.32.250.205:/root/Backups/services/Productions/14050607
-docker load -i Backups/services/Productions/14050607/products-api.tar
+scp products-api.tar root@89.42.208.27:/root/Backups/services/Productions/14050802
+docker load -i Backups/services/Productions/14050802/products-api.tar
 
 Education Production
 docker build -t education.api:v2 -f "src\Services\Educations\Education.Presentation\Dockerfile" .
 docker run -d --name education-api -p 10003:8081  education.api:v2
 docker save education.api:v2 -o education-api.tar
-scp education-api.tar root@89.32.250.205:/root/Backups/services/Productions/14050607
-docker load -i Backups/services/Productions/14050607/education-api.tar
+scp education-api.tar root@89.42.208.27:/root/Backups/services/Productions/14050802
+docker load -i Backups/services/Productions/14050802/education-api.tar
 
 Gallery Production
 docker build -t gallery.api:v1 -f "src\Services\Gallery\Gallery.Presentation\Dockerfile" .
 docker run -d --name gallery-api -p 10004:8084  gallery.api:v1
 docker save gallery.api:v1 -o gallery-api.tar
-scp gallery-api.tar root@89.32.250.205:/root/Backups/services/Productions/14050607
-docker load -i Backups/services/Productions/14050607/gallery-api.tar
+scp gallery-api.tar root@89.42.208.27:/root/Backups/services/Productions/14050802
+docker load -i Backups/services/Productions/14050802/gallery-api.tar
 
 
 
 docker build -t contact.api:v1 -f "src\Services\Contact\Contact.Presentation\Dockerfile" .
 docker run -d --name contact-api -p 10005:8085  contact.api:v1
 docker save contact.api:v1 -o contact-api.tar
-scp contact-api.tar root@89.32.250.205:/root/Backups/services/Productions/14050607
-docker load -i Backups/services/Productions/14050607/contact-api.tar
+scp contact-api.tar root@89.42.208.27:/root/Backups/services/Productions/14050802
+docker load -i Backups/services/Productions/14050802/contact-api.tar
 
 staging
----------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------cd --------------------------------
 
 Products 
 docker build -t products.api:staging -f "src\Services\Products\Products.Presentation\Dockerfile" .
 docker run -d --name products-api-staging -p 11000:8083 -e ASPNETCORE_ENVIRONMENT=Staging products.api:staging
 docker save products.api:staging -o products-api-staging.tar
-scp products-api-staging.tar root@89.32.250.205:/root/Backups/services/staging/14050521/v2
+scp products-api-staging.tar root@89.42.208.27:/root/Backups/services/staging/14050521/v2
 
 docker build -t news.api:staging -f "src\Services\News\News.Presentation\Dockerfile" .
 docker run -d --name news-api-staging -p 11002:8082 -e ASPNETCORE_ENVIRONMENT=Staging news.api:staging
 docker save news.api:staging -o news-api-staging.tar
-scp news-api-staging.tar root@89.32.250.205:/root/Backups/services/staging/14050521
+scp news-api-staging.tar root@89.42.208.27:/root/Backups/services/staging/14050521
 
 Education
 docker build -t education.api:staging -f "src\Services\Educations\Education.Presentation\Dockerfile" .
 docker run -d --name education-api-staging -p 11003:8081 -e ASPNETCORE_ENVIRONMENT=Staging education.api:staging
 docker save education.api:staging -o education-api-staging.tar
-scp education-api-staging.tar root@89.32.250.205:/root/Backups/services/staging
+scp education-api-staging.tar root@89.42.208.27:/root/Backups/services/staging
 
 Gallery
 docker build -t gallery.api:staging -f "src\Services\Gallery\Gallery.Presentation\Dockerfile" .
 docker run -d --name gallery-api-staging -p 11004:8084 -e ASPNETCORE_ENVIRONMENT=Staging gallery.api:staging
 docker save gallery.api:staging -o gallery-api-staging.tar
-scp gallery-api-staging.tar root@89.32.250.205:/root/Backups/services/staging
+scp gallery-api-staging.tar root@89.42.208.27:/root/Backups/services/staging
 
 Contact
 docker build -t contact.api:staging -f "src\Services\Contact\Contact.Presentation\Dockerfile" .
 docker run -d --name contact-api-staging -p 11005:8085 -e ASPNETCORE_ENVIRONMENT=Staging contact.api:staging
 docker save contact.api:staging -o contact-api-staging.tar
-scp contact-api-staging.tar root@89.32.250.205:/root/Backups/services/staging
+scp contact-api-staging.tar root@89.42.208.27:/root/Backups/services/staging
 
 روی سرور
 mkdir -p /root/Backups/services/staging

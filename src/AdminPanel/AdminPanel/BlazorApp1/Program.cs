@@ -9,7 +9,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddHttpClient("ProductService", c =>
 {
-    c.BaseAddress = new Uri("http://89.32.250.205:10000/");
+    c.BaseAddress = new Uri("http://89.42.208.27:10000/");
 });
 
 builder.Services.AddScoped<ProductApiService>(sp =>

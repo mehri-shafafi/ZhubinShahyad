@@ -76,7 +76,7 @@ public static class CacheHelper
         _ = Task.CompletedTask;
     }
 
-    public static Task<Dictionary<string, string>> GetRecordByPatternAsync(this IConnectionMultiplexer connectionMultiplexer, string pattern)
+    public static Task<Dictionary<string, string>>? GetRecordByPatternAsync(this IConnectionMultiplexer connectionMultiplexer, string pattern)
     {
         try
         {
@@ -125,7 +125,7 @@ public static class CacheHelper
             return Task.FromResult(keys);
         }
 
-        catch (Exception ex)
+        catch (Exception)
         {
             return null;
         }

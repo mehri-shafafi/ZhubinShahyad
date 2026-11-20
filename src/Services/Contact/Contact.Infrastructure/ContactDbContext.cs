@@ -15,6 +15,7 @@ public class ContactDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema("Conyact");
         modelBuilder.ApplyConfiguration(new ContactEntity.ContactConfiguration());
         modelBuilder.ApplyConfiguration(new CategoriesContact.CategoriesContactConfiguration());
     }

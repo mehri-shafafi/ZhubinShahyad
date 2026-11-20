@@ -1,5 +1,6 @@
 ﻿using Gallery.Domain.Gallery.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 
 namespace Gallery.Infrastructure;
@@ -15,8 +16,9 @@ public class GalleryDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new GalleryEntity.GalleryConfiguration());
-        modelBuilder.ApplyConfiguration(new CategoriesGallery.CategoriesGalleryConfiguration());
+        modelBuilder.HasDefaultSchema("Gallery");
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

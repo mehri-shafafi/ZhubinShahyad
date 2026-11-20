@@ -17,7 +17,8 @@ namespace Products.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.3")
+                .HasDefaultSchema("Product")
+                .HasAnnotation("ProductVersion", "10.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -62,7 +63,7 @@ namespace Products.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductBrands", (string)null);
+                    b.ToTable("ProductBrands", "Product");
                 });
 
             modelBuilder.Entity("Products.Domain.Products.Entity.ProductCategory", b =>
@@ -131,7 +132,7 @@ namespace Products.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductCategories", (string)null);
+                    b.ToTable("ProductCategories", "Product");
                 });
 
             modelBuilder.Entity("Products.Domain.Products.Entity.ProductEntity", b =>
@@ -220,7 +221,7 @@ namespace Products.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products", "Product");
                 });
 
             modelBuilder.Entity("Products.Domain.Products.Entity.ProductImages", b =>
@@ -260,7 +261,7 @@ namespace Products.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages", (string)null);
+                    b.ToTable("ProductImages", "Product");
                 });
 
             modelBuilder.Entity("Products.Domain.Products.Entity.ProductEntity", b =>
