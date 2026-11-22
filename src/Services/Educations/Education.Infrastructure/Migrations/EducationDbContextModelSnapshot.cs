@@ -17,6 +17,7 @@ namespace Education.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("Education")
                 .HasAnnotation("ProductVersion", "9.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -43,17 +44,19 @@ namespace Education.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ThumbnailUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<int>("trainingCategoryId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("trainingCategoryId");
 
-                    b.ToTable("training");
+                    b.ToTable("Training", "Education");
                 });
 
             modelBuilder.Entity("Education.Domain.Education.Models.TrainingCategory", b =>
@@ -72,12 +75,11 @@ namespace Education.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("trainingCategories");
+                    b.ToTable("TrainingCategories", "Education");
                 });
 
             modelBuilder.Entity("Education.Domain.Education.Models.TrainingTranslation", b =>
@@ -89,45 +91,40 @@ namespace Education.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ContentUrl")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Language")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModificationDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TrainingId")
-                        .HasMaxLength(200)
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TrainingId");
 
-                    b.ToTable("trainingTranslations");
+                    b.ToTable("TrainingTranslations", "Education");
                 });
 
             modelBuilder.Entity("Education.Domain.Education.Models.Training", b =>
                 {
                     b.HasOne("Education.Domain.Education.Models.TrainingCategory", "trainingCategory")
                         .WithMany("Trainings")
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("trainingCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

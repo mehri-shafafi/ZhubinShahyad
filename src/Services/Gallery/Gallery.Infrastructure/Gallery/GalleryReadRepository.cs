@@ -1,5 +1,4 @@
 ﻿using Gallery.Domain.Dtos.Gallery;
-using Gallery.Domain.Gallery.Models;
 using Gallery.Domain.Repositories;
 using Gallery.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +15,7 @@ namespace Gallery.Domain.Menu
 
         public async Task<List<GalleryDto>> FetchAllGalleryEntityAsync()
         {
-            var resultDto = await _dbContext.Gallery
+            var resultDto = await _dbContext.Galleries
                     .AsNoTracking()
                     .Include(p => p.Category)
                     .Select(p => new GalleryDto
@@ -38,7 +37,7 @@ namespace Gallery.Domain.Menu
         }
         public async Task<GalleryDto> FetchGalleryEntityAsync(int id)
         {
-            var gallery = await _dbContext.Gallery
+            var gallery = await _dbContext.Galleries
                 .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == id);
 

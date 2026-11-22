@@ -12,9 +12,9 @@ public class NewsDbContext : DbContext
     {
 
     }
-    public DbSet<News_Article> news_Articles { get; set; }
-    public DbSet<News_Author> news_Authors { get; set; }
-    public DbSet<News_Category> news_Categories { get; set; }
+    public DbSet<Article> Articles { get; set; }
+    public DbSet<Author> Authors { get; set; }
+    public DbSet<Category> Categories { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("News");

@@ -27,10 +27,10 @@ namespace Education.Infrastructure.Education
 
         public async Task DeleteEducation_CommentAsync(int id)
         {
-            var comment = await _dbContext.training.FindAsync(id);
+            var comment = await _dbContext.Training.FindAsync(id);
             if (comment != null)
             {
-                _dbContext.training.Remove(comment);
+                _dbContext.Training.Remove(comment);
                 await _dbContext.SaveChangesAsync();
             }
         }

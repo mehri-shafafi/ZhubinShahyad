@@ -18,7 +18,7 @@ namespace News.Infrastructure.News
         #region 
         public async Task<bool> AddNews_ArticleAsync(News_ArticleModel news_Article)
         {
-            var entity = _mapper.Map<News_Article>(news_Article);
+            var entity = _mapper.Map<Article>(news_Article);
             try
             {
             var result = await _dbContext.AddAsync(entity);
@@ -41,7 +41,7 @@ namespace News.Infrastructure.News
         }
         public async Task<News_ArticleModel> UpdateNews_ArticleAsync(News_ArticleModel news_Article)
         {
-            var existing = await _dbContext.news_Articles.FindAsync(news_Article.Id);
+            var existing = await _dbContext.Articles.FindAsync(news_Article.Id);
             if (existing == null) return null;
 
             news_Article.CategoryID = news_Article.CategoryID != 0 ? news_Article.CategoryID : existing.CategoryID;
@@ -58,7 +58,7 @@ namespace News.Infrastructure.News
         }
         public async Task DeleteNews_ArticleAsync(News_ArticleModel news_Article)
         {
-            var entity = await _dbContext.news_Articles.FindAsync(news_Article.Id);
+            var entity = await _dbContext.Articles.FindAsync(news_Article.Id);
             if (entity == null)
                 throw new Exception("ProductCategory not found");
             entity.IsActive = false;
@@ -69,7 +69,7 @@ namespace News.Infrastructure.News
         #region 
         public async Task<bool> AddNews_AuthorAsync(News_AuthorModel news_Author)
         {
-            var entity = _mapper.Map<News_Author>(news_Author);
+            var entity = _mapper.Map<Author>(news_Author);
             try
             {
                 var result = await _dbContext.AddAsync(entity);
@@ -96,7 +96,7 @@ namespace News.Infrastructure.News
         }
         public async Task DeleteNews_AuthorAsync(News_AuthorModel news_Author)
         {
-            var entity = await _dbContext.news_Authors.FindAsync(news_Author.Id);
+            var entity = await _dbContext.Authors.FindAsync(news_Author.Id);
             if (entity == null)
                 throw new Exception("News category not found");
             entity.IsActive = false;
@@ -107,7 +107,7 @@ namespace News.Infrastructure.News
       
         public async Task<bool> AddNews_CategoryAsync(News_CategoryModel news_Category)
         {
-            var entity = _mapper.Map<News_Category>(news_Category);
+            var entity = _mapper.Map<Category>(news_Category);
             try
             {
                 var result = await _dbContext.AddAsync(entity);
@@ -136,7 +136,7 @@ namespace News.Infrastructure.News
         }
         public async Task DeleteNews_CategoryAsync(News_CategoryModel news_Category)
         {
-            var entity = await _dbContext.news_Articles.FindAsync(news_Category.Id);
+            var entity = await _dbContext.Articles.FindAsync(news_Category.Id);
             if (entity == null)
                 throw new Exception("News category not found");
             entity.IsActive = false;
@@ -146,7 +146,7 @@ namespace News.Infrastructure.News
         }
        public async Task<bool> ChangeStatusAsync(ChangeNewsArticleStatusModel input)
         {
-            var entity = await _dbContext.news_Articles.FindAsync(input.Id);
+            var entity = await _dbContext.Articles.FindAsync(input.Id);
             if (entity == null)
                 throw new Exception("News category not found");
             entity.IsActive=input.IsActive;

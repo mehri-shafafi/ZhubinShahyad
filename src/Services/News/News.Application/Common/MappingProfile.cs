@@ -10,14 +10,14 @@ namespace News.Application.Common
     {
         public MappingProfile()
         {
-          
-            
-            CreateMap<News_Author, News_AuthorModel>().ReverseMap();
+
+
+            CreateMap<Domain.News.Entity.Author, News_AuthorModel>().ReverseMap();
             CreateMap<NewsAuthorDto, News_AuthorModel>().ReverseMap();
-            CreateMap<News_Category, News_CategoryModel>().ReverseMap();
+            CreateMap<Domain.News.Entity.Category, News_CategoryModel>().ReverseMap();
 
             #region Article
-            CreateMap<News_Article, News_ArticleModel>()
+            CreateMap<Article, News_ArticleModel>()
                                             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                                             .ForMember(dest => dest.Title_FA, opt => opt.MapFrom(src => src.Title_FA))
                                             .ForMember(dest => dest.Summary_FA, opt => opt.MapFrom(src => src.Summary_FA))

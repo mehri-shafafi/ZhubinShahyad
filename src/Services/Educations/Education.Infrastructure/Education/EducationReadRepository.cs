@@ -13,41 +13,48 @@ namespace Education.Domain.Education
         {
             _dbContext = dbContext;
         }
-
         public async Task<List<TrainingDto>> GetEducationAllAsync(string language = "fa")
         {
-            var result = await _dbContext.training
-                   .Include(t => t.Translations)
-                   .Include(t => t.trainingCategory)
-                   .Select(t => new TrainingDto
-                   {
-                       TrainingId = t.Id,
-                       Title = t.Translations.FirstOrDefault(tr => tr.Language == language)!.Title,
-                       Description = t.Translations.FirstOrDefault(tr => tr.Language == language)!.Description,
-                       ThumbnailUrl = t.ThumbnailUrl,
-                       CategoryName = t.trainingCategory.Name,
-                       Type = t.Type.ToString(), // یا Enum.GetName(typeof(TrainingType), t.Type)
-                       PublishDate = t.PublishDate,
-                       CategoryId=t.CategoryId
-                   })
-                   .ToListAsync();
+            var result = await _dbContext.Training
+         .AsNoTracking()
+         .Select(t => new TrainingDto
+         {
+             TrainingId = t.Id,
+
+             Title = t.Translations
+                 .Where(tr => tr.Language == language)
+                 .Select(tr => tr.Title)
+                 .FirstOrDefault() ?? string.Empty,
+
+             Description = t.Translations
+                 .Where(tr => tr.Language == language)
+                 .Select(tr => tr.Description)
+                 .FirstOrDefault() ?? string.Empty,
+
+             ThumbnailUrl = t.ThumbnailUrl,
+             CategoryId = t.CategoryId,
+             Type = t.Type.ToString(),
+             PublishDate = t.PublishDate
+         })
+         .ToListAsync();
+
             return result;
         }
 
         public Task<Training> GetEducationAsync(int id)
         {
-            return _dbContext.training.FirstOrDefaultAsync(P => P.Id == id);
+            return _dbContext.Training.FirstOrDefaultAsync(P => P.Id == id);
         }
 
         public async Task<List<TrainingCategoryDto>> GeTrainingCategoriesAllAsync()
         {
-            var result = await _dbContext.trainingCategories
+            var result = await _dbContext.TrainingCategories
                    .Select(t => new TrainingCategoryDto
                    {
                        Id = t.Id,
                        Name = t.Name,
-                       CreationDateTime= t.CreationDateTime,
-                       ModificationDateTime= t.ModificationDateTime,
+                       CreationDateTime = t.CreationDateTime,
+                       ModificationDateTime = t.ModificationDateTime,
 
                    })
                    .ToListAsync();

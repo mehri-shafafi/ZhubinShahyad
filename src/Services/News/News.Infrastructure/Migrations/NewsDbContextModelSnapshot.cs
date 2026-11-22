@@ -23,7 +23,7 @@ namespace News.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("News.Domain.News.Entity.News_Article", b =>
+            modelBuilder.Entity("News.Domain.News.Entity.Article", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,22 +96,16 @@ namespace News.Infrastructure.Migrations
                     b.Property<long>("ViewsCount")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("news_AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("news_CategoryId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("news_AuthorId");
+                    b.HasIndex("AuthorID");
 
-                    b.HasIndex("news_CategoryId");
+                    b.HasIndex("CategoryID");
 
-                    b.ToTable("news_Articles", "News");
+                    b.ToTable("Articles", "News");
                 });
 
-            modelBuilder.Entity("News.Domain.News.Entity.News_Author", b =>
+            modelBuilder.Entity("News.Domain.News.Entity.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -142,19 +136,16 @@ namespace News.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("news_Authors", "News");
+                    b.ToTable("Authors", "News");
                 });
 
-            modelBuilder.Entity("News.Domain.News.Entity.News_Category", b =>
+            modelBuilder.Entity("News.Domain.News.Entity.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -185,20 +176,20 @@ namespace News.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("news_Categories", "News");
+                    b.ToTable("Categories", "News");
                 });
 
-            modelBuilder.Entity("News.Domain.News.Entity.News_Article", b =>
+            modelBuilder.Entity("News.Domain.News.Entity.Article", b =>
                 {
-                    b.HasOne("News.Domain.News.Entity.News_Author", "news_Author")
+                    b.HasOne("News.Domain.News.Entity.Author", "news_Author")
                         .WithMany("news_Articles")
-                        .HasForeignKey("news_AuthorId")
+                        .HasForeignKey("AuthorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("News.Domain.News.Entity.News_Category", "news_Category")
+                    b.HasOne("News.Domain.News.Entity.Category", "news_Category")
                         .WithMany("news_Articles")
-                        .HasForeignKey("news_CategoryId")
+                        .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -207,12 +198,12 @@ namespace News.Infrastructure.Migrations
                     b.Navigation("news_Category");
                 });
 
-            modelBuilder.Entity("News.Domain.News.Entity.News_Author", b =>
+            modelBuilder.Entity("News.Domain.News.Entity.Author", b =>
                 {
                     b.Navigation("news_Articles");
                 });
 
-            modelBuilder.Entity("News.Domain.News.Entity.News_Category", b =>
+            modelBuilder.Entity("News.Domain.News.Entity.Category", b =>
                 {
                     b.Navigation("news_Articles");
                 });

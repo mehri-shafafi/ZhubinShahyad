@@ -17,6 +17,7 @@ namespace Gallery.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("Gallery")
                 .HasAnnotation("ProductVersion", "9.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -62,7 +63,7 @@ namespace Gallery.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CategoriesGallery");
+                    b.ToTable("GalleryCategories", "Gallery");
                 });
 
             modelBuilder.Entity("Gallery.Domain.Gallery.Models.GalleryEntity", b =>
@@ -83,9 +84,7 @@ namespace Gallery.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModificationDateTime")
                         .HasColumnType("datetime2");
@@ -97,7 +96,7 @@ namespace Gallery.Infrastructure.Migrations
 
                     b.HasIndex("CategoriesGalleryId");
 
-                    b.ToTable("Gallery");
+                    b.ToTable("Galleries", "Gallery");
                 });
 
             modelBuilder.Entity("Gallery.Domain.Gallery.Models.GalleryEntity", b =>

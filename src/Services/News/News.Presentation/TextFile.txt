@@ -1,9 +1,9 @@
 ﻿News Production
 docker build -t news.api:v1 -f "src\Services\News\News.Presentation\Dockerfile" .
-docker run -d --name news-api -p 10002:8082  news.api:v1
+	docker run -d --name news-api -p 10002:8082  news.api:v1
 docker save news.api:v1 -o news-api.tar
-scp news-api-5.tar root@89.42.208.27:/root/Backups/services/Productions/14050802
-docker load -i Backups/services/Productions/14050802/news-api-5.tar
+scp news-api.tar root@89.42.208.27:/root/Backups/services/Productions/14050901
+docker load -i Backups/services/Productions/14050901/news-api.tar
 
 Product Production
 docker build -t products.api:v1 -f "src\Services\Products\Products.Presentation\Dockerfile" .
@@ -16,15 +16,15 @@ Education Production
 docker build -t education.api:v2 -f "src\Services\Educations\Education.Presentation\Dockerfile" .
 docker run -d --name education-api -p 10003:8081  education.api:v2
 docker save education.api:v2 -o education-api.tar
-scp education-api.tar root@89.42.208.27:/root/Backups/services/Productions/14050802
-docker load -i Backups/services/Productions/14050802/education-api.tar
+scp education-api.tar root@89.42.208.27:/root/Backups/services/Productions/14050901
+docker load -i Backups/services/Productions/14050901/education-api.tar
 
 Gallery Production
 docker build -t gallery.api:v1 -f "src\Services\Gallery\Gallery.Presentation\Dockerfile" .
 docker run -d --name gallery-api -p 10004:8084  gallery.api:v1
 docker save gallery.api:v1 -o gallery-api.tar
-scp gallery-api.tar root@89.42.208.27:/root/Backups/services/Productions/14050802
-docker load -i Backups/services/Productions/14050802/gallery-api.tar
+scp gallery-api.tar root@89.42.208.27:/root/Backups/services/Productions/14050901
+docker load -i Backups/services/Productions/14050901/gallery-api.tar
 
 
 

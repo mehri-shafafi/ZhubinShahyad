@@ -18,7 +18,7 @@ namespace News.Domain.News
         // News_Article
         public async Task<List<News_ArticleModel>> GetNewsArticleAllAsync()
         {
-            var res = await _dbContext.news_Articles
+            var res = await _dbContext.Articles
                .AsNoTracking()
                .Where(pc => pc.IsActive == true)
                .Include(p => p.news_Category)
@@ -48,7 +48,7 @@ namespace News.Domain.News
         public async Task<News_ArticleModel?> GetNewsArticleAsync(int id)
         {
 
-            return await _dbContext.news_Articles
+            return await _dbContext.Articles
                 .AsNoTracking()
                 .Include(a => a.news_Category)
                 .Select(a => new News_ArticleModel
@@ -79,7 +79,7 @@ namespace News.Domain.News
         //News_Author
         public async Task<List<News_AuthorModel>> GetNewsAuthorAllAsync()
         {
-            var res = await _dbContext.news_Authors
+            var res = await _dbContext.Authors
                .Select(pc => new News_AuthorModel
                {
                    Id = pc.Id,
@@ -94,7 +94,7 @@ namespace News.Domain.News
         }
         public async Task<News_AuthorModel?> GetNewsAuthorAsync(int id)
         {
-            var res= await _dbContext.news_Authors
+            var res = await _dbContext.Authors
                 .Include(b => b.news_Articles)
                 .Where(b => b.Id == id)
                 .Select(pc => new News_AuthorModel
@@ -115,7 +115,7 @@ namespace News.Domain.News
         public async Task<List<News_CategoryModel>> GetNewsCategoryAllAsync()
         {
 
-            var result = await _dbContext.news_Categories
+            var result = await _dbContext.Categories
               .Select(t => new News_CategoryModel
               {
                   Id = t.Id,
@@ -133,7 +133,7 @@ namespace News.Domain.News
         public async Task<News_CategoryModel?> GetNewsCategoryAsync(int id)
         {
 
-            var res= await _dbContext.news_Categories
+            var res = await _dbContext.Categories
                  .Select(t => new News_CategoryModel
                  {
                      Id = t.Id,
@@ -149,7 +149,7 @@ namespace News.Domain.News
         // News_Comment
         public async Task<List<News_ArticleModel>> GetNewsCommentAllAsync()
         {
-            var result = await _dbContext.news_Articles
+            var result = await _dbContext.Articles
                .Select(t => new News_ArticleModel
                {
                    Id = t.Id,

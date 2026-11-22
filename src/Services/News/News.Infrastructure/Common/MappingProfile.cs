@@ -9,9 +9,9 @@ namespace News.Infrastructure.Common
         public MappingProfile()
         {
           
-            CreateMap<News_Article, News_ArticleModel>().ReverseMap();
-            CreateMap<News_Author, News_AuthorModel>().ReverseMap();
-            CreateMap<News_Category, News_CategoryModel>().ReverseMap();
+            CreateMap<Article, News_ArticleModel>().ReverseMap();
+            CreateMap<Author, News_AuthorModel>().ReverseMap();
+            CreateMap<Category, News_CategoryModel>().ReverseMap();
         }
     }
 }

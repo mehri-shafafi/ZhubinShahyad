@@ -1,5 +1,4 @@
-﻿using Education.Domain.Education.Dtos;
-using Education.Domain.Education.Models;
+﻿using Education.Domain.Education.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -12,9 +11,9 @@ public class EducationDbContext : DbContext
     {
 
     }
-    public DbSet<Training> training { get; set; }
-    public DbSet<TrainingTranslation> trainingTranslations { get; set; }
-    public DbSet<TrainingCategory> trainingCategories { get; set; }
+    public DbSet<Training> Training { get; set; }
+    public DbSet<TrainingTranslation> TrainingTranslations { get; set; }
+    public DbSet<TrainingCategory> TrainingCategories { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("Education");

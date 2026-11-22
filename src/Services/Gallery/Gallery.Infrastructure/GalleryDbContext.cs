@@ -11,8 +11,8 @@ public class GalleryDbContext : DbContext
     {
 
     }
-    public DbSet<GalleryEntity> Gallery { get; set; }
-    public DbSet<CategoriesGallery> categoriesGalleries { get; set; }
+    public DbSet<GalleryEntity> Galleries { get; set; }
+    public DbSet<CategoriesGallery> GalleryCategories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
